@@ -89,84 +89,15 @@
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#getting-started-with-confluxweb">Getting Started with ConfluxWeb</a></li>
         <li class="main "><a href="#confluxweb-by-example">ConfluxWeb by Example</a></li>
-            <li><a href="#hash-time-locked-contract-htlc">Hash Time Locked Contract (HTLC)</a></li>
+            <li><a href="#hash-time-locked-contract">Hash Time Locked Contract</a></li>
         <li class="main "><a href="#confluxweb-api-reference">ConfluxWeb API Reference</a></li>
-            <li><a href="#confluxwebproviders">ConfluxWeb.providers</a></li>
-            <li><a href="#confluxwebmodules">ConfluxWeb.modules</a></li>
-            <li><a href="#confluxwebutils">ConfluxWeb.utils</a></li>
-            <li><a href="#confluxwebversion">ConfluxWeb.version</a></li>
-            <li><a href="#confluxwebcurrentprovider">ConfluxWeb.currentProvider</a></li>
-            <li><a href="#confluxwebsetprovider">ConfluxWeb.setProvider</a></li>
-        <li class="main "><a href="#confluxwebcfxcontract">ConfluxWeb.cfx.Contract</a></li>
-            <li><a href="#confluxwebcfxcontractabimodel">ConfluxWeb.cfx.Contract.abiModel</a></li>
-            <li><a href="#confluxwebcfxcontractaddress">ConfluxWeb.cfx.Contract.address</a></li>
-            <li><a href="#confluxwebcfxcontractdefaultgas">ConfluxWeb.cfx.Contract.defaultGas</a></li>
-            <li><a href="#confluxwebcfxcontractdefaultgasprice">ConfluxWeb.cfx.Contract.defaultGasPrice</a></li>
-            <li><a href="#confluxwebcfxcontractmethods">ConfluxWeb.cfx.Contract.methods</a></li>
-            <li><a href="#confluxwebcfxcontractconstructor">ConfluxWeb.cfx.Contract.constructor</a></li>
-            <li><a href="#confluxwebcfxcontractdeploy">ConfluxWeb.cfx.Contract.deploy</a></li>
-            <li><a href="#confluxwebcfxcontractclone">ConfluxWeb.cfx.Contract.clone</a></li>
-        <li class="main "><a href="#confluxwebcfx">ConfluxWeb.cfx</a></li>
-            <li><a href="#confluxwebcfxdefaultaccount">ConfluxWeb.cfx.defaultAccount</a></li>
-            <li><a href="#confluxwebcfxdefaultepoch">ConfluxWeb.cfx.defaultEpoch</a></li>
-            <li><a href="#confluxwebcfxcurrentprovider">ConfluxWeb.cfx.currentProvider</a></li>
-            <li><a href="#confluxwebcfxsetprovider">ConfluxWeb.cfx.setProvider</a></li>
-            <li><a href="#confluxwebcfxgetgasprice">ConfluxWeb.cfx.getGasPrice</a></li>
-            <li><a href="#confluxwebcfxgetepochnumber">ConfluxWeb.cfx.getEpochNumber</a></li>
-            <li><a href="#confluxwebcfxgetbalance">ConfluxWeb.cfx.getBalance</a></li>
-            <li><a href="#confluxwebcfxgetcode">ConfluxWeb.cfx.getCode</a></li>
-            <li><a href="#confluxwebcfxgetblock">ConfluxWeb.cfx.getBlock</a></li>
-            <li><a href="#confluxwebcfxgettransaction">ConfluxWeb.cfx.getTransaction</a></li>
-            <li><a href="#confluxwebcfxgettransactioncount">ConfluxWeb.cfx.getTransactionCount</a></li>
-            <li><a href="#confluxwebcfxsendsignedtransaction">ConfluxWeb.cfx.sendSignedTransaction</a></li>
-            <li><a href="#confluxwebcfxsigntransaction">ConfluxWeb.cfx.signTransaction</a></li>
-            <li><a href="#confluxwebcfxcall">ConfluxWeb.cfx.call</a></li>
-            <li><a href="#confluxwebcfxestimategas">ConfluxWeb.cfx.estimateGas</a></li>
-            <li><a href="#confluxwebcfxgettransactionreceipt">ConfluxWeb.cfx.getTransactionReceipt</a></li>
-            <li><a href="#confluxwebcfxgetpastlogs">ConfluxWeb.cfx.getPastLogs</a></li>
-        <li class="main "><a href="#confluxwebcfxaccount">ConfluxWeb.cfx.account</a></li>
-            <li><a href="#confluxwebcfxaccountcreate">ConfluxWeb.cfx.account.create</a></li>
-            <li><a href="#confluxwebcfxaccountprivatekeytoaccount">ConfluxWeb.cfx.account.privateKeyToAccount</a></li>
-            <li><a href="#confluxwebcfxaccountrecovertransaction">ConfluxWeb.cfx.account.recoverTransaction</a></li>
-            <li><a href="#confluxwebcfxaccounthashmessage">ConfluxWeb.cfx.account.hashMessage</a></li>
-            <li><a href="#confluxwebcfxaccountsign">ConfluxWeb.cfx.account.sign</a></li>
-            <li><a href="#confluxwebcfxaccountrecover">ConfluxWeb.cfx.account.recover</a></li>
-        <li class="main "><a href="#confluxwebcfxaccountwallet">ConfluxWeb.cfx.account.wallet</a></li>
-            <li><a href="#confluxwebcfxaccountwalletcreate">ConfluxWeb.cfx.account.wallet.create</a></li>
-            <li><a href="#confluxwebcfxaccountwalletadd">ConfluxWeb.cfx.account.wallet.add</a></li>
-            <li><a href="#confluxwebcfxaccountwalletremove">ConfluxWeb.cfx.account.wallet.remove</a></li>
-            <li><a href="#confluxwebcfxaccountwalletclear">ConfluxWeb.cfx.account.wallet.clear</a></li>
-        <li class="main "><a href="#confluxwebcfxcontractmethods_1">ConfluxWeb.cfx.Contract.methods</a></li>
-            <li><a href="#confluxwebcfxcontractmethodsencodeabi">ConfluxWeb.cfx.Contract.methods.encodeABI</a></li>
-            <li><a href="#confluxwebcfxcontractmethodsestimategas">ConfluxWeb.cfx.Contract.methods.estimateGas</a></li>
-            <li><a href="#confluxwebcfxcontractmethodscall">ConfluxWeb.cfx.Contract.methods.call</a></li>
-            <li><a href="#confluxwebcfxcontractmethodssend">ConfluxWeb.cfx.Contract.methods.send</a></li>
-        <li class="main "><a href="#confluxwebutils_1">ConfluxWeb.utils</a></li>
-            <li><a href="#confluxwebutilsrandomhex">ConfluxWeb.utils.randomHex</a></li>
-            <li><a href="#confluxwebutilsisbn">ConfluxWeb.utils.isBN</a></li>
-            <li><a href="#confluxwebutilssha3">ConfluxWeb.utils.sha3</a></li>
-            <li><a href="#confluxwebutilssoliditysha3">ConfluxWeb.utils.soliditySha3</a></li>
-            <li><a href="#confluxwebutilsishex">ConfluxWeb.utils.isHex</a></li>
-            <li><a href="#confluxwebutilsishexstrict">ConfluxWeb.utils.isHexStrict</a></li>
-            <li><a href="#confluxwebutilsisaddress">ConfluxWeb.utils.isAddress</a></li>
-            <li><a href="#confluxwebutilstochecksumaddress">ConfluxWeb.utils.toChecksumAddress</a></li>
-            <li><a href="#confluxwebutilscheckaddresschecksum">ConfluxWeb.utils.checkAddressChecksum</a></li>
-            <li><a href="#confluxwebutilstohex">ConfluxWeb.utils.toHex</a></li>
-            <li><a href="#confluxwebutilstobn">ConfluxWeb.utils.toBN</a></li>
-            <li><a href="#confluxwebutilshextonumber">ConfluxWeb.utils.hexToNumber</a></li>
-            <li><a href="#confluxwebutilshextonumberstring">ConfluxWeb.utils.hexToNumberString</a></li>
-            <li><a href="#confluxwebutilsnumbertohex">ConfluxWeb.utils.numberToHex</a></li>
-            <li><a href="#confluxwebutilshextoutf8">ConfluxWeb.utils.hexToUtf8</a></li>
-            <li><a href="#confluxwebutilshextoascii">ConfluxWeb.utils.hexToAscii</a></li>
-            <li><a href="#confluxwebutilsutf8tohex">ConfluxWeb.utils.utf8ToHex</a></li>
-            <li><a href="#confluxwebutilsasciitohex">ConfluxWeb.utils.asciiToHex</a></li>
-            <li><a href="#confluxwebutilshextobytes">ConfluxWeb.utils.hexToBytes</a></li>
-            <li><a href="#confluxwebutilsbytestohex">ConfluxWeb.utils.bytesToHex</a></li>
-            <li><a href="#confluxwebutilstodrip">ConfluxWeb.utils.toDrip</a></li>
-            <li><a href="#confluxwebutilsfromdrip">ConfluxWeb.utils.fromDrip</a></li>
-            <li><a href="#confluxwebutilspadleft">ConfluxWeb.utils.padLeft</a></li>
-            <li><a href="#confluxwebutilspadright">ConfluxWeb.utils.padRight</a></li>
-            <li><a href="#confluxwebutilstotwoscomplement">ConfluxWeb.utils.toTwosComplement</a></li>
+            <li><a href="#confluxweb">ConfluxWeb</a></li>
+            <li><a href="#confluxwebcfxcontract">ConfluxWeb.cfx.Contract</a></li>
+            <li><a href="#confluxwebcfx">ConfluxWeb.cfx</a></li>
+            <li><a href="#confluxwebcfxaccount">ConfluxWeb.cfx.account</a></li>
+            <li><a href="#confluxwebcfxaccountwallet">ConfluxWeb.cfx.account.wallet</a></li>
+            <li><a href="#confluxwebcfxcontractmethods_1">ConfluxWeb.cfx.Contract.methods</a></li>
+            <li><a href="#confluxwebutils_1">ConfluxWeb.utils</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -210,40 +141,41 @@ confluxWeb.cfx.getEpochNumber().then(console.log);
 
 <p>ConfluxWeb depends on the BN.js library for big numbers, See the <a href="https://github.com/indutny/bn.js/">BN.js</a> documentation for details.</p>
 <h1 id="confluxweb-by-example">ConfluxWeb by Example<a class="headerlink" href="#confluxweb-by-example" title="Permanent link">&para;</a></h1>
-<h2 id="hash-time-locked-contract-htlc">Hash Time Locked Contract (HTLC)<a class="headerlink" href="#hash-time-locked-contract-htlc" title="Permanent link">&para;</a></h2>
+<h2 id="hash-time-locked-contract">Hash Time Locked Contract<a class="headerlink" href="#hash-time-locked-contract" title="Permanent link">&para;</a></h2>
 <p><a href="../javascript-example/">Here</a> we brought you a ConfluxWeb example. 
-You can learn how to develop a Hash Time Locked Contract(HTLC) with ConfluxWeb API.</p>
+You can learn how to develop a Hash Time Locked Contract (HTLC) with ConfluxWeb API.</p>
 <h1 id="confluxweb-api-reference">ConfluxWeb API Reference<a class="headerlink" href="#confluxweb-api-reference" title="Permanent link">&para;</a></h1>
-<h2 id="confluxwebproviders">ConfluxWeb.providers<a class="headerlink" href="#confluxwebproviders" title="Permanent link">&para;</a></h2>
+<h2 id="confluxweb">ConfluxWeb<a class="headerlink" href="#confluxweb" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebproviders">ConfluxWeb.providers<a class="headerlink" href="#confluxwebproviders" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>Class attribute</p>
 </blockquote>
 <p><code>object</code></p>
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; ConfluxWeb.providers
  { HttpProvider: [Function: HttpProvider$1],
   WebsocketProvider: [Function: WebsocketProvider$1],
   IpcProvider: [Function: IpcProvider$1] }
 </code></pre>
 
-<h2 id="confluxwebmodules">ConfluxWeb.modules<a class="headerlink" href="#confluxwebmodules" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebmodules">ConfluxWeb.modules<a class="headerlink" href="#confluxwebmodules" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>Class attribute</p>
 </blockquote>
 <p><code>object</code></p>
-<h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
+<h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; ConfluxWeb.modules
  { Cfx: [Function: Cfx], Net: [Function: Net] }
 </code></pre>
 
-<h2 id="confluxwebutils">ConfluxWeb.utils<a class="headerlink" href="#confluxwebutils" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutils">ConfluxWeb.utils<a class="headerlink" href="#confluxwebutils" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>Class attribute
 Object attribute</p>
 </blockquote>
 <p>Property of ConfluxWeb class and instance of ConfluxWeb, See confluxWeb.utils for more.</p>
 <p><code>object</code></p>
-<h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
+<h4 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; ConfluxWeb.utils
  {...}
 
@@ -251,24 +183,24 @@ Object attribute</p>
  {...}
 </code></pre>
 
-<h2 id="confluxwebversion">ConfluxWeb.version<a class="headerlink" href="#confluxwebversion" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebversion">ConfluxWeb.version<a class="headerlink" href="#confluxwebversion" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>Object attribute</p>
 </blockquote>
 <p>current version</p>
 <p><code>string</code></p>
-<h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
+<h4 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.version
  0.1.21-alpha.0
 </code></pre>
 
-<h2 id="confluxwebcurrentprovider">ConfluxWeb.currentProvider<a class="headerlink" href="#confluxwebcurrentprovider" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcurrentprovider">ConfluxWeb.currentProvider<a class="headerlink" href="#confluxwebcurrentprovider" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>Object attribute</p>
 </blockquote>
 <p>current provider instance</p>
 <p><code>object</code></p>
-<h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
+<h4 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.currentProvider;
  HttpProvider {
  host: 'http://testnet-jsonrpc.conflux-chain.org:12537',
@@ -276,13 +208,13 @@ Object attribute</p>
  }
 </code></pre>
 
-<h2 id="confluxwebsetprovider">ConfluxWeb.setProvider<a class="headerlink" href="#confluxwebsetprovider" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebsetprovider">ConfluxWeb.setProvider<a class="headerlink" href="#confluxwebsetprovider" title="Permanent link">&para;</a></h3>
 <p>Will change the provider for its module.</p>
 <blockquote>
 <p>NOTE: When called on the umbrella package cfx it will also set the provider for all sub modules confluxWeb.cfx, etc.</p>
 </blockquote>
 <p><code>function setProvider(provider)</code></p>
-<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
+<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -303,9 +235,9 @@ Object attribute</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return">Return<a class="headerlink" href="#return" title="Permanent link">&para;</a></h3>
+<h4 id="return">Return<a class="headerlink" href="#return" title="Permanent link">&para;</a></h4>
 <p><code>boolean</code> </p>
-<h3 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h3>
+<h4 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; const ConfluxWeb = require('conflux-web');
  &gt; const confluxWeb = new ConfluxWeb('http://testnet-jsonrpc.conflux-chain.org:12537');
  &gt; confluxWeb.currentProvider
@@ -338,11 +270,11 @@ Object attribute</p>
 </code></pre>
 
 <hr />
-<h1 id="confluxwebcfxcontract">ConfluxWeb.cfx.Contract<a class="headerlink" href="#confluxwebcfxcontract" title="Permanent link">&para;</a></h1>
-<h2 id="confluxwebcfxcontractabimodel">ConfluxWeb.cfx.Contract.abiModel<a class="headerlink" href="#confluxwebcfxcontractabimodel" title="Permanent link">&para;</a></h2>
+<h2 id="confluxwebcfxcontract">ConfluxWeb.cfx.Contract<a class="headerlink" href="#confluxwebcfxcontract" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractabimodel">ConfluxWeb.cfx.Contract.abiModel<a class="headerlink" href="#confluxwebcfxcontractabimodel" title="Permanent link">&para;</a></h3>
 <p>abi object</p>
 <p><code>Object</code></p>
-<h3 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">&para;</a></h3>
+<h4 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; contract.abiModel
  AbiModel {
   abi:
@@ -357,22 +289,22 @@ Object attribute</p>
      events: {} } }
 </code></pre>
 
-<h2 id="confluxwebcfxcontractaddress">ConfluxWeb.cfx.Contract.address<a class="headerlink" href="#confluxwebcfxcontractaddress" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractaddress">ConfluxWeb.cfx.Contract.address<a class="headerlink" href="#confluxwebcfxcontractaddress" title="Permanent link">&para;</a></h3>
 <p>The address used for this contract instance.
 All transactions generated by confluxWeb from this contract will contain this address as the "to".</p>
 <p><code>string</code></p>
-<h3 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">&para;</a></h3>
+<h4 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; contract.address; // What you set when new contract.
  &quot;0xf02dbcf0eff48e174ca59f1975a7b0042c4d02b7&quot;
 </code></pre>
 
-<h2 id="confluxwebcfxcontractdefaultgas">ConfluxWeb.cfx.Contract.defaultGas<a class="headerlink" href="#confluxwebcfxcontractdefaultgas" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractdefaultgas">ConfluxWeb.cfx.Contract.defaultGas<a class="headerlink" href="#confluxwebcfxcontractdefaultgas" title="Permanent link">&para;</a></h3>
 <p>The default maximum gas provided for a transaction (gasLimit).</p>
 <p><code>number</code></p>
-<h2 id="confluxwebcfxcontractdefaultgasprice">ConfluxWeb.cfx.Contract.defaultGasPrice<a class="headerlink" href="#confluxwebcfxcontractdefaultgasprice" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractdefaultgasprice">ConfluxWeb.cfx.Contract.defaultGasPrice<a class="headerlink" href="#confluxwebcfxcontractdefaultgasprice" title="Permanent link">&para;</a></h3>
 <p>The default gas price in drip to use for transactions.</p>
 <p><code>number</code></p>
-<h2 id="confluxwebcfxcontractmethods">ConfluxWeb.cfx.Contract.methods<a class="headerlink" href="#confluxwebcfxcontractmethods" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractmethods">ConfluxWeb.cfx.Contract.methods<a class="headerlink" href="#confluxwebcfxcontractmethods" title="Permanent link">&para;</a></h3>
 <p>Creates a transaction object for that method, which then can be called, send, estimated.
 The methods of this smart contract are available through:</p>
 <ul>
@@ -388,7 +320,7 @@ This allows calling functions with same name but different parameters from the J
 </li>
 </ul>
 <p><code>Proxy</code></p>
-<h3 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">&para;</a></h3>
+<h4 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; contract.address;
  &quot;0x079352147ce2de227af6fa963f603a35aed8e601&quot;
 
@@ -416,10 +348,10 @@ This allows calling functions with same name but different parameters from the J
  BigNumber { _hex: '0xff' }
 </code></pre>
 
-<h2 id="confluxwebcfxcontractconstructor">ConfluxWeb.cfx.Contract.constructor<a class="headerlink" href="#confluxwebcfxcontractconstructor" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractconstructor">ConfluxWeb.cfx.Contract.constructor<a class="headerlink" href="#confluxwebcfxcontractconstructor" title="Permanent link">&para;</a></h3>
 <p>Creates a new contract instance with all its methods and events defined in its json interface abi object.</p>
 <p><code>function constructor(abi,address,options)</code></p>
-<h3 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -482,9 +414,9 @@ This allows calling functions with same name but different parameters from the J
 </tr>
 </tbody>
 </table>
-<h3 id="return_1">Return<a class="headerlink" href="#return_1" title="Permanent link">&para;</a></h3>
+<h4 id="return_1">Return<a class="headerlink" href="#return_1" title="Permanent link">&para;</a></h4>
 <p><code>void</code></p>
-<h3 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">&para;</a></h3>
+<h4 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.wallet.add('0xa816a06117e572ca7ae2f786a046d2bc478051d0717bf5cc4f5397923258d393'); // KEY
  &gt; const contract = new confluxWeb.cfx.Contract(
  [
@@ -540,9 +472,9 @@ This allows calling functions with same name but different parameters from the J
  );
 </code></pre>
 
-<h2 id="confluxwebcfxcontractdeploy">ConfluxWeb.cfx.Contract.deploy<a class="headerlink" href="#confluxwebcfxcontractdeploy" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractdeploy">ConfluxWeb.cfx.Contract.deploy<a class="headerlink" href="#confluxwebcfxcontractdeploy" title="Permanent link">&para;</a></h3>
 <p><code>function deploy(options)</code></p>
-<h3 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -577,9 +509,9 @@ This allows calling functions with same name but different parameters from the J
 </tr>
 </tbody>
 </table>
-<h3 id="return_2">Return<a class="headerlink" href="#return_2" title="Permanent link">&para;</a></h3>
+<h4 id="return_2">Return<a class="headerlink" href="#return_2" title="Permanent link">&para;</a></h4>
 <p><code>Object</code> </p>
-<h3 id="example_10">Example<a class="headerlink" href="#example_10" title="Permanent link">&para;</a></h3>
+<h4 id="example_10">Example<a class="headerlink" href="#example_10" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await contract.deploy({arguments: [254]}).send({
     from: '0xbbd9e9be525ab967e633bcdaeac8bd5723ed4d6b',
     gas: 100000000,
@@ -597,14 +529,14 @@ This allows calling functions with same name but different parameters from the J
  &gt; contract.address = '0x079352147ce2de227af6fa963f603a35aed8e601'; // after deploy, you should add address to contract
 </code></pre>
 
-<h2 id="confluxwebcfxcontractclone">ConfluxWeb.cfx.Contract.clone<a class="headerlink" href="#confluxwebcfxcontractclone" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractclone">ConfluxWeb.cfx.Contract.clone<a class="headerlink" href="#confluxwebcfxcontractclone" title="Permanent link">&para;</a></h3>
 <p>Clones the current contract instance.</p>
 <p><code>function clone()</code></p>
-<h3 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">&para;</a></h4>
 <p><code>void</code></p>
-<h3 id="return_3">Return<a class="headerlink" href="#return_3" title="Permanent link">&para;</a></h3>
+<h4 id="return_3">Return<a class="headerlink" href="#return_3" title="Permanent link">&para;</a></h4>
 <p><code>Object</code> The new contract instance.</p>
-<h3 id="example_11">Example<a class="headerlink" href="#example_11" title="Permanent link">&para;</a></h3>
+<h4 id="example_11">Example<a class="headerlink" href="#example_11" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; const clone = contract.clone()
  &gt; contract.defaultGas === clone.defaultGas;
  true
@@ -617,12 +549,12 @@ This allows calling functions with same name but different parameters from the J
 </code></pre>
 
 <hr />
-<h1 id="confluxwebcfx">ConfluxWeb.cfx<a class="headerlink" href="#confluxwebcfx" title="Permanent link">&para;</a></h1>
-<h2 id="confluxwebcfxdefaultaccount">ConfluxWeb.cfx.defaultAccount<a class="headerlink" href="#confluxwebcfxdefaultaccount" title="Permanent link">&para;</a></h2>
+<h2 id="confluxwebcfx">ConfluxWeb.cfx<a class="headerlink" href="#confluxwebcfx" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxdefaultaccount">ConfluxWeb.cfx.defaultAccount<a class="headerlink" href="#confluxwebcfxdefaultaccount" title="Permanent link">&para;</a></h3>
 <p>This default address is used as the default "from" property.</p>
 <p>20 Bytes: Any Conflux address. You should have the private key for that address in your node or keystore.</p>
 <p><code>string|undefined</code></p>
-<h3 id="example_12">Example<a class="headerlink" href="#example_12" title="Permanent link">&para;</a></h3>
+<h4 id="example_12">Example<a class="headerlink" href="#example_12" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.defaultAccount
  undefined
 
@@ -631,7 +563,7 @@ This allows calling functions with same name but different parameters from the J
  &quot;0xbbd9e9be525ab967e633bcdaeac8bd5723ed4d6b&quot;
 </code></pre>
 
-<h2 id="confluxwebcfxdefaultepoch">ConfluxWeb.cfx.defaultEpoch<a class="headerlink" href="#confluxwebcfxdefaultepoch" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxdefaultepoch">ConfluxWeb.cfx.defaultEpoch<a class="headerlink" href="#confluxwebcfxdefaultepoch" title="Permanent link">&para;</a></h3>
 <p>When requests are made that act on the state of conflux,
 the default epoch parameter determines the height of the epoch.</p>
 <p>The following options are possible for the default epoch parameter:</p>
@@ -642,15 +574,15 @@ the default epoch parameter determines the height of the epoch.</p>
 <li><code>"latest_mined"</code>: The latest epoch where the latest mined block in.</li>
 </ul>
 <p><code>number|string</code></p>
-<h3 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">&para;</a></h3>
+<h4 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.defaultEpoch; // Default is &quot;latest_state&quot;
  &quot;latest_state&quot;
 </code></pre>
 
-<h2 id="confluxwebcfxcurrentprovider">ConfluxWeb.cfx.currentProvider<a class="headerlink" href="#confluxwebcfxcurrentprovider" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcurrentprovider">ConfluxWeb.cfx.currentProvider<a class="headerlink" href="#confluxwebcfxcurrentprovider" title="Permanent link">&para;</a></h3>
 <p>Will return the current provider, otherwise null</p>
 <p><code>object|null</code></p>
-<h3 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">&para;</a></h3>
+<h4 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.currentProvider
  HttpProvider {
   host: 'http://testnet-jsonrpc.conflux-chain.org:12537',
@@ -658,10 +590,10 @@ the default epoch parameter determines the height of the epoch.</p>
  }
 </code></pre>
 
-<h2 id="confluxwebcfxsetprovider">ConfluxWeb.cfx.setProvider<a class="headerlink" href="#confluxwebcfxsetprovider" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxsetprovider">ConfluxWeb.cfx.setProvider<a class="headerlink" href="#confluxwebcfxsetprovider" title="Permanent link">&para;</a></h3>
 <p>Will change the provider for its module.</p>
 <p><code>function setProvider(cfxProvider)</code></p>
-<h3 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -682,9 +614,9 @@ the default epoch parameter determines the height of the epoch.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_4">Return<a class="headerlink" href="#return_4" title="Permanent link">&para;</a></h3>
+<h4 id="return_4">Return<a class="headerlink" href="#return_4" title="Permanent link">&para;</a></h4>
 <p><code>boolean</code> </p>
-<h3 id="example_15">Example<a class="headerlink" href="#example_15" title="Permanent link">&para;</a></h3>
+<h4 id="example_15">Example<a class="headerlink" href="#example_15" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.currentProvider.host
  &quot;http://testnet-jsonrpc.conflux-chain.org:12537&quot;
  &gt; confluxWeb.cfx.currentProvider.host
@@ -696,35 +628,35 @@ the default epoch parameter determines the height of the epoch.</p>
  &quot;http://localhost:12537&quot;
 </code></pre>
 
-<h2 id="confluxwebcfxgetgasprice">ConfluxWeb.cfx.getGasPrice<a class="headerlink" href="#confluxwebcfxgetgasprice" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxgetgasprice">ConfluxWeb.cfx.getGasPrice<a class="headerlink" href="#confluxwebcfxgetgasprice" title="Permanent link">&para;</a></h3>
 <p>Returns the current gas price oracle.
 The gas price is determined by the last few blocks median gas price.</p>
 <p><code>async function getGasPrice()</code></p>
-<h3 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">&para;</a></h4>
 <p><code>void</code></p>
-<h3 id="return_5">Return<a class="headerlink" href="#return_5" title="Permanent link">&para;</a></h3>
+<h4 id="return_5">Return<a class="headerlink" href="#return_5" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;string&gt;</code> Number string of the current gas price in drip.</p>
-<h3 id="example_16">Example<a class="headerlink" href="#example_16" title="Permanent link">&para;</a></h3>
+<h4 id="example_16">Example<a class="headerlink" href="#example_16" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await confluxWeb.cfx.getGasPrice()
  &quot;0&quot;
 </code></pre>
 
-<h2 id="confluxwebcfxgetepochnumber">ConfluxWeb.cfx.getEpochNumber<a class="headerlink" href="#confluxwebcfxgetepochnumber" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxgetepochnumber">ConfluxWeb.cfx.getEpochNumber<a class="headerlink" href="#confluxwebcfxgetepochnumber" title="Permanent link">&para;</a></h3>
 <p>Returns the current epoch number the client is on.</p>
 <p><code>async function getEpochNumber()</code></p>
-<h3 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">&para;</a></h4>
 <p><code>void</code></p>
-<h3 id="return_6">Return<a class="headerlink" href="#return_6" title="Permanent link">&para;</a></h3>
+<h4 id="return_6">Return<a class="headerlink" href="#return_6" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;number&gt;</code> </p>
 <h3 id="example_17">Example<a class="headerlink" href="#example_17" title="Permanent link">&para;</a></h3>
 <pre><code class="js"> &gt; await confluxWeb.cfx.getEpochNumber();
  990902
 </code></pre>
 
-<h2 id="confluxwebcfxgetbalance">ConfluxWeb.cfx.getBalance<a class="headerlink" href="#confluxwebcfxgetbalance" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxgetbalance">ConfluxWeb.cfx.getBalance<a class="headerlink" href="#confluxwebcfxgetbalance" title="Permanent link">&para;</a></h3>
 <p>Get the balance of an address at a given epoch.</p>
 <p><code>async function getBalance(address,defaultEpoch)</code></p>
-<h3 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -752,9 +684,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_7">Return<a class="headerlink" href="#return_7" title="Permanent link">&para;</a></h3>
+<h4 id="return_7">Return<a class="headerlink" href="#return_7" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;string&gt;</code> The current balance for the given address in drip.</p>
-<h3 id="example_18">Example<a class="headerlink" href="#example_18" title="Permanent link">&para;</a></h3>
+<h4 id="example_18">Example<a class="headerlink" href="#example_18" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await confluxWeb.cfx.getBalance(&quot;0x407d73d8a49eeb85d32cf465507dd71d507100c1&quot;);
  &quot;685539999999937000&quot;
 
@@ -762,10 +694,10 @@ The gas price is determined by the last few blocks median gas price.</p>
  &quot;0&quot;
 </code></pre>
 
-<h2 id="confluxwebcfxgetcode">ConfluxWeb.cfx.getCode<a class="headerlink" href="#confluxwebcfxgetcode" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxgetcode">ConfluxWeb.cfx.getCode<a class="headerlink" href="#confluxwebcfxgetcode" title="Permanent link">&para;</a></h3>
 <p>Get the code at a specific address.</p>
 <p><code>async function getCode(address,defaultEpoch)</code></p>
-<h3 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -793,17 +725,17 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_8">Return<a class="headerlink" href="#return_8" title="Permanent link">&para;</a></h3>
+<h4 id="return_8">Return<a class="headerlink" href="#return_8" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;string&gt;</code> The data at given address</p>
-<h3 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">&para;</a></h3>
+<h4 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await confluxWeb.cfx.getCode(&quot;0x079352147ce2de227af6fa963f603a35aed8e601&quot;);
  &quot;0x6080604052348015600f57600080fd5b506004361060325760003560e01c806306661abd146037578063812600df146053575b600080fd5b603d6092565b6040518082815260200191505060405180910390f35b607c60048036036020811015606757600080fd5b81019080803590602001909291905050506098565b6040518082815260200191505060405180910390f35b60005481565b60008160008082825401925050819055905091905056fea265627a7a723158203aa4346abf52089d9be8806b8bf35dff408bd9f68f668e528bc8e2e20d74b29064736f6c634300050b0032&quot;
 </code></pre>
 
-<h2 id="confluxwebcfxgetblock">ConfluxWeb.cfx.getBlock<a class="headerlink" href="#confluxwebcfxgetblock" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxgetblock">ConfluxWeb.cfx.getBlock<a class="headerlink" href="#confluxwebcfxgetblock" title="Permanent link">&para;</a></h3>
 <p>Returns a block matching the block number or block hash.</p>
 <p><code>async function getBlock(blockHashOrEpochNumber,returnTransactionObjects)</code></p>
-<h3 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -831,7 +763,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_9">Return<a class="headerlink" href="#return_9" title="Permanent link">&para;</a></h3>
+<h4 id="return_9">Return<a class="headerlink" href="#return_9" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;object&gt;</code> The block object</p>
 <ul>
 <li>
@@ -895,7 +827,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 <p><code>object</code> deferredStateRootWithAux: Information of deferred state root</p>
 </li>
 </ul>
-<h3 id="example_20">Example<a class="headerlink" href="#example_20" title="Permanent link">&para;</a></h3>
+<h4 id="example_20">Example<a class="headerlink" href="#example_20" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await confluxWeb.cfx.getBlock(&quot;0xdf19947ee92cae1de92fd05d949c654afa4afb77ce42024533d5b47cb861575a&quot;);
  {
   &quot;miner&quot;: &quot;0x0000000000000000000000000000000000000015&quot;,
@@ -986,10 +918,10 @@ The gas price is determined by the last few blocks median gas price.</p>
 }
 </code></pre>
 
-<h2 id="confluxwebcfxgettransaction">ConfluxWeb.cfx.getTransaction<a class="headerlink" href="#confluxwebcfxgettransaction" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxgettransaction">ConfluxWeb.cfx.getTransaction<a class="headerlink" href="#confluxwebcfxgettransaction" title="Permanent link">&para;</a></h3>
 <p>Returns a transaction matching the given transaction hash.</p>
 <p><code>async function getTransaction(transactionHash)</code></p>
-<h3 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1010,7 +942,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_10">Return<a class="headerlink" href="#return_10" title="Permanent link">&para;</a></h3>
+<h4 id="return_10">Return<a class="headerlink" href="#return_10" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;object&gt;</code> The transaction object</p>
 <ul>
 <li>
@@ -1059,7 +991,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 <p><code>string</code> v: ECDSA recovery id</p>
 </li>
 </ul>
-<h3 id="example_21">Example<a class="headerlink" href="#example_21" title="Permanent link">&para;</a></h3>
+<h4 id="example_21">Example<a class="headerlink" href="#example_21" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await confluxWeb.cfx.getTransaction(&quot;0xdf19947ee92cae1de92fd05d949c654afa4afb77ce42024533d5b47cb861575a&quot;);
  {
   &quot;blockHash&quot;: &quot;0xdf19947ee92cae1de92fd05d949c654afa4afb77ce42024533d5b47cb861575a&quot;,
@@ -1080,10 +1012,10 @@ The gas price is determined by the last few blocks median gas price.</p>
 }
 </code></pre>
 
-<h2 id="confluxwebcfxgettransactioncount">ConfluxWeb.cfx.getTransactionCount<a class="headerlink" href="#confluxwebcfxgettransactioncount" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxgettransactioncount">ConfluxWeb.cfx.getTransactionCount<a class="headerlink" href="#confluxwebcfxgettransactioncount" title="Permanent link">&para;</a></h3>
 <p>Get the numbers of transactions sent from this address.</p>
 <p><code>async function getTransactionCount(address,defaultEpoch)</code></p>
-<h3 id="parameters_11">Parameters<a class="headerlink" href="#parameters_11" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_11">Parameters<a class="headerlink" href="#parameters_11" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1111,9 +1043,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_11">Return<a class="headerlink" href="#return_11" title="Permanent link">&para;</a></h3>
+<h4 id="return_11">Return<a class="headerlink" href="#return_11" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;number&gt;</code> The number of transactions sent from the given address.</p>
-<h3 id="example_22">Example<a class="headerlink" href="#example_22" title="Permanent link">&para;</a></h3>
+<h4 id="example_22">Example<a class="headerlink" href="#example_22" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await confluxWeb.cfx.getTransactionCount(&quot;0xa70ddf9b9750c575db453eea6a041f4c8536785a&quot;);
  974
 
@@ -1121,10 +1053,10 @@ The gas price is determined by the last few blocks median gas price.</p>
  0
 </code></pre>
 
-<h2 id="confluxwebcfxsendsignedtransaction">ConfluxWeb.cfx.sendSignedTransaction<a class="headerlink" href="#confluxwebcfxsendsignedtransaction" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxsendsignedtransaction">ConfluxWeb.cfx.sendSignedTransaction<a class="headerlink" href="#confluxwebcfxsendsignedtransaction" title="Permanent link">&para;</a></h3>
 <p>Sends an already signed transaction, generated for example using confluxWeb.cfx.accounts.signTransaction</p>
 <p><code>async function sendSignedTransaction(signedTransactionData)</code></p>
-<h3 id="parameters_12">Parameters<a class="headerlink" href="#parameters_12" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_12">Parameters<a class="headerlink" href="#parameters_12" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1145,9 +1077,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_12">Return<a class="headerlink" href="#return_12" title="Permanent link">&para;</a></h3>
+<h4 id="return_12">Return<a class="headerlink" href="#return_12" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;string&gt;</code> Transaction hash</p>
-<h3 id="example_23">Example<a class="headerlink" href="#example_23" title="Permanent link">&para;</a></h3>
+<h4 id="example_23">Example<a class="headerlink" href="#example_23" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; const ConfluxTx = require('confluxjs-transaction');
  &gt; const tx = new ConfluxTx({
     nonce: '0x03',
@@ -1161,10 +1093,10 @@ The gas price is determined by the last few blocks median gas price.</p>
  0x200b930e95b3c8c54978499c6407ef71fc96a83eced88640fae59b75e1d16ef4
 </code></pre>
 
-<h2 id="confluxwebcfxsigntransaction">ConfluxWeb.cfx.signTransaction<a class="headerlink" href="#confluxwebcfxsigntransaction" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxsigntransaction">ConfluxWeb.cfx.signTransaction<a class="headerlink" href="#confluxwebcfxsigntransaction" title="Permanent link">&para;</a></h3>
 <p>Signs a transaction. This account needs to be unlocked.</p>
 <p><code>async function signTransaction(rawTx)</code></p>
-<h3 id="parameters_13">Parameters<a class="headerlink" href="#parameters_13" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_13">Parameters<a class="headerlink" href="#parameters_13" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1234,7 +1166,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_13">Return<a class="headerlink" href="#return_13" title="Permanent link">&para;</a></h3>
+<h4 id="return_13">Return<a class="headerlink" href="#return_13" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;object&gt;</code> The RLP encoded transaction. The raw property can be used to send the transaction using confluxWeb.cfx.sendSignedTransaction.</p>
 <ul>
 <li>
@@ -1253,7 +1185,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 <p><code>string</code> v: ECDSA recovery id</p>
 </li>
 </ul>
-<h3 id="example_24">Example<a class="headerlink" href="#example_24" title="Permanent link">&para;</a></h3>
+<h4 id="example_24">Example<a class="headerlink" href="#example_24" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.wallet.add('a816a06117e572ca7ae2f786a046d2bc478051d0717bf5cc4f5397923258d393'); // KEY_FROM
  &gt; await confluxWeb.cfx.signTransaction({
     from: 0, // index
@@ -1274,10 +1206,10 @@ The gas price is determined by the last few blocks median gas price.</p>
  }
 </code></pre>
 
-<h2 id="confluxwebcfxcall">ConfluxWeb.cfx.call<a class="headerlink" href="#confluxwebcfxcall" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcall">ConfluxWeb.cfx.call<a class="headerlink" href="#confluxwebcfxcall" title="Permanent link">&para;</a></h3>
 <p>Executes a message call transaction, which is directly executed in the VM of the node, but never mined into the blockchain.</p>
 <p><code>async function call(callObject,defaultEpoch)</code></p>
-<h3 id="parameters_14">Parameters<a class="headerlink" href="#parameters_14" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_14">Parameters<a class="headerlink" href="#parameters_14" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1305,9 +1237,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_14">Return<a class="headerlink" href="#return_14" title="Permanent link">&para;</a></h3>
+<h4 id="return_14">Return<a class="headerlink" href="#return_14" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;string&gt;</code> The returned data of the call, e.g. A smart contract functions return value.</p>
-<h3 id="example_25">Example<a class="headerlink" href="#example_25" title="Permanent link">&para;</a></h3>
+<h4 id="example_25">Example<a class="headerlink" href="#example_25" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await confluxWeb.cfx.call({
     to: &quot;0x11f4d0a3c12e86b4b5f39b213f7e19d048276dae&quot;, // contract address
     data: &quot;0xc6888fa10000000000000000000000000000000000000000000000000000000000000003&quot;
@@ -1315,10 +1247,10 @@ The gas price is determined by the last few blocks median gas price.</p>
  0x000000000000000000000000000000000000000000000000000000000000000a
 </code></pre>
 
-<h2 id="confluxwebcfxestimategas">ConfluxWeb.cfx.estimateGas<a class="headerlink" href="#confluxwebcfxestimategas" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxestimategas">ConfluxWeb.cfx.estimateGas<a class="headerlink" href="#confluxwebcfxestimategas" title="Permanent link">&para;</a></h3>
 <p>Executes a message call or transaction and returns the amount of the gas used.</p>
 <p><code>async function estimateGas(callObject)</code></p>
-<h3 id="parameters_15">Parameters<a class="headerlink" href="#parameters_15" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_15">Parameters<a class="headerlink" href="#parameters_15" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1339,9 +1271,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_15">Return<a class="headerlink" href="#return_15" title="Permanent link">&para;</a></h3>
+<h4 id="return_15">Return<a class="headerlink" href="#return_15" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;number&gt;</code> - the used gas for the simulated call/transaction.</p>
-<h3 id="example_26">Example<a class="headerlink" href="#example_26" title="Permanent link">&para;</a></h3>
+<h4 id="example_26">Example<a class="headerlink" href="#example_26" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await confluxWeb.cfx.estimateGas({
     to: &quot;0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe&quot;,
     data: &quot;0xc6888fa10000000000000000000000000000000000000000000000000000000000000003&quot;
@@ -1349,13 +1281,13 @@ The gas price is determined by the last few blocks median gas price.</p>
  0x0000000000000000000000000000000000000000000000000000000000000015
 </code></pre>
 
-<h2 id="confluxwebcfxgettransactionreceipt">ConfluxWeb.cfx.getTransactionReceipt<a class="headerlink" href="#confluxwebcfxgettransactionreceipt" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxgettransactionreceipt">ConfluxWeb.cfx.getTransactionReceipt<a class="headerlink" href="#confluxwebcfxgettransactionreceipt" title="Permanent link">&para;</a></h3>
 <p>Returns the receipt of a transaction by transaction hash.</p>
 <blockquote>
 <p>NOTE: The receipt is not available for pending transactions and returns null.</p>
 </blockquote>
 <p><code>async function getTransactionReceipt(txHash)</code></p>
-<h3 id="parameters_16">Parameters<a class="headerlink" href="#parameters_16" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_16">Parameters<a class="headerlink" href="#parameters_16" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1376,7 +1308,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_16">Return<a class="headerlink" href="#return_16" title="Permanent link">&para;</a></h3>
+<h4 id="return_16">Return<a class="headerlink" href="#return_16" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;object&gt;</code> A transaction receipt object, or null when no receipt was found.</p>
 <ul>
 <li>
@@ -1428,7 +1360,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 <p><code>string</code> logsBloom:</p>
 </li>
 </ul>
-<h3 id="example_27">Example<a class="headerlink" href="#example_27" title="Permanent link">&para;</a></h3>
+<h4 id="example_27">Example<a class="headerlink" href="#example_27" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await confluxWeb.cfx.getTransactionReceipt('0x689258ba9fe2c25bcdc43ebb5c9018d1b56d25b1c87de1b371a19f5548c16dc1');
  {
   status: true,
@@ -1447,10 +1379,10 @@ The gas price is determined by the last few blocks median gas price.</p>
  }
 </code></pre>
 
-<h2 id="confluxwebcfxgetpastlogs">ConfluxWeb.cfx.getPastLogs<a class="headerlink" href="#confluxwebcfxgetpastlogs" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxgetpastlogs">ConfluxWeb.cfx.getPastLogs<a class="headerlink" href="#confluxwebcfxgetpastlogs" title="Permanent link">&para;</a></h3>
 <p>Gets past logs, matching the given options.</p>
 <p><code>async function getPastLogs(options)</code></p>
-<h3 id="parameters_17">Parameters<a class="headerlink" href="#parameters_17" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_17">Parameters<a class="headerlink" href="#parameters_17" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1499,9 +1431,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_17">Return<a class="headerlink" href="#return_17" title="Permanent link">&para;</a></h3>
+<h4 id="return_17">Return<a class="headerlink" href="#return_17" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;Array.&lt;object&gt;&gt;</code> Array of log objects.</p>
-<h3 id="example_28">Example<a class="headerlink" href="#example_28" title="Permanent link">&para;</a></h3>
+<h4 id="example_28">Example<a class="headerlink" href="#example_28" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await confluxWeb.cfx.getPastLogs({
     fromEpoch: '0x0',
     toEpoch: 'latest_mined',
@@ -1531,14 +1463,14 @@ The gas price is determined by the last few blocks median gas price.</p>
 </code></pre>
 
 <hr />
-<h1 id="confluxwebcfxaccount">ConfluxWeb.cfx.account<a class="headerlink" href="#confluxwebcfxaccount" title="Permanent link">&para;</a></h1>
-<h2 id="confluxwebcfxaccountcreate">ConfluxWeb.cfx.account.create<a class="headerlink" href="#confluxwebcfxaccountcreate" title="Permanent link">&para;</a></h2>
+<h2 id="confluxwebcfxaccount">ConfluxWeb.cfx.account<a class="headerlink" href="#confluxwebcfxaccount" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxaccountcreate">ConfluxWeb.cfx.account.create<a class="headerlink" href="#confluxwebcfxaccountcreate" title="Permanent link">&para;</a></h3>
 <p>Generates an account object with private key and public key.</p>
 <blockquote>
 <p>NOTE: compare to eth latest, we don’t have sign methods in the return account object</p>
 </blockquote>
 <p><code>function create(entropy)</code></p>
-<h3 id="parameters_18">Parameters<a class="headerlink" href="#parameters_18" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_18">Parameters<a class="headerlink" href="#parameters_18" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1559,9 +1491,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_18">Return<a class="headerlink" href="#return_18" title="Permanent link">&para;</a></h3>
+<h4 id="return_18">Return<a class="headerlink" href="#return_18" title="Permanent link">&para;</a></h4>
 <p><code>object</code> The account object.</p>
-<h3 id="example_29">Example<a class="headerlink" href="#example_29" title="Permanent link">&para;</a></h3>
+<h4 id="example_29">Example<a class="headerlink" href="#example_29" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.create();
  Account {
   address: '0xbaE14daA250D6BCE69E695217AE8B3ce1dfF7AAe',
@@ -1571,13 +1503,13 @@ The gas price is determined by the last few blocks median gas price.</p>
  }
 </code></pre>
 
-<h2 id="confluxwebcfxaccountprivatekeytoaccount">ConfluxWeb.cfx.account.privateKeyToAccount<a class="headerlink" href="#confluxwebcfxaccountprivatekeytoaccount" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxaccountprivatekeytoaccount">ConfluxWeb.cfx.account.privateKeyToAccount<a class="headerlink" href="#confluxwebcfxaccountprivatekeytoaccount" title="Permanent link">&para;</a></h3>
 <p>Creates an account object from a private key.</p>
 <blockquote>
 <p>NOTE: compare to eth latest, we don’t have sign methods in the return account object</p>
 </blockquote>
 <p><code>function privateKeyToAccount(privateKey)</code></p>
-<h3 id="parameters_19">Parameters<a class="headerlink" href="#parameters_19" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_19">Parameters<a class="headerlink" href="#parameters_19" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1598,9 +1530,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_19">Return<a class="headerlink" href="#return_19" title="Permanent link">&para;</a></h3>
+<h4 id="return_19">Return<a class="headerlink" href="#return_19" title="Permanent link">&para;</a></h4>
 <p><code>object</code> The account object.</p>
-<h3 id="example_30">Example<a class="headerlink" href="#example_30" title="Permanent link">&para;</a></h3>
+<h4 id="example_30">Example<a class="headerlink" href="#example_30" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.privateKeyToAccount('0xed66cd654e2d714445dd159801f7e8144d227715c1eb33865d44c056d8e23399');
  Account {
   address: '0xbaE14daA250D6BCE69E695217AE8B3ce1dfF7AAe',
@@ -1610,10 +1542,10 @@ The gas price is determined by the last few blocks median gas price.</p>
  }
 </code></pre>
 
-<h2 id="confluxwebcfxaccountrecovertransaction">ConfluxWeb.cfx.account.recoverTransaction<a class="headerlink" href="#confluxwebcfxaccountrecovertransaction" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxaccountrecovertransaction">ConfluxWeb.cfx.account.recoverTransaction<a class="headerlink" href="#confluxwebcfxaccountrecovertransaction" title="Permanent link">&para;</a></h3>
 <p>Recovers the Conflux address which was used to sign the given RLP encoded transaction.</p>
 <p><code>function recoverTransaction(rawTransaction)</code></p>
-<h3 id="parameters_20">Parameters<a class="headerlink" href="#parameters_20" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_20">Parameters<a class="headerlink" href="#parameters_20" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1634,16 +1566,16 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_20">Return<a class="headerlink" href="#return_20" title="Permanent link">&para;</a></h3>
+<h4 id="return_20">Return<a class="headerlink" href="#return_20" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The Conflux address used to sign this transaction.</p>
-<h3 id="example_31">Example<a class="headerlink" href="#example_31" title="Permanent link">&para;</a></h3>
+<h4 id="example_31">Example<a class="headerlink" href="#example_31" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.recoverTransaction('0xf867800a825208941ead8630345121d19ee3604128e5dc54b36e8ea6880429d069189e00008001a01feaa7a3d6ae22c013b0987e8fa8e39ff1df1e6080c95d7d5e085e2cd9b02ff2a00451df58547f0e0ad36d06058cd0c8cfa4eb201b4d09255f56ba0d750e520a67');
  &quot;0xbbd9E9bE525AB967e633BcDAEaC8bD5723ED4D6B&quot;
 </code></pre>
 
-<h2 id="confluxwebcfxaccounthashmessage">ConfluxWeb.cfx.account.hashMessage<a class="headerlink" href="#confluxwebcfxaccounthashmessage" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxaccounthashmessage">ConfluxWeb.cfx.account.hashMessage<a class="headerlink" href="#confluxwebcfxaccounthashmessage" title="Permanent link">&para;</a></h3>
 <p><code>function hashMessage(message)</code></p>
-<h3 id="parameters_21">Parameters<a class="headerlink" href="#parameters_21" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_21">Parameters<a class="headerlink" href="#parameters_21" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1664,9 +1596,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_21">Return<a class="headerlink" href="#return_21" title="Permanent link">&para;</a></h3>
+<h4 id="return_21">Return<a class="headerlink" href="#return_21" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The hashed message</p>
-<h3 id="example_32">Example<a class="headerlink" href="#example_32" title="Permanent link">&para;</a></h3>
+<h4 id="example_32">Example<a class="headerlink" href="#example_32" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.hashMessage(&quot;Hello World&quot;);
  &quot;0xa1de988600a42c4b4ab089b619297c17d53cffae5d5120d82d8a92d0bb3b78f2&quot;
 
@@ -1674,11 +1606,11 @@ The gas price is determined by the last few blocks median gas price.</p>
  &quot;0xa1de988600a42c4b4ab089b619297c17d53cffae5d5120d82d8a92d0bb3b78f2&quot;
 </code></pre>
 
-<h2 id="confluxwebcfxaccountsign">ConfluxWeb.cfx.account.sign<a class="headerlink" href="#confluxwebcfxaccountsign" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxaccountsign">ConfluxWeb.cfx.account.sign<a class="headerlink" href="#confluxwebcfxaccountsign" title="Permanent link">&para;</a></h3>
 <p>Signs arbitrary data. This data is before UTF-8 HEX decoded and enveloped as follows:
 <code>"\x19Ethereum Signed Message:\n" + message.length + message</code></p>
 <p><code>function sign(data,privateKey)</code></p>
-<h3 id="parameters_22">Parameters<a class="headerlink" href="#parameters_22" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_22">Parameters<a class="headerlink" href="#parameters_22" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1706,9 +1638,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_22">Return<a class="headerlink" href="#return_22" title="Permanent link">&para;</a></h3>
+<h4 id="return_22">Return<a class="headerlink" href="#return_22" title="Permanent link">&para;</a></h4>
 <p><code>object</code> </p>
-<h3 id="example_33">Example<a class="headerlink" href="#example_33" title="Permanent link">&para;</a></h3>
+<h4 id="example_33">Example<a class="headerlink" href="#example_33" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.sign('Hello World', 'a816a06117e572ca7ae2f786a046d2bc478051d0717bf5cc4f5397923258d393');
  {
   &quot;message&quot;: &quot;Hello World&quot;,
@@ -1720,7 +1652,7 @@ The gas price is determined by the last few blocks median gas price.</p>
  }
 </code></pre>
 
-<h2 id="confluxwebcfxaccountrecover">ConfluxWeb.cfx.account.recover<a class="headerlink" href="#confluxwebcfxaccountrecover" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxaccountrecover">ConfluxWeb.cfx.account.recover<a class="headerlink" href="#confluxwebcfxaccountrecover" title="Permanent link">&para;</a></h3>
 <p>Recovers the Conflux address which was used to sign the given data.</p>
 <blockquote>
 <p>confluxWeb.cfx.accounts.recover(message, signature [, preFixed]);</p>
@@ -1728,7 +1660,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 <p>confluxWeb.cfx.accounts.recover(signatureObject);</p>
 </blockquote>
 <p><code>function recover(message,signature,r,s,v,preFixed,signatureObject)</code></p>
-<h3 id="parameters_23">Parameters<a class="headerlink" href="#parameters_23" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_23">Parameters<a class="headerlink" href="#parameters_23" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1819,9 +1751,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_23">Return<a class="headerlink" href="#return_23" title="Permanent link">&para;</a></h3>
+<h4 id="return_23">Return<a class="headerlink" href="#return_23" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The Conflux address used to sign this data.</p>
-<h3 id="example_34">Example<a class="headerlink" href="#example_34" title="Permanent link">&para;</a></h3>
+<h4 id="example_34">Example<a class="headerlink" href="#example_34" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.recover({
     messageHash: '0x1da44b586eb0729ff70a73c326926f6ed5a25f5b056e7f47fbc6e58d86871655',
     v: '0x1',
@@ -1838,11 +1770,11 @@ The gas price is determined by the last few blocks median gas price.</p>
 </code></pre>
 
 <hr />
-<h1 id="confluxwebcfxaccountwallet">ConfluxWeb.cfx.account.wallet<a class="headerlink" href="#confluxwebcfxaccountwallet" title="Permanent link">&para;</a></h1>
-<h2 id="confluxwebcfxaccountwalletcreate">ConfluxWeb.cfx.account.wallet.create<a class="headerlink" href="#confluxwebcfxaccountwalletcreate" title="Permanent link">&para;</a></h2>
+<h2 id="confluxwebcfxaccountwallet">ConfluxWeb.cfx.account.wallet<a class="headerlink" href="#confluxwebcfxaccountwallet" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxaccountwalletcreate">ConfluxWeb.cfx.account.wallet.create<a class="headerlink" href="#confluxwebcfxaccountwalletcreate" title="Permanent link">&para;</a></h3>
 <p>Generates one or more accounts in the wallet. If wallets already exist they will not be overridden.</p>
 <p><code>function create(numberOfAccounts,entropy)</code></p>
-<h3 id="parameters_24">Parameters<a class="headerlink" href="#parameters_24" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_24">Parameters<a class="headerlink" href="#parameters_24" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1870,9 +1802,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_24">Return<a class="headerlink" href="#return_24" title="Permanent link">&para;</a></h3>
+<h4 id="return_24">Return<a class="headerlink" href="#return_24" title="Permanent link">&para;</a></h4>
 <p><code>object</code> The wallet object</p>
-<h3 id="example_35">Example<a class="headerlink" href="#example_35" title="Permanent link">&para;</a></h3>
+<h4 id="example_35">Example<a class="headerlink" href="#example_35" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.wallet.create(2);
  Wallet {
    ...
@@ -1894,10 +1826,10 @@ The gas price is determined by the last few blocks median gas price.</p>
  }
 </code></pre>
 
-<h2 id="confluxwebcfxaccountwalletadd">ConfluxWeb.cfx.account.wallet.add<a class="headerlink" href="#confluxwebcfxaccountwalletadd" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxaccountwalletadd">ConfluxWeb.cfx.account.wallet.add<a class="headerlink" href="#confluxwebcfxaccountwalletadd" title="Permanent link">&para;</a></h3>
 <p>Adds an account using a private key or account object to the wallet.</p>
 <p><code>function add(account)</code></p>
-<h3 id="parameters_25">Parameters<a class="headerlink" href="#parameters_25" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_25">Parameters<a class="headerlink" href="#parameters_25" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1918,9 +1850,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_25">Return<a class="headerlink" href="#return_25" title="Permanent link">&para;</a></h3>
+<h4 id="return_25">Return<a class="headerlink" href="#return_25" title="Permanent link">&para;</a></h4>
 <p><code>object</code> The added account</p>
-<h3 id="example_36">Example<a class="headerlink" href="#example_36" title="Permanent link">&para;</a></h3>
+<h4 id="example_36">Example<a class="headerlink" href="#example_36" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.wallet.add('a816a06117e572ca7ae2f786a046d2bc478051d0717bf5cc4f5397923258d393');
  Account {
   address: '0x4060E99f892E052dF9F59126D3F1eF2240A5df97',
@@ -1930,10 +1862,10 @@ The gas price is determined by the last few blocks median gas price.</p>
  }
 </code></pre>
 
-<h2 id="confluxwebcfxaccountwalletremove">ConfluxWeb.cfx.account.wallet.remove<a class="headerlink" href="#confluxwebcfxaccountwalletremove" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxaccountwalletremove">ConfluxWeb.cfx.account.wallet.remove<a class="headerlink" href="#confluxwebcfxaccountwalletremove" title="Permanent link">&para;</a></h3>
 <p>Removes an account from the wallet.</p>
 <p><code>function remove(address)</code></p>
-<h3 id="parameters_26">Parameters<a class="headerlink" href="#parameters_26" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_26">Parameters<a class="headerlink" href="#parameters_26" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -1954,9 +1886,9 @@ The gas price is determined by the last few blocks median gas price.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_26">Return<a class="headerlink" href="#return_26" title="Permanent link">&para;</a></h3>
+<h4 id="return_26">Return<a class="headerlink" href="#return_26" title="Permanent link">&para;</a></h4>
 <p><code>boolean</code> true if the wallet was removed. false if it couldn’t be found.</p>
-<h3 id="example_37">Example<a class="headerlink" href="#example_37" title="Permanent link">&para;</a></h3>
+<h4 id="example_37">Example<a class="headerlink" href="#example_37" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.wallet.remove('0xbbd9e9be525ab967e633bcdaeac8bd5723ed4d6b');
  true
 
@@ -1964,14 +1896,14 @@ The gas price is determined by the last few blocks median gas price.</p>
  true
 </code></pre>
 
-<h2 id="confluxwebcfxaccountwalletclear">ConfluxWeb.cfx.account.wallet.clear<a class="headerlink" href="#confluxwebcfxaccountwalletclear" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxaccountwalletclear">ConfluxWeb.cfx.account.wallet.clear<a class="headerlink" href="#confluxwebcfxaccountwalletclear" title="Permanent link">&para;</a></h3>
 <p>Securely empties the wallet and removes all its accounts.</p>
 <p><code>function clear()</code></p>
-<h3 id="parameters_27">Parameters<a class="headerlink" href="#parameters_27" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_27">Parameters<a class="headerlink" href="#parameters_27" title="Permanent link">&para;</a></h4>
 <p><code>void</code></p>
-<h3 id="return_27">Return<a class="headerlink" href="#return_27" title="Permanent link">&para;</a></h3>
+<h4 id="return_27">Return<a class="headerlink" href="#return_27" title="Permanent link">&para;</a></h4>
 <p><code>Object</code> The wallet object.</p>
-<h3 id="example_38">Example<a class="headerlink" href="#example_38" title="Permanent link">&para;</a></h3>
+<h4 id="example_38">Example<a class="headerlink" href="#example_38" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.cfx.accounts.wallet.clear();
  Wallet {
    accounts: {},
@@ -1981,8 +1913,8 @@ The gas price is determined by the last few blocks median gas price.</p>
 </code></pre>
 
 <hr />
-<h1 id="confluxwebcfxcontractmethods_1">ConfluxWeb.cfx.Contract.methods<a class="headerlink" href="#confluxwebcfxcontractmethods_1" title="Permanent link">&para;</a></h1>
-<h2 id="confluxwebcfxcontractmethodsencodeabi">ConfluxWeb.cfx.Contract.methods.encodeABI<a class="headerlink" href="#confluxwebcfxcontractmethodsencodeabi" title="Permanent link">&para;</a></h2>
+<h2 id="confluxwebcfxcontractmethods_1">ConfluxWeb.cfx.Contract.methods<a class="headerlink" href="#confluxwebcfxcontractmethods_1" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractmethodsencodeabi">ConfluxWeb.cfx.Contract.methods.encodeABI<a class="headerlink" href="#confluxwebcfxcontractmethodsencodeabi" title="Permanent link">&para;</a></h3>
 <p>Encodes the ABI for this method.
 This can be used to send a transaction, call a method,
 or pass it into another smart contracts method as arguments.</p>
@@ -1990,11 +1922,11 @@ or pass it into another smart contracts method as arguments.</p>
 <p>NOTE: contract instance create code see Contract.constructor</p>
 </blockquote>
 <p><code>function encodeABI()</code></p>
-<h3 id="parameters_28">Parameters<a class="headerlink" href="#parameters_28" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_28">Parameters<a class="headerlink" href="#parameters_28" title="Permanent link">&para;</a></h4>
 <p><code>void</code></p>
-<h3 id="return_28">Return<a class="headerlink" href="#return_28" title="Permanent link">&para;</a></h3>
+<h4 id="return_28">Return<a class="headerlink" href="#return_28" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The encoded ABI byte code to send via a transaction or call.</p>
-<h3 id="example_39">Example<a class="headerlink" href="#example_39" title="Permanent link">&para;</a></h3>
+<h4 id="example_39">Example<a class="headerlink" href="#example_39" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await contract.methods.inc(1).encodeABI();
  &quot;0x812600df0000000000000000000000000000000000000000000000000000000000000001&quot;
 
@@ -2002,17 +1934,17 @@ or pass it into another smart contracts method as arguments.</p>
  &quot;0x06661abd&quot;
 </code></pre>
 
-<h2 id="confluxwebcfxcontractmethodsestimategas">ConfluxWeb.cfx.Contract.methods.estimateGas<a class="headerlink" href="#confluxwebcfxcontractmethodsestimategas" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractmethodsestimategas">ConfluxWeb.cfx.Contract.methods.estimateGas<a class="headerlink" href="#confluxwebcfxcontractmethodsestimategas" title="Permanent link">&para;</a></h3>
 <p>Will call estimate the gas a method execution will take when executed in the EVM without sending any transaction. The estimation can differ from the actual gas used when later sending a transaction, as the state of the smart contract can be different at that time.</p>
 <blockquote>
 <p>NOTE: contract instance create code see Contract.constructor</p>
 </blockquote>
 <p><code>async function estimateGas()</code></p>
-<h3 id="parameters_29">Parameters<a class="headerlink" href="#parameters_29" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_29">Parameters<a class="headerlink" href="#parameters_29" title="Permanent link">&para;</a></h4>
 <p><code>void</code></p>
-<h3 id="return_29">Return<a class="headerlink" href="#return_29" title="Permanent link">&para;</a></h3>
+<h4 id="return_29">Return<a class="headerlink" href="#return_29" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;number&gt;</code> </p>
-<h3 id="example_40">Example<a class="headerlink" href="#example_40" title="Permanent link">&para;</a></h3>
+<h4 id="example_40">Example<a class="headerlink" href="#example_40" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await contract.methods.inc(1).estimateGas();
  26928
 
@@ -2020,18 +1952,18 @@ or pass it into another smart contracts method as arguments.</p>
  21655
 </code></pre>
 
-<h2 id="confluxwebcfxcontractmethodscall">ConfluxWeb.cfx.Contract.methods.call<a class="headerlink" href="#confluxwebcfxcontractmethodscall" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractmethodscall">ConfluxWeb.cfx.Contract.methods.call<a class="headerlink" href="#confluxwebcfxcontractmethodscall" title="Permanent link">&para;</a></h3>
 <p>Will call a “constant” method and execute its smart contract method in the EVM without sending any transaction.
 Note calling can not alter the smart contract state.</p>
 <blockquote>
 <p>NOTE: contract instance create code see Contract.constructor</p>
 </blockquote>
 <p><code>async function call()</code></p>
-<h3 id="parameters_30">Parameters<a class="headerlink" href="#parameters_30" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_30">Parameters<a class="headerlink" href="#parameters_30" title="Permanent link">&para;</a></h4>
 <p><code>void</code></p>
-<h3 id="return_30">Return<a class="headerlink" href="#return_30" title="Permanent link">&para;</a></h3>
+<h4 id="return_30">Return<a class="headerlink" href="#return_30" title="Permanent link">&para;</a></h4>
 <p><code>Promise</code> contract method return value</p>
-<h3 id="example_41">Example<a class="headerlink" href="#example_41" title="Permanent link">&para;</a></h3>
+<h4 id="example_41">Example<a class="headerlink" href="#example_41" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await contract.methods.inc(1).call();
  BigNumber { _hex: '0xff' }
 
@@ -2039,14 +1971,14 @@ Note calling can not alter the smart contract state.</p>
  BigNumber { _hex: '0xfe' }
 </code></pre>
 
-<h2 id="confluxwebcfxcontractmethodssend">ConfluxWeb.cfx.Contract.methods.send<a class="headerlink" href="#confluxwebcfxcontractmethodssend" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebcfxcontractmethodssend">ConfluxWeb.cfx.Contract.methods.send<a class="headerlink" href="#confluxwebcfxcontractmethodssend" title="Permanent link">&para;</a></h3>
 <p>Will send a transaction to the smart contract and execute its method.
 Note this can alter the smart contract state.</p>
 <blockquote>
 <p>NOTE: contract instance create code see Contract.constructor</p>
 </blockquote>
 <p><code>async function send(options)</code></p>
-<h3 id="parameters_31">Parameters<a class="headerlink" href="#parameters_31" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_31">Parameters<a class="headerlink" href="#parameters_31" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2095,9 +2027,9 @@ Note this can alter the smart contract state.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_31">Return<a class="headerlink" href="#return_31" title="Permanent link">&para;</a></h3>
+<h4 id="return_31">Return<a class="headerlink" href="#return_31" title="Permanent link">&para;</a></h4>
 <p><code>Promise.&lt;string&gt;</code> Transaction hash.</p>
-<h3 id="example_42">Example<a class="headerlink" href="#example_42" title="Permanent link">&para;</a></h3>
+<h4 id="example_42">Example<a class="headerlink" href="#example_42" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; await contract.methods.inc(1).send({
     from: '0xbbd9e9be525ab967e633bcdaeac8bd5723ed4d6b',
     gas: 100000000,
@@ -2107,11 +2039,11 @@ Note this can alter the smart contract state.</p>
 </code></pre>
 
 <hr />
-<h1 id="confluxwebutils_1">ConfluxWeb.utils<a class="headerlink" href="#confluxwebutils_1" title="Permanent link">&para;</a></h1>
-<h2 id="confluxwebutilsrandomhex">ConfluxWeb.utils.randomHex<a class="headerlink" href="#confluxwebutilsrandomhex" title="Permanent link">&para;</a></h2>
+<h2 id="confluxwebutils_1">ConfluxWeb.utils<a class="headerlink" href="#confluxwebutils_1" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilsrandomhex">ConfluxWeb.utils.randomHex<a class="headerlink" href="#confluxwebutilsrandomhex" title="Permanent link">&para;</a></h3>
 <p>The randomHex library to generate cryptographically strong pseudo-random HEX strings from a given byte size.</p>
 <p><code>function randomHex(bytesSize)</code></p>
-<h3 id="parameters_32">Parameters<a class="headerlink" href="#parameters_32" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_32">Parameters<a class="headerlink" href="#parameters_32" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2132,9 +2064,9 @@ Note this can alter the smart contract state.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_32">Return<a class="headerlink" href="#return_32" title="Permanent link">&para;</a></h3>
+<h4 id="return_32">Return<a class="headerlink" href="#return_32" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The generated random HEX string.</p>
-<h3 id="example_43">Example<a class="headerlink" href="#example_43" title="Permanent link">&para;</a></h3>
+<h4 id="example_43">Example<a class="headerlink" href="#example_43" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.randomHex(32)
  0xd3185018552117d2c4b5277307c455b4746267b27ea133abd288c0b136c3865c
 
@@ -2151,10 +2083,10 @@ Note this can alter the smart contract state.</p>
  0x
 </code></pre>
 
-<h2 id="confluxwebutilsisbn">ConfluxWeb.utils.isBN<a class="headerlink" href="#confluxwebutilsisbn" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilsisbn">ConfluxWeb.utils.isBN<a class="headerlink" href="#confluxwebutilsisbn" title="Permanent link">&para;</a></h3>
 <p>Checks if a given value is a BN.js instance.</p>
 <p><code>function isBN(bn)</code></p>
-<h3 id="parameters_33">Parameters<a class="headerlink" href="#parameters_33" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_33">Parameters<a class="headerlink" href="#parameters_33" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2175,18 +2107,18 @@ Note this can alter the smart contract state.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_33">Return<a class="headerlink" href="#return_33" title="Permanent link">&para;</a></h3>
+<h4 id="return_33">Return<a class="headerlink" href="#return_33" title="Permanent link">&para;</a></h4>
 <p><code>boolean</code> </p>
-<h3 id="example_44">Example<a class="headerlink" href="#example_44" title="Permanent link">&para;</a></h3>
+<h4 id="example_44">Example<a class="headerlink" href="#example_44" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; const bn = new BN(10)
  &gt; confluxWeb.utils.isBN(bn)
  true
 </code></pre>
 
-<h2 id="confluxwebutilssha3">ConfluxWeb.utils.sha3<a class="headerlink" href="#confluxwebutilssha3" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilssha3">ConfluxWeb.utils.sha3<a class="headerlink" href="#confluxwebutilssha3" title="Permanent link">&para;</a></h3>
 <p>Will calculate the sha3 of the input.</p>
 <p><code>function sha3(str)</code></p>
-<h3 id="parameters_34">Parameters<a class="headerlink" href="#parameters_34" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_34">Parameters<a class="headerlink" href="#parameters_34" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2207,9 +2139,9 @@ Note this can alter the smart contract state.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_34">Return<a class="headerlink" href="#return_34" title="Permanent link">&para;</a></h3>
+<h4 id="return_34">Return<a class="headerlink" href="#return_34" title="Permanent link">&para;</a></h4>
 <p><code>string</code> the result hash.</p>
-<h3 id="example_45">Example<a class="headerlink" href="#example_45" title="Permanent link">&para;</a></h3>
+<h4 id="example_45">Example<a class="headerlink" href="#example_45" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.sha3('234');
  &quot;0xc1912fee45d61c87cc5ea59dae311904cd86b84fee17cc96966216f811ce6a79&quot;
 
@@ -2217,11 +2149,11 @@ Note this can alter the smart contract state.</p>
  &quot;0xc1912fee45d61c87cc5ea59dae311904cd86b84fee17cc96966216f811ce6a79&quot;
 </code></pre>
 
-<h2 id="confluxwebutilssoliditysha3">ConfluxWeb.utils.soliditySha3<a class="headerlink" href="#confluxwebutilssoliditysha3" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilssoliditysha3">ConfluxWeb.utils.soliditySha3<a class="headerlink" href="#confluxwebutilssoliditysha3" title="Permanent link">&para;</a></h3>
 <p>Will calculate the sha3 of given input parameters in the same way solidity would.
 This means arguments will be ABI converted and tightly packed before being hashed.</p>
 <p><code>function soliditySha3(args)</code></p>
-<h3 id="parameters_35">Parameters<a class="headerlink" href="#parameters_35" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_35">Parameters<a class="headerlink" href="#parameters_35" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2242,9 +2174,9 @@ This means arguments will be ABI converted and tightly packed before being hashe
 </tr>
 </tbody>
 </table>
-<h3 id="return_35">Return<a class="headerlink" href="#return_35" title="Permanent link">&para;</a></h3>
+<h4 id="return_35">Return<a class="headerlink" href="#return_35" title="Permanent link">&para;</a></h4>
 <p><code>void</code></p>
-<h3 id="example_46">Example<a class="headerlink" href="#example_46" title="Permanent link">&para;</a></h3>
+<h4 id="example_46">Example<a class="headerlink" href="#example_46" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.soliditySha3('234564535', '0xfff23243', true, -10);
  &quot;0x3e27a893dc40ef8a7f0841d96639de2f58a132be5ae466d40087a2cfa83b7179&quot;
 
@@ -2282,10 +2214,10 @@ This means arguments will be ABI converted and tightly packed before being hashe
  &quot;0xa13b31627c1ed7aaded5aecec71baf02fe123797fffd45e662eac8e06fbe4955&quot;
 </code></pre>
 
-<h2 id="confluxwebutilsishex">ConfluxWeb.utils.isHex<a class="headerlink" href="#confluxwebutilsishex" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilsishex">ConfluxWeb.utils.isHex<a class="headerlink" href="#confluxwebutilsishex" title="Permanent link">&para;</a></h3>
 <p>Checks if a given string is a HEX string.</p>
 <p><code>function isHex(hex)</code></p>
-<h3 id="parameters_36">Parameters<a class="headerlink" href="#parameters_36" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_36">Parameters<a class="headerlink" href="#parameters_36" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2306,9 +2238,9 @@ This means arguments will be ABI converted and tightly packed before being hashe
 </tr>
 </tbody>
 </table>
-<h3 id="return_36">Return<a class="headerlink" href="#return_36" title="Permanent link">&para;</a></h3>
+<h4 id="return_36">Return<a class="headerlink" href="#return_36" title="Permanent link">&para;</a></h4>
 <p><code>boolean</code> </p>
-<h3 id="example_47">Example<a class="headerlink" href="#example_47" title="Permanent link">&para;</a></h3>
+<h4 id="example_47">Example<a class="headerlink" href="#example_47" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.isHex('0xc1912');
  true
 
@@ -2328,10 +2260,10 @@ This means arguments will be ABI converted and tightly packed before being hashe
  false
 </code></pre>
 
-<h2 id="confluxwebutilsishexstrict">ConfluxWeb.utils.isHexStrict<a class="headerlink" href="#confluxwebutilsishexstrict" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilsishexstrict">ConfluxWeb.utils.isHexStrict<a class="headerlink" href="#confluxwebutilsishexstrict" title="Permanent link">&para;</a></h3>
 <p>Checks if a given string is a HEX string. Difference to isHex() is that it expects HEX to be prefixed with 0x.</p>
 <p><code>function isHexStrict(hex)</code></p>
-<h3 id="parameters_37">Parameters<a class="headerlink" href="#parameters_37" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_37">Parameters<a class="headerlink" href="#parameters_37" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2352,9 +2284,9 @@ This means arguments will be ABI converted and tightly packed before being hashe
 </tr>
 </tbody>
 </table>
-<h3 id="return_37">Return<a class="headerlink" href="#return_37" title="Permanent link">&para;</a></h3>
+<h4 id="return_37">Return<a class="headerlink" href="#return_37" title="Permanent link">&para;</a></h4>
 <p><code>boolean</code> </p>
-<h3 id="example_48">Example<a class="headerlink" href="#example_48" title="Permanent link">&para;</a></h3>
+<h4 id="example_48">Example<a class="headerlink" href="#example_48" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.isHexStrict('0xc1912');
  true
 
@@ -2374,10 +2306,10 @@ This means arguments will be ABI converted and tightly packed before being hashe
  false
 </code></pre>
 
-<h2 id="confluxwebutilsisaddress">ConfluxWeb.utils.isAddress<a class="headerlink" href="#confluxwebutilsisaddress" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilsisaddress">ConfluxWeb.utils.isAddress<a class="headerlink" href="#confluxwebutilsisaddress" title="Permanent link">&para;</a></h3>
 <p>Checks if a given string is a valid Conflux address. It will also check the checksum, if the address has upper and lowercase letters.</p>
 <p><code>function isAddress(address)</code></p>
-<h3 id="parameters_38">Parameters<a class="headerlink" href="#parameters_38" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_38">Parameters<a class="headerlink" href="#parameters_38" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2398,9 +2330,9 @@ This means arguments will be ABI converted and tightly packed before being hashe
 </tr>
 </tbody>
 </table>
-<h3 id="return_38">Return<a class="headerlink" href="#return_38" title="Permanent link">&para;</a></h3>
+<h4 id="return_38">Return<a class="headerlink" href="#return_38" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The checksum address.</p>
-<h3 id="example_49">Example<a class="headerlink" href="#example_49" title="Permanent link">&para;</a></h3>
+<h4 id="example_49">Example<a class="headerlink" href="#example_49" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.isAddress('0xc1912fee45d61c87cc5ea59dae31190fffff232d');
  true
 
@@ -2417,10 +2349,10 @@ This means arguments will be ABI converted and tightly packed before being hashe
  false
 </code></pre>
 
-<h2 id="confluxwebutilstochecksumaddress">ConfluxWeb.utils.toChecksumAddress<a class="headerlink" href="#confluxwebutilstochecksumaddress" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilstochecksumaddress">ConfluxWeb.utils.toChecksumAddress<a class="headerlink" href="#confluxwebutilstochecksumaddress" title="Permanent link">&para;</a></h3>
 <p>Will convert an upper or lowercase Conflux address to a checksum address.</p>
 <p><code>function toChecksumAddress(address)</code></p>
-<h3 id="parameters_39">Parameters<a class="headerlink" href="#parameters_39" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_39">Parameters<a class="headerlink" href="#parameters_39" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2441,9 +2373,9 @@ This means arguments will be ABI converted and tightly packed before being hashe
 </tr>
 </tbody>
 </table>
-<h3 id="return_39">Return<a class="headerlink" href="#return_39" title="Permanent link">&para;</a></h3>
+<h4 id="return_39">Return<a class="headerlink" href="#return_39" title="Permanent link">&para;</a></h4>
 <p><code>void</code></p>
-<h3 id="example_50">Example<a class="headerlink" href="#example_50" title="Permanent link">&para;</a></h3>
+<h4 id="example_50">Example<a class="headerlink" href="#example_50" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.toChecksumAddress('0xc1912fee45d61c87cc5ea59dae31190fffff2323');
  &quot;0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d&quot;
 
@@ -2451,10 +2383,10 @@ This means arguments will be ABI converted and tightly packed before being hashe
  &quot;0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d&quot;
 </code></pre>
 
-<h2 id="confluxwebutilscheckaddresschecksum">ConfluxWeb.utils.checkAddressChecksum<a class="headerlink" href="#confluxwebutilscheckaddresschecksum" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilscheckaddresschecksum">ConfluxWeb.utils.checkAddressChecksum<a class="headerlink" href="#confluxwebutilscheckaddresschecksum" title="Permanent link">&para;</a></h3>
 <p>Checks the checksum of a given address. Will also return false on non-checksum addresses.</p>
 <p><code>function checkAddressChecksum(address)</code></p>
-<h3 id="parameters_40">Parameters<a class="headerlink" href="#parameters_40" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_40">Parameters<a class="headerlink" href="#parameters_40" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2475,18 +2407,18 @@ This means arguments will be ABI converted and tightly packed before being hashe
 </tr>
 </tbody>
 </table>
-<h3 id="return_40">Return<a class="headerlink" href="#return_40" title="Permanent link">&para;</a></h3>
+<h4 id="return_40">Return<a class="headerlink" href="#return_40" title="Permanent link">&para;</a></h4>
 <p><code>boolean</code> true when the checksum of the address is valid, false if its not a checksum address, or the checksum is invalid.</p>
-<h3 id="example_51">Example<a class="headerlink" href="#example_51" title="Permanent link">&para;</a></h3>
+<h4 id="example_51">Example<a class="headerlink" href="#example_51" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.checkAddressChecksum('0xc1912fEE45d61C87Cc5EA59DaE31190FFFFf232d');
  true
 </code></pre>
 
-<h2 id="confluxwebutilstohex">ConfluxWeb.utils.toHex<a class="headerlink" href="#confluxwebutilstohex" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilstohex">ConfluxWeb.utils.toHex<a class="headerlink" href="#confluxwebutilstohex" title="Permanent link">&para;</a></h3>
 <p>Will auto convert any given value to HEX. Number strings will interpreted as numbers.
 Text strings will be interpreted as UTF-8 strings.</p>
 <p><code>function toHex(value)</code></p>
-<h3 id="parameters_41">Parameters<a class="headerlink" href="#parameters_41" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_41">Parameters<a class="headerlink" href="#parameters_41" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2507,9 +2439,9 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_41">Return<a class="headerlink" href="#return_41" title="Permanent link">&para;</a></h3>
+<h4 id="return_41">Return<a class="headerlink" href="#return_41" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The resulting HEX string.</p>
-<h3 id="example_52">Example<a class="headerlink" href="#example_52" title="Permanent link">&para;</a></h3>
+<h4 id="example_52">Example<a class="headerlink" href="#example_52" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.toHex('234');
  &quot;0xea&quot;
 
@@ -2526,13 +2458,13 @@ Text strings will be interpreted as UTF-8 strings.</p>
  &quot;0x49206861766520313030e282ac&quot;
 </code></pre>
 
-<h2 id="confluxwebutilstobn">ConfluxWeb.utils.toBN<a class="headerlink" href="#confluxwebutilstobn" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilstobn">ConfluxWeb.utils.toBN<a class="headerlink" href="#confluxwebutilstobn" title="Permanent link">&para;</a></h3>
 <p>Will safely convert any given value (including BigNumber.js instances) into a BN.js instance, for handling big numbers in JavaScript.</p>
 <blockquote>
 <p>NOTE: For just the BN.js class use utils.BN</p>
 </blockquote>
 <p><code>function toBN(num)</code></p>
-<h3 id="parameters_42">Parameters<a class="headerlink" href="#parameters_42" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_42">Parameters<a class="headerlink" href="#parameters_42" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2553,9 +2485,9 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_42">Return<a class="headerlink" href="#return_42" title="Permanent link">&para;</a></h3>
+<h4 id="return_42">Return<a class="headerlink" href="#return_42" title="Permanent link">&para;</a></h4>
 <p><code>BN</code> The BN.js instance.</p>
-<h3 id="example_53">Example<a class="headerlink" href="#example_53" title="Permanent link">&para;</a></h3>
+<h4 id="example_53">Example<a class="headerlink" href="#example_53" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.toBN(1234).toString();
  &quot;1234&quot;
 
@@ -2566,13 +2498,13 @@ Text strings will be interpreted as UTF-8 strings.</p>
  &quot;234&quot;
 </code></pre>
 
-<h2 id="confluxwebutilshextonumber">ConfluxWeb.utils.hexToNumber<a class="headerlink" href="#confluxwebutilshextonumber" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilshextonumber">ConfluxWeb.utils.hexToNumber<a class="headerlink" href="#confluxwebutilshextonumber" title="Permanent link">&para;</a></h3>
 <p>Returns the number representation of a given HEX value.</p>
 <blockquote>
 <p>NOTE: This is not useful for big numbers, rather use utils.toBN instead.</p>
 </blockquote>
 <p><code>function hexToNumber(hex)</code></p>
-<h3 id="parameters_43">Parameters<a class="headerlink" href="#parameters_43" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_43">Parameters<a class="headerlink" href="#parameters_43" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2593,17 +2525,17 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_43">Return<a class="headerlink" href="#return_43" title="Permanent link">&para;</a></h3>
+<h4 id="return_43">Return<a class="headerlink" href="#return_43" title="Permanent link">&para;</a></h4>
 <p><code>number</code> </p>
-<h3 id="example_54">Example<a class="headerlink" href="#example_54" title="Permanent link">&para;</a></h3>
+<h4 id="example_54">Example<a class="headerlink" href="#example_54" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.hexToNumber('0xea');
  234
 </code></pre>
 
-<h2 id="confluxwebutilshextonumberstring">ConfluxWeb.utils.hexToNumberString<a class="headerlink" href="#confluxwebutilshextonumberstring" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilshextonumberstring">ConfluxWeb.utils.hexToNumberString<a class="headerlink" href="#confluxwebutilshextonumberstring" title="Permanent link">&para;</a></h3>
 <p>Returns the number representation of a given HEX value as a string.</p>
 <p><code>function hexToNumberString(hex)</code></p>
-<h3 id="parameters_44">Parameters<a class="headerlink" href="#parameters_44" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_44">Parameters<a class="headerlink" href="#parameters_44" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2624,17 +2556,17 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_44">Return<a class="headerlink" href="#return_44" title="Permanent link">&para;</a></h3>
+<h4 id="return_44">Return<a class="headerlink" href="#return_44" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The number as a string</p>
-<h3 id="example_55">Example<a class="headerlink" href="#example_55" title="Permanent link">&para;</a></h3>
+<h4 id="example_55">Example<a class="headerlink" href="#example_55" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.hexToNumberString('0xea');
  &quot;234&quot;
 </code></pre>
 
-<h2 id="confluxwebutilsnumbertohex">ConfluxWeb.utils.numberToHex<a class="headerlink" href="#confluxwebutilsnumbertohex" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilsnumbertohex">ConfluxWeb.utils.numberToHex<a class="headerlink" href="#confluxwebutilsnumbertohex" title="Permanent link">&para;</a></h3>
 <p>Returns the HEX representation of a given number value.</p>
 <p><code>function numberToHex(num)</code></p>
-<h3 id="parameters_45">Parameters<a class="headerlink" href="#parameters_45" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_45">Parameters<a class="headerlink" href="#parameters_45" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2655,17 +2587,17 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_45">Return<a class="headerlink" href="#return_45" title="Permanent link">&para;</a></h3>
+<h4 id="return_45">Return<a class="headerlink" href="#return_45" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The HEX value of the given number.</p>
-<h3 id="example_56">Example<a class="headerlink" href="#example_56" title="Permanent link">&para;</a></h3>
+<h4 id="example_56">Example<a class="headerlink" href="#example_56" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.numberToHex('234');
  '0xea'
 </code></pre>
 
-<h2 id="confluxwebutilshextoutf8">ConfluxWeb.utils.hexToUtf8<a class="headerlink" href="#confluxwebutilshextoutf8" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilshextoutf8">ConfluxWeb.utils.hexToUtf8<a class="headerlink" href="#confluxwebutilshextoutf8" title="Permanent link">&para;</a></h3>
 <p>Returns the UTF-8 string representation of a given HEX value.</p>
 <p><code>function hexToUtf8(hex)</code></p>
-<h3 id="parameters_46">Parameters<a class="headerlink" href="#parameters_46" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_46">Parameters<a class="headerlink" href="#parameters_46" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2686,17 +2618,17 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_46">Return<a class="headerlink" href="#return_46" title="Permanent link">&para;</a></h3>
+<h4 id="return_46">Return<a class="headerlink" href="#return_46" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The UTF-8 string.</p>
-<h3 id="example_57">Example<a class="headerlink" href="#example_57" title="Permanent link">&para;</a></h3>
+<h4 id="example_57">Example<a class="headerlink" href="#example_57" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.hexToUtf8('0x49206861766520313030e282ac');
  &quot;I have 100€&quot;
 </code></pre>
 
-<h2 id="confluxwebutilshextoascii">ConfluxWeb.utils.hexToAscii<a class="headerlink" href="#confluxwebutilshextoascii" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilshextoascii">ConfluxWeb.utils.hexToAscii<a class="headerlink" href="#confluxwebutilshextoascii" title="Permanent link">&para;</a></h3>
 <p>Returns the ASCII string representation of a given HEX value.</p>
 <p><code>function hexToAscii(hex)</code></p>
-<h3 id="parameters_47">Parameters<a class="headerlink" href="#parameters_47" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_47">Parameters<a class="headerlink" href="#parameters_47" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2717,17 +2649,17 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_47">Return<a class="headerlink" href="#return_47" title="Permanent link">&para;</a></h3>
+<h4 id="return_47">Return<a class="headerlink" href="#return_47" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The ASCII string.</p>
-<h3 id="example_58">Example<a class="headerlink" href="#example_58" title="Permanent link">&para;</a></h3>
+<h4 id="example_58">Example<a class="headerlink" href="#example_58" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.hexToAscii('0x4920686176652031303021');
  &quot;I have 100!&quot;
 </code></pre>
 
-<h2 id="confluxwebutilsutf8tohex">ConfluxWeb.utils.utf8ToHex<a class="headerlink" href="#confluxwebutilsutf8tohex" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilsutf8tohex">ConfluxWeb.utils.utf8ToHex<a class="headerlink" href="#confluxwebutilsutf8tohex" title="Permanent link">&para;</a></h3>
 <p>Returns the HEX representation of a given UTF-8 string.</p>
 <p><code>function utf8ToHex(str)</code></p>
-<h3 id="parameters_48">Parameters<a class="headerlink" href="#parameters_48" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_48">Parameters<a class="headerlink" href="#parameters_48" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2748,20 +2680,20 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_48">Return<a class="headerlink" href="#return_48" title="Permanent link">&para;</a></h3>
+<h4 id="return_48">Return<a class="headerlink" href="#return_48" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The HEX string</p>
-<h3 id="example_59">Example<a class="headerlink" href="#example_59" title="Permanent link">&para;</a></h3>
+<h4 id="example_59">Example<a class="headerlink" href="#example_59" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.utf8ToHex('I have 100€');
  &quot;0x49206861766520313030e282ac&quot;
 </code></pre>
 
-<h2 id="confluxwebutilsasciitohex">ConfluxWeb.utils.asciiToHex<a class="headerlink" href="#confluxwebutilsasciitohex" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilsasciitohex">ConfluxWeb.utils.asciiToHex<a class="headerlink" href="#confluxwebutilsasciitohex" title="Permanent link">&para;</a></h3>
 <p>Returns the HEX representation of a given ASCII string.</p>
 <blockquote>
 <p>NOTE: it behaves differently from 1.2.1</p>
 </blockquote>
 <p><code>function asciiToHex(str)</code></p>
-<h3 id="parameters_49">Parameters<a class="headerlink" href="#parameters_49" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_49">Parameters<a class="headerlink" href="#parameters_49" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2782,20 +2714,20 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_49">Return<a class="headerlink" href="#return_49" title="Permanent link">&para;</a></h3>
+<h4 id="return_49">Return<a class="headerlink" href="#return_49" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The HEX string</p>
-<h3 id="example_60">Example<a class="headerlink" href="#example_60" title="Permanent link">&para;</a></h3>
+<h4 id="example_60">Example<a class="headerlink" href="#example_60" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.asciiToHex('I have 100!');
  &quot;0x4920686176652031303021&quot;
 </code></pre>
 
-<h2 id="confluxwebutilshextobytes">ConfluxWeb.utils.hexToBytes<a class="headerlink" href="#confluxwebutilshextobytes" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilshextobytes">ConfluxWeb.utils.hexToBytes<a class="headerlink" href="#confluxwebutilshextobytes" title="Permanent link">&para;</a></h3>
 <p>Returns a byte array from the given HEX string.</p>
 <blockquote>
 <p>NOTE: it behaves differently from 1.2.1</p>
 </blockquote>
 <p><code>function hexToBytes(hex)</code></p>
-<h3 id="parameters_50">Parameters<a class="headerlink" href="#parameters_50" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_50">Parameters<a class="headerlink" href="#parameters_50" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2816,9 +2748,9 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_50">Return<a class="headerlink" href="#return_50" title="Permanent link">&para;</a></h3>
+<h4 id="return_50">Return<a class="headerlink" href="#return_50" title="Permanent link">&para;</a></h4>
 <p><code>array</code> The byte array.</p>
-<h3 id="example_61">Example<a class="headerlink" href="#example_61" title="Permanent link">&para;</a></h3>
+<h4 id="example_61">Example<a class="headerlink" href="#example_61" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.hexToBytes('0x000000ea');
  [ 0, 0, 0, 234 ]
 
@@ -2826,10 +2758,10 @@ Text strings will be interpreted as UTF-8 strings.</p>
  [ 234 ]
 </code></pre>
 
-<h2 id="confluxwebutilsbytestohex">ConfluxWeb.utils.bytesToHex<a class="headerlink" href="#confluxwebutilsbytestohex" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilsbytestohex">ConfluxWeb.utils.bytesToHex<a class="headerlink" href="#confluxwebutilsbytestohex" title="Permanent link">&para;</a></h3>
 <p>Returns a HEX string from a byte array.</p>
 <p><code>function bytesToHex(byteArray)</code></p>
-<h3 id="parameters_51">Parameters<a class="headerlink" href="#parameters_51" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_51">Parameters<a class="headerlink" href="#parameters_51" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2850,21 +2782,21 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_51">Return<a class="headerlink" href="#return_51" title="Permanent link">&para;</a></h3>
+<h4 id="return_51">Return<a class="headerlink" href="#return_51" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The HEX string</p>
-<h3 id="example_62">Example<a class="headerlink" href="#example_62" title="Permanent link">&para;</a></h3>
+<h4 id="example_62">Example<a class="headerlink" href="#example_62" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.bytesToHex([ 72, 101, 108, 108, 111, 33, 36 ]);
  &quot;0x48656c6c6f2124&quot;
 </code></pre>
 
-<h2 id="confluxwebutilstodrip">ConfluxWeb.utils.toDrip<a class="headerlink" href="#confluxwebutilstodrip" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilstodrip">ConfluxWeb.utils.toDrip<a class="headerlink" href="#confluxwebutilstodrip" title="Permanent link">&para;</a></h3>
 <p>Converts any cfx value value into drip.</p>
 <blockquote>
 <p>NOTE: "drip" are the smallest conflux unit, and you should always make calculations in drip and convert only for display reasons.</p>
 <p>NOTE: can not pass a Number, only string or BN are acceptable</p>
 </blockquote>
 <p><code>function toDrip(str,unit)</code></p>
-<h3 id="parameters_52">Parameters<a class="headerlink" href="#parameters_52" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_52">Parameters<a class="headerlink" href="#parameters_52" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2892,9 +2824,9 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_52">Return<a class="headerlink" href="#return_52" title="Permanent link">&para;</a></h3>
+<h4 id="return_52">Return<a class="headerlink" href="#return_52" title="Permanent link">&para;</a></h4>
 <p><code>string|BN</code> If a number, or string is given it returns a number string, otherwise a BN.js instance.</p>
-<h3 id="example_63">Example<a class="headerlink" href="#example_63" title="Permanent link">&para;</a></h3>
+<h4 id="example_63">Example<a class="headerlink" href="#example_63" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.toDrip('1');
  &quot;1000000000000000000&quot;
 
@@ -2908,14 +2840,14 @@ Text strings will be interpreted as UTF-8 strings.</p>
  &quot;1&quot;
 </code></pre>
 
-<h2 id="confluxwebutilsfromdrip">ConfluxWeb.utils.fromDrip<a class="headerlink" href="#confluxwebutilsfromdrip" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilsfromdrip">ConfluxWeb.utils.fromDrip<a class="headerlink" href="#confluxwebutilsfromdrip" title="Permanent link">&para;</a></h3>
 <p>Converts any drip value into a cfx value.</p>
 <blockquote>
 <p>NOTE: "drip" are the smallest conflux unit, and you should always make calculations in drip and convert only for display reasons.</p>
 <p>NOTE: can not pass a Number, only string or BN are acceptable</p>
 </blockquote>
 <p><code>function fromDrip(str,unit)</code></p>
-<h3 id="parameters_53">Parameters<a class="headerlink" href="#parameters_53" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_53">Parameters<a class="headerlink" href="#parameters_53" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2943,9 +2875,9 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_53">Return<a class="headerlink" href="#return_53" title="Permanent link">&para;</a></h3>
+<h4 id="return_53">Return<a class="headerlink" href="#return_53" title="Permanent link">&para;</a></h4>
 <p><code>string|BN</code> If a number, or string is given it returns a number string, otherwise a BN.js instance.</p>
-<h3 id="example_64">Example<a class="headerlink" href="#example_64" title="Permanent link">&para;</a></h3>
+<h4 id="example_64">Example<a class="headerlink" href="#example_64" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.fromDrip('1');
  &quot;0.000000000000000001&quot;
 
@@ -2959,10 +2891,10 @@ Text strings will be interpreted as UTF-8 strings.</p>
  &quot;1&quot;
 </code></pre>
 
-<h2 id="confluxwebutilspadleft">ConfluxWeb.utils.padLeft<a class="headerlink" href="#confluxwebutilspadleft" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilspadleft">ConfluxWeb.utils.padLeft<a class="headerlink" href="#confluxwebutilspadleft" title="Permanent link">&para;</a></h3>
 <p>Adds a padding on the left of a string, Useful for adding paddings to HEX strings.</p>
 <p><code>function padLeft(value,characterAmount,sign)</code></p>
-<h3 id="parameters_54">Parameters<a class="headerlink" href="#parameters_54" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_54">Parameters<a class="headerlink" href="#parameters_54" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -2997,9 +2929,9 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_54">Return<a class="headerlink" href="#return_54" title="Permanent link">&para;</a></h3>
+<h4 id="return_54">Return<a class="headerlink" href="#return_54" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The padded string.</p>
-<h3 id="example_65">Example<a class="headerlink" href="#example_65" title="Permanent link">&para;</a></h3>
+<h4 id="example_65">Example<a class="headerlink" href="#example_65" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.padLeft('0x3456ff', 20);
  &quot;0x000000000000003456ff&quot;
 
@@ -3010,10 +2942,10 @@ Text strings will be interpreted as UTF-8 strings.</p>
  &quot;xxxxxxxxxxxxxxxHello&quot;
 </code></pre>
 
-<h2 id="confluxwebutilspadright">ConfluxWeb.utils.padRight<a class="headerlink" href="#confluxwebutilspadright" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilspadright">ConfluxWeb.utils.padRight<a class="headerlink" href="#confluxwebutilspadright" title="Permanent link">&para;</a></h3>
 <p>Adds a padding on the right of a string, Useful for adding paddings to HEX strings.</p>
 <p><code>function padRight(value,characterAmount,sign)</code></p>
-<h3 id="parameters_55">Parameters<a class="headerlink" href="#parameters_55" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_55">Parameters<a class="headerlink" href="#parameters_55" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -3048,9 +2980,9 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_55">Return<a class="headerlink" href="#return_55" title="Permanent link">&para;</a></h3>
+<h4 id="return_55">Return<a class="headerlink" href="#return_55" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The padded string.</p>
-<h3 id="example_66">Example<a class="headerlink" href="#example_66" title="Permanent link">&para;</a></h3>
+<h4 id="example_66">Example<a class="headerlink" href="#example_66" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.padRight('0x3456ff', 20);
  &quot;0x3456ff00000000000000&quot;
 
@@ -3061,10 +2993,10 @@ Text strings will be interpreted as UTF-8 strings.</p>
  &quot;Helloxxxxxxxxxxxxxxx&quot;
 </code></pre>
 
-<h2 id="confluxwebutilstotwoscomplement">ConfluxWeb.utils.toTwosComplement<a class="headerlink" href="#confluxwebutilstotwoscomplement" title="Permanent link">&para;</a></h2>
+<h3 id="confluxwebutilstotwoscomplement">ConfluxWeb.utils.toTwosComplement<a class="headerlink" href="#confluxwebutilstotwoscomplement" title="Permanent link">&para;</a></h3>
 <p>Converts a negative numer into a two’s complement.</p>
 <p><code>function toTwosComplement(value)</code></p>
-<h3 id="parameters_56">Parameters<a class="headerlink" href="#parameters_56" title="Permanent link">&para;</a></h3>
+<h4 id="parameters_56">Parameters<a class="headerlink" href="#parameters_56" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -3085,9 +3017,9 @@ Text strings will be interpreted as UTF-8 strings.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="return_56">Return<a class="headerlink" href="#return_56" title="Permanent link">&para;</a></h3>
+<h4 id="return_56">Return<a class="headerlink" href="#return_56" title="Permanent link">&para;</a></h4>
 <p><code>string</code> The converted hex string.</p>
-<h3 id="example_67">Example<a class="headerlink" href="#example_67" title="Permanent link">&para;</a></h3>
+<h4 id="example_67">Example<a class="headerlink" href="#example_67" title="Permanent link">&para;</a></h4>
 <pre><code class="js"> &gt; confluxWeb.utils.toTwosComplement('-1');
  &quot;0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff&quot;
 
