@@ -87,7 +87,10 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#confluxweb">ConfluxWeb</a></li>
+        <li class="main active"><a href="#getting-started-with-confluxweb">Getting Started with ConfluxWeb</a></li>
+        <li class="main "><a href="#confluxweb-by-example">ConfluxWeb by Example</a></li>
+            <li><a href="#hash-time-locked-contract-htlc">Hash Time Locked Contract (HTLC)</a></li>
+        <li class="main "><a href="#confluxweb-api-reference">ConfluxWeb API Reference</a></li>
             <li><a href="#confluxwebproviders">ConfluxWeb.providers</a></li>
             <li><a href="#confluxwebmodules">ConfluxWeb.modules</a></li>
             <li><a href="#confluxwebutils">ConfluxWeb.utils</a></li>
@@ -120,7 +123,7 @@
             <li><a href="#confluxwebcfxcall">ConfluxWeb.cfx.call</a></li>
             <li><a href="#confluxwebcfxestimategas">ConfluxWeb.cfx.estimateGas</a></li>
             <li><a href="#confluxwebcfxgettransactionreceipt">ConfluxWeb.cfx.getTransactionReceipt</a></li>
-            <li><a href="#confluxwebcfxgaspastlogs">ConfluxWeb.cfx.gasPastLogs</a></li>
+            <li><a href="#confluxwebcfxgetpastlogs">ConfluxWeb.cfx.getPastLogs</a></li>
         <li class="main "><a href="#confluxwebcfxaccount">ConfluxWeb.cfx.account</a></li>
             <li><a href="#confluxwebcfxaccountcreate">ConfluxWeb.cfx.account.create</a></li>
             <li><a href="#confluxwebcfxaccountprivatekeytoaccount">ConfluxWeb.cfx.account.privateKeyToAccount</a></li>
@@ -169,10 +172,7 @@
                 <div class="col-md-9" role="main">
 
 <hr />
-<h1 id="confluxweb">ConfluxWeb<a class="headerlink" href="#confluxweb" title="Permanent link">&para;</a></h1>
-<ul>
-<li>Getting Started</li>
-</ul>
+<h1 id="getting-started-with-confluxweb">Getting Started with ConfluxWeb<a class="headerlink" href="#getting-started-with-confluxweb" title="Permanent link">&para;</a></h1>
 <p>The conflux-web library is a collection of modules which contain specific functionality for the conflux ecosystem.</p>
 <blockquote>
 <p>The <code>conflux-web-cfx</code> is for the conflux blockchain and smart contracts.</p>
@@ -209,6 +209,11 @@ confluxWeb.cfx.getEpochNumber().then(console.log);
 </code></pre>
 
 <p>ConfluxWeb depends on the BN.js library for big numbers, See the <a href="https://github.com/indutny/bn.js/">BN.js</a> documentation for details.</p>
+<h1 id="confluxweb-by-example">ConfluxWeb by Example<a class="headerlink" href="#confluxweb-by-example" title="Permanent link">&para;</a></h1>
+<h2 id="hash-time-locked-contract-htlc">Hash Time Locked Contract (HTLC)<a class="headerlink" href="#hash-time-locked-contract-htlc" title="Permanent link">&para;</a></h2>
+<p><a href="../javascript-example/">Here</a> we brought you a ConfluxWeb example. 
+You can learn how to develop a Hash Time Locked Contract(HTLC) with ConfluxWeb API.</p>
+<h1 id="confluxweb-api-reference">ConfluxWeb API Reference<a class="headerlink" href="#confluxweb-api-reference" title="Permanent link">&para;</a></h1>
 <h2 id="confluxwebproviders">ConfluxWeb.providers<a class="headerlink" href="#confluxwebproviders" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>Class attribute</p>
@@ -573,7 +578,7 @@ This allows calling functions with same name but different parameters from the J
 </tbody>
 </table>
 <h3 id="return_2">Return<a class="headerlink" href="#return_2" title="Permanent link">&para;</a></h3>
-<p><code>string</code> Transaction hash.</p>
+<p><code>Object</code> </p>
 <h3 id="example_10">Example<a class="headerlink" href="#example_10" title="Permanent link">&para;</a></h3>
 <pre><code class="js"> &gt; await contract.deploy({arguments: [254]}).send({
     from: '0xbbd9e9be525ab967e633bcdaeac8bd5723ed4d6b',
@@ -845,7 +850,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 <p><code>number|null</code> epochNumber: The current block epoch number in the client's view. <code>null</code> when it's not in best block's past set.</p>
 </li>
 <li>
-<p><code>boolean</code> stable: Ff the block stable or not</p>
+<p><code>boolean</code> stable: If the block stable or not</p>
 </li>
 <li>
 <p><code>string</code> nonce: Hash of the generated proof-of-work. <code>null</code> when its pending block.</p>
@@ -1018,7 +1023,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 <p><code>string</code> hash: Hash of the transaction.</p>
 </li>
 <li>
-<p><code>nonce</code> number: The number of transactions made by the sender prior to this one.</p>
+<p><code>number</code> nonce: The number of transactions made by the sender prior to this one.</p>
 </li>
 <li>
 <p><code>string</code> from: Address of the sender.</p>
@@ -1197,7 +1202,7 @@ The gas price is determined by the last few blocks median gas price.</p>
 <td>number|string|BN|BigNumber</td>
 <td>false</td>
 <td></td>
-<td>The value transferred for the transaction in wei, also the endowment if it’s a contract-creation transaction.</td>
+<td>The value transferred for the transaction in drip, also the endowment if it’s a contract-creation transaction.</td>
 </tr>
 <tr>
 <td>rawTx.gas</td>
@@ -1442,9 +1447,9 @@ The gas price is determined by the last few blocks median gas price.</p>
  }
 </code></pre>
 
-<h2 id="confluxwebcfxgaspastlogs">ConfluxWeb.cfx.gasPastLogs<a class="headerlink" href="#confluxwebcfxgaspastlogs" title="Permanent link">&para;</a></h2>
+<h2 id="confluxwebcfxgetpastlogs">ConfluxWeb.cfx.getPastLogs<a class="headerlink" href="#confluxwebcfxgetpastlogs" title="Permanent link">&para;</a></h2>
 <p>Gets past logs, matching the given options.</p>
-<p><code>async function gasPastLogs(options)</code></p>
+<p><code>async function getPastLogs(options)</code></p>
 <h3 id="parameters_17">Parameters<a class="headerlink" href="#parameters_17" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
