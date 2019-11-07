@@ -1,216 +1,389 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Cli - Conflux Documentation</title>
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>CLI Sub-commands - Conflux Documentation</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "CLI Sub-commands";
+    var mkdocs_page_input_path = "cli.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
 
-    <body>
+<body class="wy-body-for-nav" role="document">
 
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
+  <div class="wy-grid-for-nav">
 
-                <!-- Collapsed navigation -->
-                <div class="navbar-header">
-                    <!-- Expander button -->
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="..">Conflux Documentation</a>
-                </div>
-
-                <!-- Expanded navigation -->
-                <div class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li >
-                                <a href="..">Welcome to Conflux</a>
-                            </li>
-                            <li >
-                                <a href="../install/">Installation</a>
-                            </li>
-                            <li >
-                                <a href="../get_started/">Getting Started</a>
-                            </li>
-                            <li >
-                                <a href="../json-rpc/">JSON-RPC API</a>
-                            </li>
-                            <li >
-                                <a href="../javascript-api/">JavaScript API</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#get-key-management-toolkit">Get Key Management Toolkit</a></li>
-        <li class="main "><a href="#create-key-pair-using-keymgr">Create Key Pair Using KeyMgr</a></li>
-        <li class="main "><a href="#generate-sign-and-submit-token-transferring-transaction">Generate, Sign, and Submit Token Transferring Transaction</a></li>
-    </ul>
-</div></div>
-                <div class="col-md-9" role="main">
-
-<p>In this document, we go through the process of using command-line interface toolkit 
-to create and manage your key-pair, create and sign your transaction, and submit your
-transaction to Conflux. </p>
-<h2 id="get-key-management-toolkit">Get Key Management Toolkit<a class="headerlink" href="#get-key-management-toolkit" title="Permanent link">&para;</a></h2>
-<p>You can download the key management toolkit of Conflux (<strong>keymgr</strong>) from <a href="">here</a>.
-Or you can directly build <strong>keymgr</strong> from Conflux source code with the following steps.</p>
-<pre><code class="markdown">$ git clone ssh://git@base.conflux-chain.org:2222/source/conflux-rust.git
-$ cd conflux-rust/key_manager/cli
-$ cargo build
-</code></pre>
-
-<p>The binary of <strong>keymgr</strong> is then under the folder <code><span style="color:black">conflux-rust/key_manager/cli/target/</code>.</p>
-<h2 id="create-key-pair-using-keymgr">Create Key Pair Using KeyMgr<a class="headerlink" href="#create-key-pair-using-keymgr" title="Permanent link">&para;</a></h2>
-<p>You can use <strong>keymgr</strong> to create your own secret/public key-pair.</p>
-<pre><code class="markdown">$ keymgr generate random
-</code></pre>
-
-<p>A sample output is:</p>
-<pre><code class="markdown">secret:  074842cdfa28a02fd23f244126618bcb49588a5530e7135dcd8c86aa3fbf0103
-public:  7827b388197a9b4c4c97aafff400b1d168439b0b6b2428dad9a8f8ec461789155a9318c7d0d38a2e696e41c99faa0e7f7ab55bc21814b6e7809936f1d51ee5b0
-address: 71e177b579a4b1ad24382f4b559f479ca0099572
-</code></pre>
-
-<p><strong><em>address</em></strong> is the 160-bit account Id derived from the public key. You can keep privately your secret key at anywhere that only you know. </p>
-<h2 id="generate-sign-and-submit-token-transferring-transaction">Generate, Sign, and Submit Token Transferring Transaction<a class="headerlink" href="#generate-sign-and-submit-token-transferring-transaction" title="Permanent link">&para;</a></h2>
-<p>Conflux provides Javascript library <strong>CfxWeb</strong> to help user generate transactions in programmable way. The following is a sample code snippet.</p>
-<pre><code class="Javascript">#!/usr/bin/env node
-
-var Tx = require('ethereumjs-tx');
-var secretKey = Buffer.from('e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109', 'hex')
-var rawTx = {
- nonce: '0x00',
- gasPrice: '0x09184e72a000',
- gasLimit: '0x2710',
- to: '0x0000000000000000000000000000000000000000',
- value: '0x00',
- data: '0x7f7465737432000000000000000000000000000000000000000000000000000000600057'
-}
-var tx = new Tx(rawTx);
-tx.sign(secretKey);
-console.log('0x' + serializedTx.toString('hex'));
-
-var Web3 = require('web3');
-var web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider('http://localhost:12345'));
-let answer = web3.cfx.sendRawTransaction('0x' + serializedTx.toString('hex'));
-console.log(answer);
-
-</code></pre>
-
-<p>To run the above code, you need to first install Node.js and CfxWeb.js. </p></div>
-        </div>
-
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "..",
-                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
-        </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form role="form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Conflux Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
 </div>
+      </div>
 
-    </body>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Welcome to Conflux</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../install/">Installation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../get_started/">Getting Started</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../json-rpc/">JSON-RPC API</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../javascript-api/">JavaScript API</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">CLI Sub-commands</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#conflux-cli-sub-commands">Conflux CLI Sub-commands</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#manage-accounts">Manage Accounts</a></li>
+        
+            <li><a class="toctree-l3" href="#public-apis">Public APIs</a></li>
+        
+            <li><a class="toctree-l3" href="#private-apis">Private APIs</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Conflux Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>CLI Sub-commands</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="conflux-cli-sub-commands">Conflux CLI Sub-commands<a class="headerlink" href="#conflux-cli-sub-commands" title="Permanent link">&para;</a></h1>
+<p>Conflux CLI sub-commands is a collection of command line interfaces which allows you to interact with a local or remote Conflux node.</p>
+<h2 id="manage-accounts">Manage Accounts<a class="headerlink" href="#manage-accounts" title="Permanent link">&para;</a></h2>
+<p><code>account</code> sub-command allows you to manage accounts at local machine.</p>
+<h3 id="new">new<a class="headerlink" href="#new" title="Permanent link">&para;</a></h3>
+<p>Create a new account at local machine.</p>
+<h4 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h4>
+<pre><code class="text">$ ./conflux.exe account new --help
+conflux.exe-account-new
+Create a new account (and its associated key) for the given --chain (default conflux).
+
+USAGE:
+    conflux.exe account new [OPTIONS]
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --keys-iterations &lt;NUM&gt;    Specify the number of iterations to use when deriving key from the password (bigger is more secure). [default: 10240]
+        --password &lt;FILE&gt;          Provide a file containing a password for unlocking an account. Leading and trailing whitespace is trimmed.
+</code></pre>
+
+<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
+<p><code>./conflux.exe account new</code></p>
+<h3 id="list">list<a class="headerlink" href="#list" title="Permanent link">&para;</a></h3>
+<p>List all accounts at local machine.</p>
+<h4 id="usage_1">Usage<a class="headerlink" href="#usage_1" title="Permanent link">&para;</a></h4>
+<pre><code class="text">$ ./conflux.exe account list --help
+conflux.exe-account-list
+List existing accounts of the given --chain (default conflux).
+
+USAGE:
+    conflux.exe account list
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+</code></pre>
+
+<h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
+<p><code>./conflux.exe account list</code></p>
+<h3 id="import">import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h3>
+<p>Import accounts from JSON UTC keystore files.</p>
+<h4 id="usage_2">Usage<a class="headerlink" href="#usage_2" title="Permanent link">&para;</a></h4>
+<pre><code class="text">$ ./conflux.exe account import --help
+conflux.exe-account-import
+Import accounts from JSON UTC keystore files to the specified --chain (default conflux)
+
+USAGE:
+    conflux.exe account import --import-path &lt;PATH&gt;...
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --import-path &lt;PATH&gt;...    A list of file paths to import.
+</code></pre>
+
+<h4 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
+<p><code>./conflux.exe account import --import-path ./keystores</code></p>
+<h2 id="public-apis">Public APIs<a class="headerlink" href="#public-apis" title="Permanent link">&para;</a></h2>
+<p>Public API allows you to interact with a local or remote Conflux node via HTTP connection in JSON-RPC protocol. All public APIs are under <code>rpc</code> sub-command, and access to the JSON-RPC API at local machine with default <code>url</code> option.</p>
+<pre><code class="text">OPTIONS:
+        --url &lt;url&gt;    URL of RPC server [default: http://localhost:12539]
+</code></pre>
+
+<p>To access JSON-RPC API of remote Conflux node, please specify the  correct <code>--url</code> option (e.g. http://10.1.5.6:12537). By default, JSON-RPC is enabled only for local access for security consideration. You can manually enable remote access by configuring <code>jsonrpc_http_port</code> in <strong><em>default.toml</em></strong> file.</p>
+<pre><code class="toml"># jsonrpc_tcp_port=12536
+jsonrpc_http_port=12537
+# jsonrpc_local_tcp_port=12538
+jsonrpc_local_http_port=12539
+</code></pre>
+
+<p>All available commands are as following:</p>
+<pre><code class="text">$ ./conflux.exe rpc --help
+conflux.exe-rpc
+RPC based subcommands to query blockchain information and send transactions
+
+USAGE:
+    conflux.exe rpc [OPTIONS] &lt;SUBCOMMAND&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --url &lt;url&gt;    URL of RPC server [default: http://localhost:12539]
+
+SUBCOMMANDS:
+    balance                  Get balance of specified account
+    best-block-hash          Get the best block hash
+    block-by-epoch           Get block by epoch
+    block-by-hash            Get block by hash
+    block-with-assumption    Get block by hash with pivot chain assumption
+    blocks                   Get blocks of specified epoch
+    call                     Executes a new message call immediately without creating a transaction
+    code                     Get bytecode of specified contract
+    debug                    Debug subcommands (requires jsonrpc_local_http_port configured)
+    epoch                    Get epoch number
+    estimate-gas             Executes a call request immediately without creating a transaction and returns the gas used
+    help                     Prints this message or the help of the given subcommand(s)
+    nonce                    Get nonce of specified account
+    price                    Get recent mean gas price
+    receipt                  Get receipt by transaction hash
+    send                     Send a signed transaction and return its hash
+    tx                       Get transaction by hash
+</code></pre>
+
+<h3 id="get-balance">Get balance<a class="headerlink" href="#get-balance" title="Permanent link">&para;</a></h3>
+<p><code>./conflux.exe rpc balance --address 0xa70ddf9b9750c575db453eea6a041f4c8536785a</code></p>
+<h3 id="get-nonce">Get nonce<a class="headerlink" href="#get-nonce" title="Permanent link">&para;</a></h3>
+<p><code>./conflux.exe rpc none --address 0xa70ddf9b9750c575db453eea6a041f4c8536785a</code></p>
+<h3 id="get-current-epoch-number">Get current epoch number<a class="headerlink" href="#get-current-epoch-number" title="Permanent link">&para;</a></h3>
+<p><code>./conflux.exe rpc epoch</code></p>
+<h3 id="get-blocks">Get block(s)<a class="headerlink" href="#get-blocks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Get Best block hash: <code>./conflux.exe rpc best-block-hash</code></li>
+<li>Get block by epoch: <code>./conflux.exe rpc block-by-epoch --epoch latest_state</code></li>
+<li>Get block by hash: <code>./conflux.exe rpc block-by-epoch --hash 0xf756b4...c0a6d1</code></li>
+<li>Get blocks in epoch: <code>./conflux.exe rpc blocks --epoch latest_state</code></li>
+</ul>
+<h3 id="get-transaction">Get transaction<a class="headerlink" href="#get-transaction" title="Permanent link">&para;</a></h3>
+<p><code>./conflux.exe rpc tx --hash 0x718532fe76dbd8c4208c6c5a79588db35c0bf97e7d8a0faa5988ba66ad88b74c</code></p>
+<h3 id="get-receipt">Get receipt<a class="headerlink" href="#get-receipt" title="Permanent link">&para;</a></h3>
+<p><code>./conflux.exe rpc receipt --hash 0x718532fe76dbd8c4208c6c5a79588db35c0bf97e7d8a0faa5988ba66ad88b74c</code></p>
+<h3 id="send-signed-transaction">Send signed transaction<a class="headerlink" href="#send-signed-transaction" title="Permanent link">&para;</a></h3>
+<p>Send a signed transaction which encoded in HEX format. Generally, this API is used for Java-Script API to send encoded transaction. To send a transaction with CLI, suggest to use private API <a href="#send-transaction">send transaction</a>.</p>
+<p><code>./conflux.exe rpc send --raw-bytes 0x...</code></p>
+<h3 id="misc">Misc<a class="headerlink" href="#misc" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Get contract code: <code>./conflux.exe rpc code --address 0xa70ddf9b9750c575db453eea6a041f4c8536785a</code></li>
+<li>Get recent mean gas price: <code>./conflux.exe rpc price</code></li>
+</ul>
+<h2 id="private-apis">Private APIs<a class="headerlink" href="#private-apis" title="Permanent link">&para;</a></h2>
+<p>Private API allows you to interact with local Conflux node <strong>only</strong> via HTTP connection in JSON-RPC protocol. Private APIs are provided for user to manage the local Conflux node, and requires the <code>jsonrpc_local_http_port</code> configured in <strong><em>default.toml</em></strong> configuration file.</p>
+<p>In addition, private APIs also helps developers to debug, test, and monitor the runtime of Conflux node.</p>
+<p>All private APIs are under <code>debug</code> sub-command, and access to the JSON-RPC API at local machine with default <code>url</code> option.</p>
+<pre><code class="text">$ ./conflux.exe rpc debug --help
+conflux.exe-rpc-debug
+Debug subcommands (requires jsonrpc_local_http_port configured)
+
+USAGE:
+    conflux.exe rpc debug [OPTIONS] &lt;SUBCOMMAND&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --url &lt;url&gt;    URL of RPC server [default: http://localhost:12539]
+
+SUBCOMMANDS:
+    consensus-graph-state    Get the consensus graph state
+    help                     Prints this message or the help of the given subcommand(s)
+    net                      Network subcommands
+    send                     Send a transaction and return its hash
+    sync-phase               Get the current synchronization phase
+    test                     Test subcommands (used for test purpose only)
+    txpool                   Transaction pool subcommands
+</code></pre>
+
+<h3 id="net">net<a class="headerlink" href="#net" title="Permanent link">&para;</a></h3>
+<p><code>net</code> sub-command helps you to inspect the P2P network status.</p>
+<h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
+<ul>
+<li>List all connected P2P nodes: <code>./conflux.exe rpc debug net session</code></li>
+<li>List a single P2P node: <code>./conflux.exe rpc debug net session --id &lt;node_id&gt;</code></li>
+<li>Check network egress: <code>./conflux.exe rpc debug net throttling</code></li>
+</ul>
+<h3 id="txpool">txpool<a class="headerlink" href="#txpool" title="Permanent link">&para;</a></h3>
+<p><code>txpool</code> sub-command helps you to inspect the transaction pool.</p>
+<h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>List transaction pool status: <code>./conflux.exe rpc debug txpool status</code></li>
+<li>List transactions in details: <code>./conflux.exe rpc debug txpool content</code></li>
+<li>List summary of transactions: <code>./conflux.exe rpc debug txpool inspect</code></li>
+<li>Inspect a transaction in detail: <code>./conflux.exe rpc debug txpool inspect-one --hash &lt;tx_hash&gt;</code></li>
+</ul>
+<h3 id="sync-phase">sync-phase<a class="headerlink" href="#sync-phase" title="Permanent link">&para;</a></h3>
+<p>Get the synchronization phase of local conflux node.</p>
+<p><code>./conflux.exe rpc debug sync-phase</code></p>
+<h3 id="send-transaction">Send transaction<a class="headerlink" href="#send-transaction" title="Permanent link">&para;</a></h3>
+<p>Send a transaction to local Conflux node.</p>
+<h4 id="usage_3">Usage<a class="headerlink" href="#usage_3" title="Permanent link">&para;</a></h4>
+<pre><code class="text">$ ./conflux.exe rpc debug send --help
+conflux.exe-rpc-debug-send
+Send a transaction and return its hash
+
+USAGE:
+    conflux.exe rpc debug send [OPTIONS] --from &lt;ADDRESS&gt; --password &lt;STRING&gt; --value &lt;HEX&gt;
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+
+OPTIONS:
+        --data &lt;HEX&gt;           Hash of the method signature and encoded parameters
+        --from &lt;ADDRESS&gt;       Transaction from address
+        --gas &lt;HEX&gt;            Gas provided for transaction execution [default: 0x5208]
+        --gas-price &lt;HEX&gt;      Transaction gas price [default: 0x2540BE400]
+        --nonce &lt;HEX&gt;          Transaction nonce
+        --password &lt;STRING&gt;    Used to decrypt private key of sender to sign transaction
+        --to &lt;ADDRESS&gt;         Transaction to address (empty to create contract)
+        --url &lt;url&gt;            URL of RPC server [default: http://localhost:12537]
+        --value &lt;HEX&gt;          value sent with this transaction
+</code></pre>
+
+<h4 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h4>
+<p>Alice transfer 5 Drip (1 CFX = 10^18 Drip) to Bob. Note, the address of Alice must exist at local machine, otherwise please <a href="#new">create</a> account for alice at first.</p>
+<p><code>./conflux.exe rpc debug send --from &lt;alice_address&gt; --to &lt;bob_address&gt; --value 0x5 --password 123456</code></p>
+<p>Alice create a contract with gas 3,000,000. You can use <strong><em>solc</em></strong> to compile contract to get the bytecodes.</p>
+<p><code>./conflux.exe rpc debug send --from &lt;alice_address&gt; --value 0x0 --gas 0x‭2DC6C0‬ --data &lt;HEX_contract_bytecodes&gt; --password 123456</code></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../javascript-api/" class="btn btn-neutral" title="JavaScript API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright © 2019 Conflux. All Rights Reserved.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../javascript-api/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
 </html>
