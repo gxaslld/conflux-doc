@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>The Conflux Consensus Layer Design and Implementation - Conflux Documentation</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "The Conflux Consensus Layer Design and Implementation";
+    var mkdocs_page_input_path = "consensus.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Conflux Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Welcome to Conflux</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../install/">Installation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../get_started/">Getting Started</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../json-rpc/">JSON-RPC API</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../javascript-api/">JavaScript API</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../cli/">CLI Sub-commands</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../design/">Design & Implementation</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Conflux Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>The Conflux Consensus Layer Design and Implementation</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="the-conflux-consensus-layer-design-and-implementation">The Conflux Consensus Layer Design and Implementation<a class="headerlink" href="#the-conflux-consensus-layer-design-and-implementation" title="Permanent link">&para;</a></h1>
+<p>The Conflux consensus layer processes all incoming blocks received from the
+synchronization layer, produces the total order of blocks based on the Conflux
+GHAST consensus algorithm, and invokes the underlying <strong>transaction execution
+engine</strong> to run transactions in the determined order. It provides necessary
+information to assist <strong>block generator</strong> to prepare the block skeleton of new
+blocks. It also notifies the <strong>transaction pool</strong> about processed transactions
+so that the pool can make better transaction selection decisions. </p>
+<p>This document is to provide a high-level overview for readers who want to
+understand the rust implementation of the Conflux consensus layer (in directory
+core/src/consensus). For more implementation details, see inlined comments in
+the code. For more information about the Conflux consensus algorithm, see XXX. </p>
+<h2 id="design-goals">Design Goals<a class="headerlink" href="#design-goals" title="Permanent link">&para;</a></h2>
+<p>The consensus layer has the following design goals. </p>
+<ol>
+<li>
+<p>Process new blocks in the background following the consensus algorithm
+consistently.</p>
+</li>
+<li>
+<p>We want to minimize the memory usage of each block in the consensus graph.
+Even with the checkpoint mechanism, the graph will contain 300K-500K blocks in
+normal case and more than 1M blocks when facing liveness attacks. This may
+stress the memory.</p>
+</li>
+<li>
+<p>We want to process each block fast. Because full/archive nodes have to
+process every block from the <em>original genesis</em> when they catch up with the
+network from scratch, fast block process is important to keep the catch up
+period short.</p>
+</li>
+<li>
+<p>Robust against potential attacks. Malicious attackers may generate bad
+blocks at arbitrary position in the tree graph.</p>
+</li>
+</ol>
+<h2 id="structures-and-components">Structures and Components<a class="headerlink" href="#structures-and-components" title="Permanent link">&para;</a></h2>
+<h3 id="consensusgraph">ConsensusGraph<a class="headerlink" href="#consensusgraph" title="Permanent link">&para;</a></h3>
+<p><code>ConsensusGraph</code> (core/src/consensus/mod.rs) is the main struct of the
+consensus layer. The synchronization layer construct <code>ConsensusGraph</code> with a
+<code>BlockDataManager</code> which stores all block metadata information in disk.
+<code>ConsensusGraph::on_new_block()</code> is the key function to send new blocks to the
+<code>ConsensusGraph</code> struct to process. It also provides a set of public functions
+to query the status of blocks/transactions. This should be the main interface
+which other components interact.</p>
+<h3 id="consensusgraphinner">ConsensusGraphInner<a class="headerlink" href="#consensusgraphinner" title="Permanent link">&para;</a></h3>
+<p><code>ConsensusGraphInner</code> (core/src/consensus/consensus_inner/mod.rs) is the inner
+structure of <code>ConsensusGraph</code>. <code>ConsensusGraph::on_new_block()</code> acquires the
+write lock of the inner struct at the start of the function. For the rest of
+query functions, they only acquire read lock. </p>
+<p>The internal structure of <code>ConsensusGraphInner</code> is fairly complicated.
+Generally speaking, it maintains two kinds of information. The first kind of
+information is the state of the whole tree graph, i.e., the current <em>pivot
+chain</em>, <em>timer chain</em>, <em>difficulty</em>, etc.. The second kind of information is
+the state of each block (i.e., <code>ConsensusGraphNode</code> struct for each block).
+Each block corresponds to a <code>ConsensusGraphNode</code> struct for its information.
+When it first enters <code>ConsensusGraphInner</code>, it will be inserted into
+<code>ConsensusGraphInner::arena : Slab&lt;ConsensusGraphNode&gt;</code>. The index in the
+slab will become the arena index of the block in <code>ConsensusGraphInner</code>. We use
+the arena index to represent a block internally instead of <code>H256</code> because it is
+much cheaper. We will refer back to the fields in <code>ConsensusGraphInner</code> and
+<code>ConsensusGraphNode</code> when we talk about algorithm mechanism and their
+implementations.</p>
+<h3 id="consensusnewblockhandler">ConsensusNewBlockHandler<a class="headerlink" href="#consensusnewblockhandler" title="Permanent link">&para;</a></h3>
+<p><code>ConsensusNewBlockHandler</code>
+(core/src/consensus/consensus_inner/consensus_new_block_handler.rs) contains a
+set of routines for processing a new block. In theory, this code could be part
+of <code>ConsensusGraphInner</code> because it mostly manipulates the inner struct.
+However, these routines are all subroutine of the <code>on_new_block()</code> and the
+consensus_inner/mod.rs is already very complicated. We therefore decide to put
+them into a separate file.</p>
+<h3 id="consensusexecutor">ConsensusExecutor<a class="headerlink" href="#consensusexecutor" title="Permanent link">&para;</a></h3>
+<p><code>ConsensusExecutor</code> (core/src/consensus/consensus_inner/consensus_executor.rs)
+is the interface struct for the standalone transaction execution thread.
+<code>ConsensusExecutor::enqueue_epoch()</code> allow other struct to send an execution
+task to execute the epoch of a given pivot chain block asynchronously. Once the
+computation finishes, the result stateroot will be stored into
+<code>BlockDataManager</code>. Other threads can call
+<code>ConsensusExecutor::wait_for_result()</code> to wait for the execution of an epoch if
+desired. In the current implementation, <code>ConsensusExecutor</code> also contains the
+routines for the calculation for block rewards, including
+<code>get_reward_execution_info()</code> and its subroutines.</p>
+<h3 id="confirmationmeter">ConfirmationMeter<a class="headerlink" href="#confirmationmeter" title="Permanent link">&para;</a></h3>
+<p><code>ConfirmationMeter</code> (core/src/consensus/consensus_inner/confirmation_meter.rs)
+conservatively calculates the confirmation risk of each pivot chain block. Its
+result will be useful for the storage layer to determine when it is <em>safe</em> to
+discard old snapshots. It also can be used to serve RPC queries about block
+confirmation if we decide to provide such RPC.</p>
+<h3 id="anticonecache-and-pastsetcache">AnticoneCache and PastsetCache<a class="headerlink" href="#anticonecache-and-pastsetcache" title="Permanent link">&para;</a></h3>
+<p><code>AnticoneCache</code> (core/src/consensus/anticone_cache.rs) and <code>PastsetCache</code>
+(core/src/consensus/pastset_cache.rs) are two structs that implement customized
+cache for data structures in <code>ConsensusGraphInner</code>. In the implementation of
+the inner struct, we need to calculate and store the anticone set and the past
+set of each block. However, it is not possible to store all of these sets in
+memory. We therefore implement cache style data structures to store sets for
+recently inserted/accessed blocks. If a anticone/past set is not found in the
+cache, we will recalculate the set in the current inner struct implementation. </p>
+<h2 id="important-algorithmic-mechanisms">Important Algorithmic Mechanisms<a class="headerlink" href="#important-algorithmic-mechanisms" title="Permanent link">&para;</a></h2>
+<p>There are several important algorithmic mechanisms in the Conflux Consensus
+Layer. Here we will talk about them from the implementation aspect. See XXX for
+the algorithmic reasoning behind them.</p>
+<h3 id="pivot-chain-and-total-order">Pivot Chain and Total Order<a class="headerlink" href="#pivot-chain-and-total-order" title="Permanent link">&para;</a></h3>
+<p>The basic idea of the Conflux consensus algorithm is to first make everyone
+agree on a pivot chain. It then expands the total order from the pivot chain to
+cover all blocks with a topological sort. As long as the pivot chain does not
+change/reorg, the total order of blocks will stay the same, so does the derived
+order of transactions. </p>
+<p>Comparing with Bitcoin/Ethereum, the consensus in Conflux has two key
+differences: </p>
+<ol>
+<li>
+<p><em>almost every block</em> will go into the total order, not just the agreed pivot
+chain.</p>
+</li>
+<li>
+<p>The transaction validity and the block validity are <em>independent</em>. A
+transaction is invalid if it was included before or it cannot carry out due to
+insufficient balance. Such invalid transaction will become noop during the
+execution. However, <em>unlike Bitcoin and Ethereum blocks containing such
+transactions will not become invalid</em>.</p>
+</li>
+</ol>
+<p>In <code>ConsensusGraphInner</code>, the arena index of the current pivot chain blocks are
+stored in order in the <code>pivot_chain[]</code> vector. To maintain it, we calculate the
+least common ancestor (LCA) between the new inserted block and the current best
+block following the GHAST rule. If the fork corresponding to the new inserted
+block for the LCA ended up to be heavier. We will update the <code>pivot_chain[]</code> from
+the forked point.</p>
+<h3 id="timer-chain">Timer Chain<a class="headerlink" href="#timer-chain" title="Permanent link">&para;</a></h3>
+<p>Blocks whose PoW quality is <code>timer_chain_difficulty_ratio</code> times higher than the supposed
+difficulty are <em>timer blocks</em>. The <code>is_timer</code> field of the block will be set to
+True. The consensus algorithm then finds the longest timer block chain (more
+accurately, with heaviest accumulated difficulties) similar to the Bitcoin
+consensus algorithm of finding the longest chain. The arena index of this
+longest timer chain will be stored into <code>timer_chain[]</code>. </p>
+<p>The rationale of the timer chain is to provide a coarse grained measurement of
+the time that cannot be influenced by malicious attacker. Because timer blocks
+are rare and generated slowly (if <code>timer_chain_difficulty_ratio</code> is properly
+high), malicious attacker cannot prevent the growth of the timer chain unless
+it has the majority of the computation power. Therefore how many timer chain
+blocks appear in the past set of a block is a good indication about the latest
+possible generation time of the block. We compute this value for each block and
+store it in <code>timer_chain_height</code> field of the block.</p>
+<h3 id="weight-maintenance-with-link-cut-tree">Weight Maintenance with Link-Cut Tree<a class="headerlink" href="#weight-maintenance-with-link-cut-tree" title="Permanent link">&para;</a></h3>
+<p>To effectively maintain the pivot chain, we need to query the total weight of a
+subtree. Conflux uses a Link-Cut Tree data structure to maintain the subtree
+weights in O(log n). Link-Cut Tree can also calculates the LCA of any two nodes
+in the TreeGraph in O(log n). The <code>weight_tree</code> field in <code>ConsensusGraphInner</code>
+is the link-cut tree that stores the subtree weight of every node. Note that
+the implementation of the Link-Cut Tree is in the utils/link-cut-tree
+directory.</p>
+<h3 id="adaptive-weight">Adaptive Weight<a class="headerlink" href="#adaptive-weight" title="Permanent link">&para;</a></h3>
+<p>If the TreeGraph is under a liveness attack, it may fail to converge under one
+block for a while. To handle this situation, the GHAST algorithm idea is to
+start generate adaptive blocks, i.e., blocks whose weights are redistributed
+significantly so that there will be many zero weight blocks with a rare set of
+very heavy blocks. Specifically, if the PoW quality of an adaptive block is
+<code>adaptive_heavy_block_ratio</code> higher than the supposed difficulty, the block
+will have the weight of <code>adaptive_heavy_block_ratio</code>. Otherwise, the block will
+have the weight of zero. This effectively slows down the confirmation
+temporarily but will ensure the consensus progress.</p>
+<p>Because adaptive weight is a mechanism to defend against rare liveness attacks,
+it should not be turned on during the normal scenario. A new block is adaptive
+only if 1) one of its ancestor block is still not the dominant subtree
+comparing to its siblings and 2) a significantly long period of time has past
+between the generation of the ancestor block and the new block (i.e., the
+difference of <code>timer_chain_height</code>). <code>ConsensusGraphInner::adaptive_weight()</code>
+and its subroutines implement the algorithm to determine whether a block is
+adaptive or not. Note that the implementation uses another link-cut-tree
+<code>adaptive_tree</code> as a helper. Please see the inlined comments for the
+implementation details. </p>
+<h3 id="partial-invalid">Partial Invalid<a class="headerlink" href="#partial-invalid" title="Permanent link">&para;</a></h3>
+<p>Note that the past set of a new block denotes all the blocks that the generator
+of the new block observes at the generation time. Therefore, from the past set
+of a new block, other full nodes could determine whether it chooses the correct
+parent block and whether it should be adaptive or not. </p>
+<p>The Conflux consensus algorithm defines those blocks who choose incorrect
+parents or fill in incorrect adaptive status as partial invalid blocks. For a
+partial invalid block, the <code>partial_invalid</code> field will be set to True. The
+algorithm requires the partial invalid blocks being treated differently from
+the normal blocks in three ways:</p>
+<ol>
+<li>
+<p>All honest nodes will not reference directly or indirectly partial invalid
+blocks until a significant period of time. This time period is measured with
+the <code>timer_chain_height</code> and the difference has to be more than
+<code>timer_chain_beta</code>. Yes, it means that if another otherwise perfectly fine
+block referencing the partial invalid block, both of these two blocks will not
+be referenced for a while.</p>
+</li>
+<li>
+<p>Partial invalid blocks will have no block reward. They are extremely
+unlikely to get any reward anyway because of their large anticone set due to
+the first rule.</p>
+</li>
+<li>
+<p>Partial invalid blocks are excluded from the timer chain consideration.</p>
+</li>
+</ol>
+<p>To implement the first rule, the <code>on_new_block()</code> routine in
+<code>ConsensusNewBlockHandler</code> is separated into two subroutine
+<code>preactivate_block()</code> and <code>activate_block()</code>. <code>preactivate_block()</code> compute and
+determine whether a block is partial invalid or not, while <code>activate_block()</code>
+fully integrate a block into the consensus graph inner data structures. For
+every new block, the field <code>active_cnt</code> tracks how many inactive blocks it
+references. A block is inactive if it references directly or indirectly a
+partial invalid block. <code>activate_block()</code> will be called on a block only when
+<code>active_cnt</code> of the block becomes zero. The field <code>activated</code> denotes whether a
+block is active or not. For partially invalid blocks, their activation will be
+delayed till the current timer chain height of the ledger is <code>timer_chain_beta</code>
+higher than the invalid block. New generated blocks will not reference any
+inactive blocks, i.e., these inactive blocks are treated as if they are not in
+the TreeGraph.</p>
+<h3 id="anticone-past-view-and-ledger-view">Anticone, Past View, and Ledger View<a class="headerlink" href="#anticone-past-view-and-ledger-view" title="Permanent link">&para;</a></h3>
+<p>In order to check the partial invalid status of each block, we need to operate
+under the <em>past view</em> of the block to determine its correct parent and its
+adaptivity. This is different from the current state of the TreeGraph or we
+call it the <em>ledger view</em>, i.e., all blocks in the anticone and the future set
+of the block are excluded. Because we process blocks in topological order, the
+future set of a new block is empty. We therefore need to eliminate all anticone
+blocks only.</p>
+<p><code>compute_and_update_anticone()</code> in <code>ConsensusNewBlockHandler</code> computes the
+anticone set of a new block. Note that because the anticone set may be very
+large, we have two implementation level optimizations. First, we represent the
+anticone set as a set of barrier nodes in the TreeGraph, i.e., a set of
+subtrees where each block in the subtrees is in the anticone set. Second, we
+will only maintain the anticone set of the recently accessed/inserted blocks
+only. When checking whether a block is valid in its past view or not (e.g., in
+<code>adaptive_weight()</code> and in <code>check_correct_parent()</code>), we first cut all barrier
+subtrees from the link-cut weight trees accordingly to get the state of the
+past view. After the computation, we restore these anticone subtrees back.</p>
+<h3 id="check-correct-parent">Check Correct Parent<a class="headerlink" href="#check-correct-parent" title="Permanent link">&para;</a></h3>
+<p>To check whether a new block chooses a correct parent block or not, we first
+compute the set of blocks inside the epoch of the new block as if the new block
+is on the pivot chain. We store this set to the field
+<code>blockset_in_own_view_of_epoch</code>. We then iterate over every candidate block in
+this set to make sure that the chosen parent block is better than it.
+Specifically, we find out the two fork blocks of the candidate block and the
+parent block from their LCA and make sure that the fork of the parent is
+heavier. This logic is implemented in <code>check_correct_parent()</code> in
+<code>ConsensusNewBlockHandler</code>.</p>
+<p>Note that <code>blockset_in_own_view_of_epoch</code> may become too large to hold
+consistently in memory as well. Especially if a malicious attacker tries to
+generate invalid blocks to blow up this set. The current implementation will
+only periodically clear the set and only keep the sets for pivot chain blocks.
+Note that for pivot chain blocks, this set will also be used during the
+transaction execution.</p>
+<h3 id="fallback-brute-force-methods">Fallback Brute Force Methods<a class="headerlink" href="#fallback-brute-force-methods" title="Permanent link">&para;</a></h3>
+<p>There are situations where the anticone barrier set is too large if a malicious
+attacker tries to launch a performance attack on Conflux. This will make the
+default strategy worse than O(n) because there is a factor of O(log n) for each
+block in the barrier set when we do the link-cut tree chopping. To this end, we
+implemented a brute force routine <code>compute_subtree_weights()</code> to compute the
+subtree weights of each block in a past view for O(n). We also implement
+<code>check_correct_parent_brutal()</code> and <code>adaptive_weight_impl_brutal()</code> to use the
+brute-forcely computed subtree weight to do the checking instead. </p>
+<h3 id="force-confirmation">Force Confirmation<a class="headerlink" href="#force-confirmation" title="Permanent link">&para;</a></h3>
+<p>The Conflux consensus algorithm will <em>force confirm</em> a block if 1) there are
+<code>timer_chain_beta</code> consecutive timer chain blocks under the subtree of the
+block and 2) afterward there are at least <code>timer_chain_beta</code> timer chain blocks
+following (not required in the subtree though). Force confirmation means that
+new blocks should follow this block as their ancestor no matter what, ignoring
+subtree weights. Though extremely unlikely a force confirmed block will have
+lesser weights than its siblings.</p>
+<p>The force confirmation mechanism is to enable checkpoint, which we will
+describe later. It is based on the rationale that:</p>
+<ol>
+<li>
+<p>Reverting a <code>timer_chain_beta</code> length timer chain is impossible.</p>
+</li>
+<li>
+<p>Therefore force confirmed block will always move along the pivot chain, not
+drifting between its siblings.</p>
+</li>
+</ol>
+<p>We compute the accumulative LCA of the last <code>timer_chain_beta</code> timer chain
+blocks and store it at the <code>timer_chain_accumulative_lca[]</code> field. This vector
+is <code>timer_chain_beta</code> shorter than <code>timer_chain[]</code> because the force confirm
+needs at least <code>timer_chain_beta</code> timer chain block trailing, so their LCAs do
+not matter. <code>check_correct_parent()</code> and <code>adaptive_weight()</code> and their
+subroutines also respect this force confirm point during their checking.
+Specifically, any fork before the force confirm height is ignored.</p>
+<p>Note that this force confirm rule is also defined based on <em>past view</em> of each
+block. With the computed anticone information, <code>compute_timer_chain_tuple()</code> in
+<code>ConsensusGraphInner</code> computes the timer chain related information of each
+block under its past view. The results of this function is the difference of
+the <code>timer_chain[]</code>, <code>timer_chain_accumulative_lca[]</code>, and <code>timer_chain_height</code>
+between the ledger view and the past view. We can use the diff and the current
+ledger view values to get the past view values.</p>
+<h3 id="era">Era<a class="headerlink" href="#era" title="Permanent link">&para;</a></h3>
+<p>In order to implement checkpoint, the Conflux consensus algorithm split the
+graph in eras. Every era contains <code>era_epoch_count</code> epochs. For example, if the
+<code>era_epoch_count</code> is 50000, then there is a new era every 50000 epochs. The
+pivot chain block at the height 50000 will be the genesis of a new era.
+At the era boundary, there are several differences from the normal case.</p>
+<ol>
+<li>
+<p>A block will enter the total order for execution only if 1) it is under the
+subtree of the previous era and 2) it is inside the past set of the next era in
+the pivot chain.</p>
+</li>
+<li>
+<p>Anticone penalty calculation for the block reward does not go over the era
+boundary.</p>
+</li>
+</ol>
+<h3 id="checkpoint">Checkpoint<a class="headerlink" href="#checkpoint" title="Permanent link">&para;</a></h3>
+<p>Inside <code>ConsensusGraphInner</code>, there are two key height pointers, the current
+checkpoint era genesis block height (<code>cur_era_genesis_height</code>) and the current
+stable era block height (<code>cur_era_stable_height</code>). These two height pointers
+will always point to some era genesis (being a multiple of <code>era_epoch_count</code>).
+Initially, both of these two pointers will point to the true genesis (height
+0).</p>
+<p>A new era genesis block become stable (i.e., <code>cur_era_stable_height</code> moves) if
+the block is <em>force confirmed</em> in the current TreeGraph. A new era genesis
+block become a new checkpoint (i.e., <code>cur_era_genesis_height</code> moves) if:</p>
+<ol>
+<li>
+<p>The block is <em>force confirmed in the past view of the stable genesis block</em>. </p>
+</li>
+<li>
+<p>In the anticone of this block, there is no timer chain block.</p>
+</li>
+</ol>
+<p><code>should_move_stable_height()</code> and <code>should_form_checkpoint_at()</code> in
+<code>ConsensusNewBlockHandler</code> are invoked after every new inserted block to test
+the above two conditions. Generally speaking, the stable block will never be
+reverted off the pivot chain. Any block in the past set of the checkpoint block
+is no longer required for the future computation of the consensus layer.
+Therefore, after a new checkpoint is formed, <code>make_checkpoint_at()</code> in
+<code>ConsensusNewBlockHandler</code> is called to clean up those blocks that are not in
+the future set of the new checkpoint.</p>
+<p>Note that the checkpoint mechanism also changes how we handle a new block. For
+a new block:</p>
+<ol>
+<li>
+<p>If the new block is outside the subtree of the current checkpoint. We only
+need to insert a stub into our data structure (because two blocks under the
+subtree may indirectly reference each other via this block). We do not need to
+care about this block because it is not going to change the timer chain and it
+is not going to be executed.</p>
+</li>
+<li>
+<p>If the past set of the new block does not contain the stable era block, we
+do not need to check the partial invalid status of this block. This is because
+this block will not change the timer chain (note our assumption that timer
+chain will not reorg more than <code>timer_chain_beta</code>) and new blocks can reference
+this block directly (more than <code>tiemr_chain_beta</code> difference).</p>
+</li>
+</ol>
+<h3 id="deferred-execution">Deferred Execution<a class="headerlink" href="#deferred-execution" title="Permanent link">&para;</a></h3>
+<p>Because the TreeGraph pivot chain may oscillate temporarily, we defer the
+transaction execution for <code>DEFERRED_STATE_EPOCH_COUNT</code> epochs (default 5).
+After a pivot chain update, <code>activate_block()</code> routine will enqueue the
+execution task of the new pivot chain except the last five epochs. It calls
+<code>enqueue_epoch()</code> in <code>ConsensusExecutor</code> to enqueue each task.</p>
+<h3 id="block-reward-calculation">Block Reward Calculation<a class="headerlink" href="#block-reward-calculation" title="Permanent link">&para;</a></h3>
+<p>Because there is no explicit coinbase transaction in Conflux, all block rewards
+are computed implicitly during the transaction execution. In Conflux, the block
+reward is by the base reward and the penalty ratio based on the total weight of
+its anticone blocks dividing its own difficulty. This anticone set only
+considers blocks appearing within the next <code>REWARD_EPOCH_COUNT</code> epochs.
+Specially, if there is a new era then this anticone set will not count across
+the era boundary as well. <code>get_pivot_reward_index()</code> in <code>ConsensusExecutor</code>
+counts this reward anticone threshold.
+<code>get_reward_execution_info_from_index()</code> in <code>ConsensusExecutor</code> and its
+subroutines compute this anticone set given the threshold point in the pivot
+chain.</p>
+<h3 id="blame-mechanism">Blame Mechanism<a class="headerlink" href="#blame-mechanism" title="Permanent link">&para;</a></h3>
+<p>It is not feasible to validate the filled state root of a block because we
+would need to execute all transactions in a different order in the past view of
+that block. Instead, we will only ask the full nodes to validate the state root
+results on the current pivot chain. It then fills a blame number to indicate
+how many levels ancestors from the parent who do not have correct state root.
+When this number is greater than zero, the filled deferred state root because a
+Merkel H256 vector that contains the corrected state roots of the ancestors
+along with the correct one. <code>get_blame_and_deferred_state_for_generation()</code> in
+<code>ConsensusGraph</code> computes the blame information for the block generation.
+<code>first_trusted_header_starting_from()</code> is <code>ConsensusGraph</code> is a useful helper
+function to compute the first trust worthy header that based the subtree blame
+information.</p>
+<h2 id="multi-thread-design">Multi-Thread Design<a class="headerlink" href="#multi-thread-design" title="Permanent link">&para;</a></h2>
+<p>The consensus layer has one thread dedicated to process new blocks from the
+synchronization layer and one thread dedicated to execute transaction. It of
+course also has a set of interface APIs that RPC threads and synchronization
+threads may call.</p>
+<h3 id="consensus-worker">Consensus Worker<a class="headerlink" href="#consensus-worker" title="Permanent link">&para;</a></h3>
+<p><code>Consensus Worker</code> is a thread created by the synchronization layer. During
+the normal running phase, every new block will be sent to a channel connecting
+the synchronization thread and the consensus worker thread. The consensus work
+thread consumes each block one by one and invokes <code>consensus::on_new_block()</code>
+to process it. Note that the synchronization layer ensures the new block to be
+<em>header-ready</em> when it is delivered to <code>Consensus Worker</code>, i.e., all of its
+ancestor/past blocks are already delivered to the consensus before it is
+delivered. This enables the consensus layer to always deal with a complete
+direct acyclic graph without holes.</p>
+<p>One advantage of having a single thread to be dedicated on the consensus
+protocol is that it simplifies the protocol implementation a lot. Because the
+detail of the consensus protocol is complicated and the implementation involves
+many sophisticated data structure manipulations, the single thread design makes
+sure that we do not need to worry about deadlocks or races. Upon the entrance
+of <code>consensus::on_new_block()</code>, the thread acquires the write lock of the inner
+of the consensus struct (i.e., ConsensusGraphInner). During the normal phase,
+this thread should be the only one modifying the inner struct of the consensus
+layer.</p>
+<h3 id="consensus-execution-worker">Consensus Execution Worker<a class="headerlink" href="#consensus-execution-worker" title="Permanent link">&para;</a></h3>
+<p><code>Consensus Execution Worker</code> is a thread created at the start of the consensus
+layer. It is dedicated to transaction execution. There is a channel connecting
+<code>Consensus Worker</code> with <code>Consensus Execution Worker</code>. Once the consensus
+protocol determines the order of the pivot chain, it will send <code>ExecutionTask</code>
+for each epoch in the pivot chain to the channel. These tasks will be pick up
+by the <code>Consensus Execution Worker</code> thread one by one. The thread loads the
+previous state before the executed epoch from the storage layer as the input,
+runs all transactions in the executed epoch (see
+<code>ConsensusExecutor::process_epoch_transactions()</code>), and produces the result
+state as the output.</p>
+<p>The rationale of separating the transaction execution from the consensus
+protocol implementation is for performance. With our <em>blaming mechanism</em>, the
+execution result state is completely separated from the consensus protocol
+implementation. The <em>deferred execution mechanism</em> gives us extra room to
+pipeline the consensus protocol and the transaction execution. It is therefore
+not wise to block the <code>ConsensusWorker</code> thread to wait for the execution
+results from coming back.</p>
+<h2 id="key-assumptions-invariants-and-rules">Key Assumptions, Invariants, and Rules<a class="headerlink" href="#key-assumptions-invariants-and-rules" title="Permanent link">&para;</a></h2>
+<p>If you want to write code to interact with the Conflux consensus layer. It is
+very important to understand the following assumptions and rules.</p>
+<ol>
+<li>
+<p>The consensus layer assumes that the passed <code>BlockDataManager</code> is in a
+consistent state. It means that the <code>BlockDataManager</code> contains correct current
+checkpoint/stable height. Blocks before the checkpoint and the stable height
+are properly checked during previous execution and they are persisted into the
+<code>BlockDataManager</code> properly. The consensus layer <strong>does not check</strong> the results
+it fetches from the block data manager. If it is inconsistent, the consensus
+layer will execute incorrectly or crash!</p>
+</li>
+<li>
+<p>Besides the subroutines of <code>on_new_block()</code>, <strong>no one should hold the write
+lock of the inner struct</strong>! Right now the only exception for this rule is
+<code>assemble_new_block_impl()</code> because of computing the adaptive field and this is
+not good we plan to change it. Acquiring the write lock of the inner struct
+will very likely to cause deadlock given the complexity of the Consensus layer
+and its dependency with many other components. Always try to avoid this!</p>
+</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright © 2019 Conflux. All Rights Reserved.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

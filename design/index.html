@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Overview - Conflux Documentation</title>
+  <title>Design & Implementation - Conflux Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Overview";
-    var mkdocs_page_input_path = "overview.md";
+    var mkdocs_page_name = "Design & Implementation";
+    var mkdocs_page_input_path = "design.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -78,9 +78,15 @@
     <a class="" href="../cli/">CLI Sub-commands</a>
 	    </li>
           
-            <li class="toctree-l1">
+            <li class="toctree-l1 current">
 		
-    <a class="" href="../design/">Design & Implementation</a>
+    <a class="current" href="./">Design & Implementation</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#conflux-design-document">Conflux Design Document</a></li>
+    
+
+    </ul>
 	    </li>
           
         </ul>
@@ -105,7 +111,7 @@
     
       
     
-    <li>Overview</li>
+    <li>Design & Implementation</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -115,11 +121,44 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
+                <h1 id="conflux-design-document">Conflux Design Document<a class="headerlink" href="#conflux-design-document" title="Permanent link">&para;</a></h1>
+<p>In this document, we describe the architecture and organization of Conflux software stack and its design rationale.
+The following figure shows the overview of the Conflux full node stack.
+<img alt="Full Stack" src="../img/full-stack.png" />
+It consists of several key components.</p>
+<ul>
+<li>Peer-to-Peer Layer</li>
+<li>Synchronization Graph</li>
+<li>Consensus Graph</li>
+<li>Storage Layer</li>
+<li>Transaction Pool</li>
+<li>Block Generator</li>
+</ul>
+<p>Generally speaking, the peer-to-peer layer takes charge of disseminating blocks and transactions among the nodes in the entire network where each node maintains several inbound/outbound connections to its peers. 
+Each node also maintains an in-memory synchronization graph data structure. When a new block is received from a peer or generated locally, the block will be first inserted into the synchronization graph where it goes through some basic validation which does not require graph-wise information. 
+At the time when a block enters the synchronization graph, its past-set blocks may not already entered.
+The synchronization graph monitors the block and puts it into the consensus graph once all its past-set blocks enters the synchronization graph. 
+When a block enters the consensus graph, its past-set blocks should all already entered this graph. 
+Then the consensus algorithm will be conducted based on this newly arrived block to adjust the total order of blocks accordingly. The consensus graph component executes the newly arrived block and updates the account states in the storage layer. </p>
+<p>Each node maintains a transaction pool that holds the to-be-packed transactions and relays the transactions to its peers that may need them. 
+The block generator component drives the mining efforts, picks transactions from the pool, and packs them into the newly generated block.</p>
+<p>This document is organized as in the following sections.</p>
+<ul>
+<li><a href="../consensus/">Consensus Mechanism</a></li>
+<li><a href="../sync/">Block Synchronization Process</a></li>
+<li><a href="../trans/">Transaction Relay</a></li>
+</ul>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../cli/" class="btn btn-neutral" title="CLI Sub-commands"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -144,6 +183,8 @@
   <div class="rst-versions" role="note" style="cursor: pointer">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
+      
+        <span><a href="../cli/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
     </span>
