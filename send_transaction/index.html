@@ -97,9 +97,9 @@
     
         <ul>
         
-            <li><a class="toctree-l3" href="#compose-and-send-your-first-transaction">Compose and send your first transaction</a></li>
+            <li><a class="toctree-l3" href="#compose-and-send-my-first-transaction">Compose and send my first transaction</a></li>
         
-            <li><a class="toctree-l3" href="#track-your-transaction">Track your transaction</a></li>
+            <li><a class="toctree-l3" href="#track-my-transaction">Track my transaction</a></li>
         
         </ul>
     
@@ -147,7 +147,7 @@
 * <a href="https://github.com/Conflux-Chain/java-conflux-sdk">Java: java-conflux-sdk</a>
 * <a href="https://github.com/Conflux-Chain/go-conflux-sdk">Go: go-conflux-sdk</a></p>
 <p>The following document will use <a href="https://github.com/Conflux-Chain/js-conflux-sdk">js-conflux-sdk</a> as an example.</p>
-<h2 id="compose-and-send-your-first-transaction">Compose and send your first transaction<a class="headerlink" href="#compose-and-send-your-first-transaction" title="Permanent link">&para;</a></h2>
+<h2 id="compose-and-send-my-first-transaction">Compose and send my first transaction<a class="headerlink" href="#compose-and-send-my-first-transaction" title="Permanent link">&para;</a></h2>
 <h3 id="create-an-account-with-conflux-portal">Create an account with Conflux Portal<a class="headerlink" href="#create-an-account-with-conflux-portal" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
@@ -166,9 +166,9 @@
 <h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
 <p><code>npm install js-conflux-sdk</code></p>
 <h3 id="send-transaction-by-javascript-program">Send transaction by JavaScript program<a class="headerlink" href="#send-transaction-by-javascript-program" title="Permanent link">&para;</a></h3>
-<ol>
+<ul>
 <li>require js-conflux-sdk and set a Conflux provider. For the Conflux test-net, there is a node provided at http://testnet-jsonrpc.conflux-chain.org:12537. It can also be changed to any other Conflux nodes, even the one set on your own.</li>
-</ol>
+</ul>
 <pre><code class="javascript">const { Conflux, util } = require('js-conflux-sdk');
 
 const cfx = new Conflux({
@@ -179,22 +179,20 @@ const cfx = new Conflux({
 });
 </code></pre>
 
-<ol>
+<ul>
 <li>paste your private key into the program</li>
-</ol>
+</ul>
 <pre><code class="javascript">const PRIVATE_KEY = 'Your Private Key';
 // const PRIVATE_KEY = '0x5f15f9e52fc5ec6f77115a9f306c120a7e80d83115212d33a843bb6b7989c261';
 const account = cfx.Account(PRIVATE_KEY); // create account instance
 const receiver = '0xa70ddf9b9750c575db453eea6a041f4c8536785a'
 </code></pre>
 
-<ol>
+<ul>
 <li>
 <p>Compose your transaction, here are the fields could be filled with:</p>
-</li>
-<li>
-<p><strong>nonce</strong>: optional, the nonce of a transaction to keep the order of your sending transactions, starting with some random large number and increase one by one. If missing, the result of cfx_getNextNonce will be automatically filled in and it works for general scenarios. Some cases, like sending a lot of transactions in a short period. It's recommended to maintain the nonce on your own.</p>
-</li>
+<ul>
+<li><strong>nonce</strong>: optional, the nonce of a transaction to keep the order of your sending transactions, starting with some random large number and increase one by one. If missing, the result of cfx_getNextNonce will be automatically filled in and it works for general scenarios. Some cases, like sending a lot of transactions in a short period. It's recommended to maintain the nonce on your own.</li>
 <li><strong>gasPrice</strong>: optional, the price in Drip that you would like to pay for each gas consumed. If missing, the result of cfx_gasPrice will be automatically filled in, which is the median of recent transactions.</li>
 <li><strong>gas</strong>: optional, the max gas you would like to use in the transaction. After the end of transaction processing, the unused gas will be refunded if used_gas &gt;= gas * 0.75. If missing, the result of cfx_estimateGasAndCollateral will be automatically filled in and it works for general scenarios.</li>
 <li><strong>to</strong>: the receiver of the transaction, could be a personal account(start with 1) or contract(start with 8). Leave a null here to deploy a contract.</li>
@@ -204,7 +202,9 @@ const receiver = '0xa70ddf9b9750c575db453eea6a041f4c8536785a'
 <li><strong>data</strong>: optional, it's either an attached message of a transaction or a function signature of a contract call. If missing, a null will be filled into it.</li>
 <li><strong>chainId</strong>: optional, it used for dealing with a hard fork or preventing a transaction replay attack. If missing, 0 will be filled into it.</li>
 <li><strong>from</strong>: The sender account(with private key) to sign the transaction.</li>
-</ol>
+</ul>
+</li>
+</ul>
 <pre><code class="javascript">let txParams = {
   from: account, // from account instance and will by sign by account.privateKey
   // nonce 
@@ -218,9 +218,9 @@ const receiver = '0xa70ddf9b9750c575db453eea6a041f4c8536785a'
 };
 </code></pre>
 
-<ol>
+<ul>
 <li>Send it away by <code>cfx.sendTransaction</code> and get the returned transaction hash, then you can view the transaction details by searching the hash on <a href="http://confluxscan.io/">Conflux Scan</a>. </li>
-</ol>
+</ul>
 <pre><code class="javascript">async function main() {
   const txHash = await cfx.sendTransaction(txParams);
   console.log(txHash);
@@ -229,11 +229,11 @@ const receiver = '0xa70ddf9b9750c575db453eea6a041f4c8536785a'
 main().catch(e =&gt; console.error(e));
 </code></pre>
 
-<h2 id="track-your-transaction">Track your transaction<a class="headerlink" href="#track-your-transaction" title="Permanent link">&para;</a></h2>
-<p>After sending, the transaction could be several different states:</p>
+<h2 id="track-my-transaction">Track my transaction<a class="headerlink" href="#track-my-transaction" title="Permanent link">&para;</a></h2>
+<p>After sending, the transaction could be in several different states:</p>
 <h3 id="1-rejected-by-rpc-provider-immediately">1. rejected by RPC provider immediately<a class="headerlink" href="#1-rejected-by-rpc-provider-immediately" title="Permanent link">&para;</a></h3>
 <p>After the provider got the cfx_sendRawTransaction RPC call, it will try to do the basic verification and insert it into the transaction pool. If there an obvious error of the transaction, e.t.c, RLP decoding error, signature verification error, it will be rejected immediately. Otherwise, it will be inserted into the transaction pool and start to wait to be mined, and the RPC will return a transaction hash.</p>
-<h3 id="2-stuck-in-the-transaction-pool">2. stuck in the transaction pool<a class="headerlink" href="#2-stuck-in-the-transaction-pool" title="Permanent link">&para;</a></h3>
+<h3 id="2-got-stuck-in-the-transaction-pool">2. got stuck in the transaction pool<a class="headerlink" href="#2-got-stuck-in-the-transaction-pool" title="Permanent link">&para;</a></h3>
 <p>However, the transaction hash you got doesn't mean it's successfully executed. Conflux transaction will store as much verified transactions in the pool as possible, even the transactions whose nonce doesn' match expected one or the balance is not enough to pay the <code>gas * gasPrice + value</code>. </p>
 <p>So if you wait for 1 minute and still cannot find the transaction in ConfluxScan after sending it, it very likely got stuck in the transaction pool. </p>
 <p>Use cfx_getTransactionByHash, cfx_getBalance and cfx_getNextNonce to check if your transaction is ready to be packed and mined, for example:</p>
