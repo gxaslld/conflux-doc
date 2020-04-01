@@ -142,10 +142,12 @@
                 <h1 id="my-first-transaction">My First Transaction<a class="headerlink" href="#my-first-transaction" title="Permanent link">&para;</a></h1>
 <p>This document will guide you to compose and send your first transaction into the Conflux network, including the introduction of technical specs of Conflux's transaction, and the basic techniques to track the status of sent transactions in Conflux network and error handling.</p>
 <p>For common users, it is recommended to use a Conflux wallet like <a href="https://github.com/Conflux-Chain/conflux-portal">Conflux Portal</a>, which is easy, safe and user-friendly.</p>
-<p>For developers that want to compose and send transaction in your own program. Conflux provides you several SDKs in different languages:
-* <a href="https://github.com/Conflux-Chain/js-conflux-sdk">JavaScript: js-conflux-sdk</a>
-* <a href="https://github.com/Conflux-Chain/java-conflux-sdk">Java: java-conflux-sdk</a>
-* <a href="https://github.com/Conflux-Chain/go-conflux-sdk">Go: go-conflux-sdk</a></p>
+<p>For developers that want to compose and send transaction in your own program. Conflux provides you several SDKs in different languages:</p>
+<ul>
+<li><a href="https://github.com/Conflux-Chain/js-conflux-sdk">JavaScript: js-conflux-sdk</a></li>
+<li><a href="https://github.com/Conflux-Chain/java-conflux-sdk">Java: java-conflux-sdk</a></li>
+<li><a href="https://github.com/Conflux-Chain/go-conflux-sdk">Go: go-conflux-sdk</a></li>
+</ul>
 <p>The following document will use <a href="https://github.com/Conflux-Chain/js-conflux-sdk">js-conflux-sdk</a> as an example.</p>
 <h2 id="compose-and-send-my-first-transaction">Compose and send my first transaction<a class="headerlink" href="#compose-and-send-my-first-transaction" title="Permanent link">&para;</a></h2>
 <h3 id="create-an-account-with-conflux-portal">Create an account with Conflux Portal<a class="headerlink" href="#create-an-account-with-conflux-portal" title="Permanent link">&para;</a></h3>
@@ -233,7 +235,7 @@ main().catch(e =&gt; console.error(e));
 <p>After sending, the transaction could be in several different states:</p>
 <h3 id="1-rejected-by-rpc-provider-immediately">1. rejected by RPC provider immediately<a class="headerlink" href="#1-rejected-by-rpc-provider-immediately" title="Permanent link">&para;</a></h3>
 <p>After the provider got the cfx_sendRawTransaction RPC call, it will try to do the basic verification and insert it into the transaction pool. If there an obvious error of the transaction, e.t.c, RLP decoding error, signature verification error, it will be rejected immediately. Otherwise, it will be inserted into the transaction pool and start to wait to be mined, and the RPC will return a transaction hash.</p>
-<h3 id="2-got-stuck-in-the-transaction-pool">2. got stuck in the transaction pool<a class="headerlink" href="#2-got-stuck-in-the-transaction-pool" title="Permanent link">&para;</a></h3>
+<h3 id="2-got-stucked-in-the-transaction-pool">2. got stucked in the transaction pool<a class="headerlink" href="#2-got-stucked-in-the-transaction-pool" title="Permanent link">&para;</a></h3>
 <p>However, the transaction hash you got doesn't mean it's successfully executed. Conflux transaction will store as much verified transactions in the pool as possible, even the transactions whose nonce doesn' match expected one or the balance is not enough to pay the <code>gas * gasPrice + value</code>. </p>
 <p>So if you wait for 1 minute and still cannot find the transaction in ConfluxScan after sending it, it very likely got stuck in the transaction pool. </p>
 <p>Use cfx_getTransactionByHash, cfx_getBalance and cfx_getNextNonce to check if your transaction is ready to be packed and mined, for example:</p>
