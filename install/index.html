@@ -81,6 +81,11 @@
           
             <li class="toctree-l1">
 		
+    <a class="" href="../setup_independent_chain/">Run an Indepdent Chain</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
     <a class="" href="../json-rpc/">JSON-RPC API</a>
 	    </li>
           
@@ -97,6 +102,11 @@
             <li class="toctree-l1">
 		
     <a class="" href="../design/">Design & Implementation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../send_transaction/">My First Transaction</a>
 	    </li>
           
         </ul>
@@ -134,12 +144,13 @@
                 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
 <p>Here is a step by step guide on how to build Conflux from the source code and get a node running.</p>
 <h2 id="install-build-dependencies">Install Build Dependencies<a class="headerlink" href="#install-build-dependencies" title="Permanent link">&para;</a></h2>
-<p>Conflux requires <strong>latest stable Rust version</strong>,  <code>clang</code>, and <code>sqlite</code> to build.</p>
+<p>Conflux requires <strong>Rust 1.42.0</strong> to build,  <code>clang</code>, and <code>sqlite</code> to build.</p>
 <p>We recommend installing Rust through <a href="https://www.rustup.rs/">rustup</a>. If you don't already have <code>rustup</code> or <code>clang</code>, you can install them like this:</p>
 <ul>
 <li>
 <p>Linux:</p>
 <pre><code>$ curl https://sh.rustup.rs -sSf | sh
+$ rustup install 1.42.0
 </code></pre>
 <p><code>clang</code> and <code>sqlite</code> can be installed with:</p>
 <ul>
@@ -158,12 +169,13 @@
 <li>
 <p>OSX:</p>
 <pre><code>$ curl https://sh.rustup.rs -sSf | sh
+$ rustup install 1.42.0
 </code></pre>
 <p>You might need to install <code>brew</code> if you need to use it to install <code>clang</code>:</p>
 <pre><code>$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 </code></pre>
 <p><code>clang</code> comes with Xcode command line tools, and can also be installed with homebrew:</p>
-<pre><code>$ brew install --with-clang llvm
+<pre><code>$ brew install llvm
 </code></pre>
 </li>
 <li>
@@ -188,7 +200,14 @@ $ cargo build --release
 </code></pre>
 
 <p>This produces an executable in the <code>./target/release</code> subdirectory.</p>
-<p>Note, when compiling a crate and you receive errors, it's in most cases your outdated version of Rust, or some of your crates have to be recompiled. Cleaning the repository will most likely solve the issue if you are on the latest stable version of Rust, try:</p>
+<p>You may encounter dependency issues in Ubuntu. If so, you will want to install
+libssl-dev and cmake pacakges with the following command:</p>
+<pre><code>|   $ sudo apt-get install pkg-config libssl-dev cmake
+</code></pre>
+<p>Note, when compiling a crate and you receive errors, it's in most cases your
+outdated version of Rust, or some of your crates have to be recompiled.
+Cleaning the repository will most likely solve the issue if you are on the
+latest stable version of Rust, try:</p>
 <pre><code class="bash">$ cargo clean &amp;&amp; cargo update
 </code></pre>
 

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>My First Transaction - Conflux Documentation</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "My First Transaction";
+    var mkdocs_page_input_path = "send_transaction.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Conflux Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Welcome to Conflux</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../install/">Installation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../get_started/">Getting Started</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../setup_independent_chain/">Run an Indepdent Chain</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../json-rpc/">JSON-RPC API</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../javascript-api/">JavaScript API</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../cli/">CLI Sub-commands</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../design/">Design & Implementation</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">My First Transaction</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#my-first-transaction">My First Transaction</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#compose-and-send-your-first-transaction">Compose and send your first transaction</a></li>
+        
+            <li><a class="toctree-l3" href="#track-your-transaction">Track your transaction</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Conflux Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>My First Transaction</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="my-first-transaction">My First Transaction<a class="headerlink" href="#my-first-transaction" title="Permanent link">&para;</a></h1>
+<p>This document will guide you to compose and send your first transaction into the Conflux network, including the introduction of technical specs of Conflux's transaction, and the basic techniques to track the status of sent transactions in Conflux network and error handling.</p>
+<p>For common users, it is recommended to use a Conflux wallet like <a href="https://github.com/Conflux-Chain/conflux-portal">Conflux Portal</a>, which is easy, safe and user-friendly.</p>
+<p>For developers that want to compose and send transaction in your own program. Conflux provides you several SDKs in different languages:
+* <a href="https://github.com/Conflux-Chain/js-conflux-sdk">JavaScript: js-conflux-sdk</a>
+* <a href="https://github.com/Conflux-Chain/java-conflux-sdk">Java: java-conflux-sdk</a>
+* <a href="https://github.com/Conflux-Chain/go-conflux-sdk">Go: go-conflux-sdk</a></p>
+<p>The following document will use <a href="https://github.com/Conflux-Chain/js-conflux-sdk">js-conflux-sdk</a> as an example.</p>
+<h2 id="compose-and-send-your-first-transaction">Compose and send your first transaction<a class="headerlink" href="#compose-and-send-your-first-transaction" title="Permanent link">&para;</a></h2>
+<h3 id="create-an-account-with-conflux-portal">Create an account with Conflux Portal<a class="headerlink" href="#create-an-account-with-conflux-portal" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Install <a href="https://github.com/Conflux-Chain/conflux-portal">Conflux Protal</a>.</p>
+</li>
+<li>
+<p>Generate a new account.</p>
+</li>
+<li>
+<p>Get and test-net token from the faucet.</p>
+</li>
+<li>
+<p>Export and copy your private key to somewhere, we'll use it later.</p>
+</li>
+</ol>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
+<p><code>npm install js-conflux-sdk</code></p>
+<h3 id="send-transaction-by-javascript-program">Send transaction by JavaScript program<a class="headerlink" href="#send-transaction-by-javascript-program" title="Permanent link">&para;</a></h3>
+<ol>
+<li>require js-conflux-sdk and set a Conflux provider. For the Conflux test-net, there is a node provided at http://testnet-jsonrpc.conflux-chain.org:12537. It can also be changed to any other Conflux nodes, even the one set on your own.</li>
+</ol>
+<pre><code class="javascript">const { Conflux, util } = require('js-conflux-sdk');
+
+const cfx = new Conflux({
+  url: 'http://testnet-jsonrpc.conflux-chain.org:12537',
+  defaultGasPrice: 100, // The default gas price of your following transactions
+  defaultGas: 1000000, // The default gas of your following transactions
+  logger: console,
+});
+</code></pre>
+
+<ol>
+<li>paste your private key into the program</li>
+</ol>
+<pre><code class="javascript">const PRIVATE_KEY = 'Your Private Key';
+// const PRIVATE_KEY = '0x5f15f9e52fc5ec6f77115a9f306c120a7e80d83115212d33a843bb6b7989c261';
+const account = cfx.Account(PRIVATE_KEY); // create account instance
+const receiver = '0xa70ddf9b9750c575db453eea6a041f4c8536785a'
+</code></pre>
+
+<ol>
+<li>
+<p>Compose your transaction, here are the fields could be filled with:</p>
+</li>
+<li>
+<p><strong>nonce</strong>: optional, the nonce of a transaction to keep the order of your sending transactions, starting with some random large number and increase one by one. If missing, the result of cfx_getNextNonce will be automatically filled in and it works for general scenarios. Some cases, like sending a lot of transactions in a short period. It's recommended to maintain the nonce on your own.</p>
+</li>
+<li><strong>gasPrice</strong>: optional, the price in Drip that you would like to pay for each gas consumed. If missing, the result of cfx_gasPrice will be automatically filled in, which is the median of recent transactions.</li>
+<li><strong>gas</strong>: optional, the max gas you would like to use in the transaction. After the end of transaction processing, the unused gas will be refunded if used_gas &gt;= gas * 0.75. If missing, the result of cfx_estimateGasAndCollateral will be automatically filled in and it works for general scenarios.</li>
+<li><strong>to</strong>: the receiver of the transaction, could be a personal account(start with 1) or contract(start with 8). Leave a null here to deploy a contract.</li>
+<li><strong>value</strong>: the value (in Drip) to be transferred.</li>
+<li><strong>storageLimit</strong>: optional, he max storage (in Byte) you would like to collateralize in the transaction. If missing, the result of cfx_estimateGasAndCollateral will be automatically filled in and it works for general senarios.transactions.</li>
+<li><strong>epochHeight</strong>: optional, a transaction is can be verified only in epochs in the range [epochHeight - 10000, epochHeight + 10000], so it's  a timeout mechanism. If missing, the result of cfx_epochNumber will be automatically filled in and it works for general scenarios.</li>
+<li><strong>data</strong>: optional, it's either an attached message of a transaction or a function signature of a contract call. If missing, a null will be filled into it.</li>
+<li><strong>chainId</strong>: optional, it used for dealing with a hard fork or preventing a transaction replay attack. If missing, 0 will be filled into it.</li>
+<li><strong>from</strong>: The sender account(with private key) to sign the transaction.</li>
+</ol>
+<pre><code class="javascript">let txParams = {
+  from: account, // from account instance and will by sign by account.privateKey
+  // nonce 
+  // gasPrice
+  // gas
+  to: receiver, // accept address string or account instance
+  value: util.unit.fromCFXToDrip(0.125), // use unit to transfer from 0.125 CFX to Drip
+  // storageLimit
+  // epochHeight
+  // data
+};
+</code></pre>
+
+<ol>
+<li>Send it away by <code>cfx.sendTransaction</code> and get the returned transaction hash, then you can view the transaction details by searching the hash on <a href="http://confluxscan.io/">Conflux Scan</a>. </li>
+</ol>
+<pre><code class="javascript">async function main() {
+  const txHash = await cfx.sendTransaction(txParams);
+  console.log(txHash);
+}
+
+main().catch(e =&gt; console.error(e));
+</code></pre>
+
+<h2 id="track-your-transaction">Track your transaction<a class="headerlink" href="#track-your-transaction" title="Permanent link">&para;</a></h2>
+<p>After sending, the transaction could be several different states:</p>
+<h3 id="1-rejected-by-rpc-provider-immediately">1. rejected by RPC provider immediately<a class="headerlink" href="#1-rejected-by-rpc-provider-immediately" title="Permanent link">&para;</a></h3>
+<p>After the provider got the cfx_sendRawTransaction RPC call, it will try to do the basic verification and insert it into the transaction pool. If there an obvious error of the transaction, e.t.c, RLP decoding error, signature verification error, it will be rejected immediately. Otherwise, it will be inserted into the transaction pool and start to wait to be mined, and the RPC will return a transaction hash.</p>
+<h3 id="2-stuck-in-the-transaction-pool">2. stuck in the transaction pool<a class="headerlink" href="#2-stuck-in-the-transaction-pool" title="Permanent link">&para;</a></h3>
+<p>However, the transaction hash you got doesn't mean it's successfully executed. Conflux transaction will store as much verified transactions in the pool as possible, even the transactions whose nonce doesn' match expected one or the balance is not enough to pay the <code>gas * gasPrice + value</code>. </p>
+<p>So if you wait for 1 minute and still cannot find the transaction in ConfluxScan after sending it, it very likely got stuck in the transaction pool. </p>
+<p>Use cfx_getTransactionByHash, cfx_getBalance and cfx_getNextNonce to check if your transaction is ready to be packed and mined, for example:</p>
+<pre><code>curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getBalance&quot;,&quot;params&quot;:[&quot;0xfbe45681ac6c53d5a40475f7526bac1fe7590fb8&quot;],&quot;id&quot;:1}' -H &quot;Content-Type: application/json&quot; http://testnet-jsonrpc.conflux-chain.org:12537
+</code></pre>
+
+<p>And compare the result with value + gas * gasPrice.</p>
+<pre><code>curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getNextNonce&quot;,&quot;params&quot;:[&quot;0xfbe45681ac6c53d5a40475f7526bac1fe7590fb8&quot;],&quot;id&quot;:1}' -H &quot;Content-Type: application/json&quot; http://testnet-jsonrpc.conflux-chain.org:12537
+
+</code></pre>
+
+<p>And compare the result with nonce you filled in.</p>
+<p>You can always get the transaction details by cfx_getTransactionByHash:</p>
+<pre><code>curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getTransactionByHash&quot;,&quot;params&quot;:[&quot;0x53fe995edeec7d241791ff32635244e94ecfd722c9fe90f34ddf59082d814514&quot;],&quot;id&quot;:1}' -H &quot;Content-Type: application/json&quot; http://testnet-jsonrpc.conflux-chain.org:12537
+</code></pre>
+
+<p>In this situation, you may want to send a new transaction after fixing the nonce or balance problem. Note that, replacing a transaction in the pool with the same nonce, a higher gasPrice is necessary.</p>
+<h3 id="3-mined-but-skipped">3. mined but skipped<a class="headerlink" href="#3-mined-but-skipped" title="Permanent link">&para;</a></h3>
+<p>If you can view the transaction on ConfluxScan but its status always shows "skip". Which means it didn't pass the basic verification (etc, nonce doesn't match, balance can't cover the basic fee) in execution engine and got skipped.</p>
+<p>In this situation, you may want to send a new transaction after fixing the nonce or balance problem. Note that, replacing a transaction in the pool with the same nonce, a higher gasPrice is necessary.</p>
+<h3 id="4-mined-and-executed-with-some-error-outcome">4. mined and executed with some error outcome<a class="headerlink" href="#4-mined-and-executed-with-some-error-outcome" title="Permanent link">&para;</a></h3>
+<p>In this case, you'll see an error message on ConfluxScan. This could be in several causes: </p>
+<ul>
+<li>EVM error: like assert, require</li>
+<li>balance is enough to pay the basic fee, but not for the whole transaction fee</li>
+<li>storageLimit reached</li>
+</ul>
+<p>It's a good idea to double-check your contract in Remix IDE and check the storageLimit and balance issue by cfx_estimateGasAndCollateral RPC.</p>
+<h3 id="5-mined-and-executed-with-no-error-outcome">5. mined and executed with no error outcome<a class="headerlink" href="#5-mined-and-executed-with-no-error-outcome" title="Permanent link">&para;</a></h3>
+<p>Congrats! Your first transaction finally got there.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../design/" class="btn btn-neutral" title="Design & Implementation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright © 2019 Conflux. All Rights Reserved.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../design/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
