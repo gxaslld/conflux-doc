@@ -85,7 +85,7 @@
         
             <li><a class="toctree-l3" href="#hex-value-encoding">HEX value encoding</a></li>
         
-            <li><a class="toctree-l3" href="#the-default-epoch-parameter">The default epoch parameter</a></li>
+            <li><a class="toctree-l3" href="#the-epoch-number-parameter">The epoch number parameter</a></li>
         
             <li><a class="toctree-l3" href="#curl-examples-explained">Curl Examples Explained</a></li>
         
@@ -156,9 +156,9 @@
 <p>JSON is a lightweight data-interchange format. It can represent numbers, strings, ordered sequences of values, and collections of name/value pairs.</p>
 <p>JSON-RPC is a stateless, light-weight remote procedure call (RPC) protocol. Primarily this specification defines several data structures and the rules around their processing. It is transport agnostic in that the concepts can be used within the same process, over sockets, over HTTP, or in many various message passing environments. It uses JSON (RFC 4627) as data format.</p>
 <h2 id="javascript-api">JavaScript API<a class="headerlink" href="#javascript-api" title="Permanent link">&para;</a></h2>
-<p>There will be a JavaScript library comming soon for you to interact with a Conflux node from inside a JavaScript application, which gives a convenient interface for the RPC methods.</p>
+<p>There is also a JavaScript library <a href="https://github.com/Conflux-Chain/js-conflux-sdk">js-conflux-sdk</a> provided, for you to interact with a Conflux node from inside a JavaScript application, which gives a convenient interface for the RPC methods.</p>
 <h2 id="json-rpc-endpoint-support">JSON-RPC endpoint &amp;&amp; support<a class="headerlink" href="#json-rpc-endpoint-support" title="Permanent link">&para;</a></h2>
-<p>Currently, Conflux has a Rust implementation that supports JSON-RPC 2.0 and HTTP.</p>
+<p>Currently, Conflux has a <a href="https://github.com/Conflux-Chain/conflux-rust">Rust implementation</a> that supports JSON-RPC 2.0 and HTTP.</p>
 <h2 id="hex-value-encoding">HEX value encoding<a class="headerlink" href="#hex-value-encoding" title="Permanent link">&para;</a></h2>
 <p>At present there are two key datatypes that are passed over JSON: unformatted byte arrays and quantities. Both are passed with a hex encoding, however with different requirements to formatting:</p>
 <p>When encoding <strong>QUANTITIES</strong> (integers, numbers): encode as hex, prefix with "0x", the most compact representation (slight exception: zero should be represented as "0x0"). Examples:</p>
@@ -177,22 +177,33 @@
 <li>WRONG: 0xf0f0f (must be even number of digits)</li>
 <li>WRONG: 004200 (must be prefixed 0x)</li>
 </ul>
-<h2 id="the-default-epoch-parameter">The default epoch parameter<a class="headerlink" href="#the-default-epoch-parameter" title="Permanent link">&para;</a></h2>
-<p>The following methods have a default epoch parameter:</p>
+<h2 id="the-epoch-number-parameter">The epoch number parameter<a class="headerlink" href="#the-epoch-number-parameter" title="Permanent link">&para;</a></h2>
+<p>The following methods have an epoch number parameter:</p>
 <ul>
-<li>cfx_getTransactionCount</li>
+<li>cfx_getNextNonce</li>
 <li>cfx_getBalance</li>
+<li>cfx_getAdmin</li>
+<li>cfx_getSponsorInfo</li>
+<li>cfx_getStakingBalance</li>
+<li>cfx_getCollateralForStorage</li>
+<li>cfx_getCode</li>
+<li>cfx_getStorageAt</li>
+<li>cfx_call</li>
+<li>cfx_estimateGasAndCollateral</li>
+<li>cfx_getInterestRate</li>
+<li>cfx_getAccumulateInterestRate</li>
 <li>cfx_getBlockByEpochNumber</li>
 <li>cfx_epochNumber</li>
 <li>cfx_getBlocksByEpoch</li>
 </ul>
-<p>When requests are made that act on the state of conflux, the default epoch parameter determines the height of the epoch. The following options are possible for the default epoch parameter:</p>
+<p>When requests are made that act on the state of conflux, the epoch number parameter determines the height of the epoch. The following options are possible for the epoch number parameter:</p>
 <ul>
 <li><code>HEX String</code> - an integer epoch number</li>
 <li><code>String "earliest"</code> for the earliest epoch where the genesis block in</li>
 <li><code>String "latest_mined"</code> - for the latest epoch where the latest mined block in</li>
 <li><code>String "latest_state"</code> - for the latest epoch where the latest block with an executed state in</li>
 </ul>
+<p>Noticed that for performance optimization concern, the lasted mined epochs are not executed, so there is no state available in these epochs. For most of RPCs related to state query, the <code>"latest_state"</code> is recommended.</p>
 <h2 id="curl-examples-explained">Curl Examples Explained<a class="headerlink" href="#curl-examples-explained" title="Permanent link">&para;</a></h2>
 <p>The curl options below might return a response where the node complains about the content type, this is because the --data option sets the content type to application/x-www-form-urlencoded . If your node does complain, manually set the header by placing -H "Content-Type: application/json" at the start of the call.</p>
 <p>The examples also include the URL/IP &amp; port combination which must be the last argument given to curl e.x. <code>http://localhost:12345</code></p>
@@ -216,6 +227,7 @@
 <p><code>Object</code> - A transaction object, or <code>null</code> when no transaction was found:</p>
 <ul>
 <li><code>blockHash</code>: <code>DATA</code>, 32 Bytes - hash of the block where this transaction was in and got executed. <code>null</code> when its pending.</li>
+<li><code>contractCreated</code>: <code>DATA</code>, 20 Bytes - address of created contract. <code>null</code> when it's not a contract creating transaction.</li>
 <li><code>data</code>: <code>DATA</code> - the data send along with the transaction.</li>
 <li><code>from</code>: <code>DATA</code>, 20 Bytes - address of the sender.</li>
 <li><code>gas</code>: <code>QUANTITY</code> - gas provided by the sender.</li>
@@ -224,6 +236,7 @@
 <li><code>nonce</code>: <code>QUANTITY</code> - the number of transactions made by the sender prior to this one.</li>
 <li><code>r</code>: <code>DATA</code>, 32 Bytes - ECDSA signature r</li>
 <li><code>s</code>: <code>DATA</code>, 32 Bytes - ECDSA signature s</li>
+<li><code>status</code>: <code>QUANTITY</code> - 0 for success, 1 for error occured, <code>null</code> when the transaction is skipped or not packed.</li>
 <li><code>to</code>: <code>DATA</code>, 20 Bytes - address of the receiver. <code>null</code> when its a contract creation transaction.</li>
 <li><code>transactionIndex</code>: <code>QUANTITY</code> - integer of the transaction's index position in the block. <code>null</code> when its pending.</li>
 <li><code>v</code>: <code>QUANTITY</code> - ECDSA recovery id</li>
@@ -231,27 +244,29 @@
 </ul>
 <h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
-curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getTransactionByHash&quot;,&quot;params&quot;:[&quot;0xc92e7a598f6fe4c091dd604d84b23c5af6f0338d9612c76a1fb06dfdaed548b2&quot;],&quot;id&quot;:1}'
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getTransactionByHash&quot;,&quot;params&quot;:[&quot;0x53fe995edeec7d241791ff32635244e94ecfd722c9fe90f34ddf59082d814514&quot;],&quot;id&quot;:1}'
 
 // Result
 {
-    &quot;id&quot; : 1,
-    &quot;jsonrpc&quot; : &quot;2.0&quot;,
-    &quot;result&quot; : {
-        &quot;s&quot; : &quot;0x7dde8fb74652930d390a6dcec61ffef014bed2a30ebab0e9ceedd487959f6964&quot;,
-        &quot;v&quot; : &quot;0x0&quot;,
-        &quot;gas&quot; : &quot;0x5208&quot;,
-        &quot;data&quot; : &quot;0x&quot;,
-        &quot;blockHash&quot; : &quot;0x63d88f4de98e3c324baa4eb146c2cf714d5ecd6554549bbf6a0fc3a17b166a47&quot;,
-        &quot;gasPrice&quot; : &quot;0x1&quot;,
-        &quot;to&quot; : &quot;0x2a2c1a99e1ae7416118e335ac1032902377ce850&quot;,
-        &quot;r&quot; : &quot;0x72f494f114324bda0b0abade293ef529fe22301ea7bf66fdcbf1b399c0189778&quot;,
-        &quot;transactionIndex&quot; : &quot;0x4a&quot;,
-        &quot;value&quot; : &quot;0x1&quot;,
-        &quot;nonce&quot; : &quot;0x2&quot;,
-        &quot;from&quot; : &quot;0x28ca21e860bd91851bfca4406e429f74f09e4be3&quot;,
-        &quot;hash&quot; : &quot;0xc92e7a598f6fe4c091dd604d84b23c5af6f0338d9612c76a1fb06dfdaed548b2&quot;
-    }
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: {
+    &quot;blockHash&quot;: &quot;0xbb1eea3c8a574dc19f7d8311a2096e23a39f12e649a20766544f2df67aac0bed&quot;,
+    &quot;contractCreated&quot;: null,
+    &quot;data&quot;: &quot;0x&quot;,
+    &quot;from&quot;: &quot;0xb2988210c05a43ebd76575f5421ef84b120ebf80&quot;,
+    &quot;gas&quot;: &quot;0x5208&quot;,
+    &quot;gasPrice&quot;: &quot;0x174876e800&quot;,
+    &quot;hash&quot;: &quot;0x53fe995edeec7d241791ff32635244e94ecfd722c9fe90f34ddf59082d814514&quot;,
+    &quot;nonce&quot;: &quot;0x1&quot;,
+    &quot;r&quot;: &quot;0x27e5cb110dd198b8fc963d4741ec0840400a6351d9e0c458eeda6af5e0a12760&quot;,
+    &quot;s&quot;: &quot;0x2c486d8e26da3c867fbcf4ab242af1265a5036c5e23ea42c8ab23437ce4c0bca&quot;,
+    &quot;status&quot;: &quot;0x0&quot;,
+    &quot;to&quot;: &quot;0xb2988210c05a43ebd76575f5421ef84b120ebf80&quot;,
+    &quot;transactionIndex&quot;: &quot;0x0&quot;,
+    &quot;v&quot;: &quot;0x1&quot;,
+    &quot;value&quot;: &quot;0x3635c9adc5dea00000&quot;
+  },
+  &quot;id&quot;: 1
 }
 </code></pre>
 
@@ -272,55 +287,59 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <h5 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h5>
 <p><code>Object</code> - A block object, or <code>null</code> when no block was found:</p>
 <ul>
-<li><code>hash</code>: <code>DATA</code>, 32 Bytes - hash of the block. <code>null</code> when its pending block.</li>
-<li><code>epochNumber</code>: <code>QUANTITY</code> - the current block epoch number in the client's view. <code>null</code> when it's not in best block's past set.</li>
-<li><code>height</code>: <code>QUANTITY</code> - the block heights. <code>null</code> when its pending block.</li>
-<li><code>parentHash</code>: <code>DATA</code>, 32 Bytes - hash of the parent block.</li>
-<li><code>nonce</code>: <code>DATA</code>, 8 Bytes - hash of the generated proof-of-work. <code>null</code> when its pending block.</li>
-<li><code>transactionsRoot</code>: <code>DATA</code>, 32 Bytes - the hash of the transactions of the block.</li>
-<li><code>deferredStateRoot</code>: <code>DATA</code>, 32 Bytes - the root of the final state trie of the block after deferred execution.</li>
+<li><code>adaptive</code>: <code>Boolean</code> - If <code>true</code> the weight of the block is adaptive under GHAST rule, if <code>false</code> otherwise.</li>
+<li><code>blame</code>: <code>QUANTITY</code> - If 0, then no blocks are blamed on its parent path, If greater than 0, then the nearest blamed block on the parent path is <code>blame</code> steps away.</li>
+<li><code>deferredLogsBloomHash</code>: <code>DATA</code>, 32 Bytes - The bloom hash of deferred logs. </li>
 <li><code>deferredReceiptsRoot</code>: <code>DATA</code>, 32 Bytes - the hash of the receipts of the block after deferred execution.</li>
-<li><code>miner</code>: <code>DATA</code>, 20 Bytes - the address of the beneficiary to whom the mining rewards were given.</li>
+<li><code>deferredStateRoot</code>: <code>DATA</code>, 32 Bytes - the root of the final state trie of the block after deferred execution.</li>
 <li><code>difficulty</code>: <code>QUANTITY</code> - integer of the difficulty for this block.</li>
-<li><code>size</code>: <code>QUANTITY</code> - integer the size of this block in bytes.</li>
+<li><code>epochNumber</code>: <code>QUANTITY</code> - the current block epoch number in the client's view. <code>null</code> when it's not in best block's past set and the epoch number is not determined.</li>
 <li><code>gasLimit</code>: <code>QUANTITY</code> - the maximum gas allowed in this block.</li>
+<li><code>hash</code>: <code>DATA</code>, 32 Bytes - hash of the block. <code>null</code> when its pending block.</li>
+<li><code>height</code>: <code>QUANTITY</code> - the block heights. <code>null</code> when its pending block.</li>
+<li><code>miner</code>: <code>DATA</code>, 20 Bytes - the address of the beneficiary to whom the mining rewards were given.</li>
+<li><code>nonce</code>: <code>DATA</code>, 8 Bytes - hash of the generated proof-of-work. <code>null</code> when its pending block.</li>
+<li><code>parentHash</code>: <code>DATA</code>, 32 Bytes - hash of the parent block.</li>
+<li><code>powQuality</code>: , <code>DATA</code>, Bytes - hash of the generated proof-of-work. <code>null</code> when its pending block.</li>
+<li><code>refereeHashes</code>: <code>Array</code> - Array of referee hashes.</li>
+<li><code>size</code>: <code>QUANTITY</code> - integer the size of this block in bytes.</li>
 <li><code>timestamp</code>: <code>QUANTITY</code> - the unix timestamp for when the block was collated.</li>
 <li><code>transactions</code>: <code>Array</code> - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.</li>
-<li><code>refereeHashes</code>: <code>Array</code> - Array of referee hashes.</li>
+<li><code>transactionsRoot</code>: <code>DATA</code>, 32 Bytes - the hash of the transactions of the block.</li>
 </ul>
 <h5 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
-curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getBlockByHash&quot;,&quot;params&quot;:[&quot;0x5c641dd7fa7f0dbf486391bd1310f09b6f062ec221f410e5a1bb2c24739b3d94&quot;, false],&quot;id&quot;:1}'
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getBlockByHash&quot;,&quot;params&quot;:[&quot;0x692373025c7315fa18b2d02139d08e987cd7016025920f59ada4969c24e44e06&quot;, false],&quot;id&quot;:1}'
 
 // Result
 {
-    &quot;jsonrpc&quot;: &quot;2.0&quot;,
-    &quot;result&quot;: {
-        &quot;deferredReceiptsRoot&quot;: &quot;0x602e2c03b2857ae2c9e84c822d1a5b32d0161271096c927b27ca56379cee79eb&quot;,
-        &quot;deferredStateRoot&quot;: &quot;0x3a42c10a8dd6bebe914095967b7f5caef472a66ede3e1973118a54934f63d143&quot;,
-        &quot;difficulty&quot;: &quot;0x4&quot;,
-        &quot;epochNumber&quot;: &quot;0x20&quot;,
-        &quot;gasLimit&quot;: &quot;0xb2d05e00&quot;,
-        &quot;hash&quot;: &quot;0x5c641dd7fa7f0dbf486391bd1310f09b6f062ec221f410e5a1bb2c24739b3d94&quot;,
-        &quot;height&quot;: &quot;0x1d&quot;,
-        &quot;miner&quot;: &quot;0x0000000000000000000000000000000000000000&quot;,
-        &quot;nonce&quot;: &quot;0x53447d364b6019b&quot;,
-        &quot;parentHash&quot;: &quot;0xe64ffb49c8bde64d0fd2916ce9351e485741aac89719e89989fe8f8112801a40&quot;,
-        &quot;refereeHashes&quot;: [
-            &quot;0x431eccfc94c4738b7f560f226a82ca58e9b81bb5aadd3d66acdcab1acc470300&quot;,
-            &quot;0xe9067a60c14bfc93bbaf78e874be2a25bd948bda3c56fff6ee321d045727ef1f&quot;,
-            &quot;0x630b40c28974a360840a10268a56be1ca203a45a726e6ca4e04abd4d7523b7cb&quot;,
-            &quot;0x6cff3a277fc0bf17c359568da27a62f8273753cbcbed6a80b994fc50c8b140b4&quot;
-        ],
-        &quot;size&quot;: &quot;0x0&quot;,
-        &quot;timestamp&quot;: &quot;0x0&quot;,
-        &quot;transactions&quot;: [
-            &quot;0x0a39c1048ffccb59ec0df0cb5d17733cb5be219c066bf0035fb6a1e281bfdc77&quot;,
-            &quot;0xf114b5c01a3b84c8e2389c0d8dc9c1b3fdefe4ac238d224577855373897d4a3a&quot;
-        ],
-        &quot;transactionsRoot&quot;: &quot;0xaed37b3d6c8b0336d42b4b798e1d1f73103de7473f0601736cb95adc3c4b4ea7&quot;
-    },
-    &quot;id&quot;: 1
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: {
+    &quot;adaptive&quot;: false,
+    &quot;blame&quot;: 0,
+    &quot;deferredLogsBloomHash&quot;: &quot;0xd397b3b043d87fcd6fad1291ff0bfd16401c274896d8c63a923727f077b8e0b5&quot;,
+    &quot;deferredReceiptsRoot&quot;: &quot;0x522717233b96e0a03d85f02f8127aa0e23ef2e0865c95bb7ac577ee3754875e4&quot;,
+    &quot;deferredStateRoot&quot;: &quot;0xd449df4ba49f5ab02abf261e976197beecf93c5198a6f0b6bd2713d84115c4ec&quot;,
+    &quot;difficulty&quot;: &quot;0xeee440&quot;,
+    &quot;epochNumber&quot;: &quot;0x1394cb&quot;,
+    &quot;gasLimit&quot;: &quot;0xb2d05e00&quot;,
+    &quot;hash&quot;: &quot;0x692373025c7315fa18b2d02139d08e987cd7016025920f59ada4969c24e44e06&quot;,
+    &quot;height&quot;: &quot;0x1394c9&quot;,
+    &quot;miner&quot;: &quot;0x000000000000000000000000000000000000000b&quot;,
+    &quot;nonce&quot;: &quot;0x329243b1063c6773&quot;,
+    &quot;parentHash&quot;: &quot;0xd1c2ff79834f86eb4bc98e0e526de475144a13719afba6385cf62a4023c02ae3&quot;,
+    &quot;powQuality&quot;: &quot;0x2ab0c3513&quot;,
+    &quot;refereeHashes&quot;: [
+      &quot;0xcc103077ede14825a5667bddad79482d7bbf1f1a658fed6894fa0e9287fc6be1&quot;
+    ],
+    &quot;size&quot;: &quot;0x180&quot;,
+    &quot;timestamp&quot;: &quot;0x5e8d32a1&quot;,
+    &quot;transactions&quot;: [
+      &quot;0xedfa5b9c38ba51e791cc72b8f75ff758533c8c38f426eddee3fd95d984dd59ff&quot;
+    ],
+    &quot;transactionsRoot&quot;: &quot;0xfb245dae4539ea49812e822adbffa9dd2ee9b3de8f3d9a7d186d351dcc9a6ed4&quot;
+  },
+  &quot;id&quot;: 1
 }
 </code></pre>
 
@@ -329,7 +348,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <p>Returns information about a block by epoch number.</p>
 <h5 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h5>
 <ol>
-<li><code>QUANTITY|TAG</code> - the epoch number, or the string "latest_mined",  "latest_state" or "earliest", see the <a href="#the-default-epoch-parameter">default epoch parameter</a>.</li>
+<li><code>QUANTITY|TAG</code> - the epoch number, or the string "latest_mined",  "latest_state" or "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a>.</li>
 <li><code>Boolean</code> - If <code>true</code> it returns the full transaction objects, if <code>false</code> only the hashes of the transactions.</li>
 </ol>
 <pre><code>params: [
@@ -342,7 +361,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <p>See <a href="#cfx_getblockbyhash">cfx_getBlockByHash</a>.</p>
 <h5 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
-curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getBlockByHash&quot;,&quot;params&quot;:[&quot;latest_mined&quot;, false],&quot;id&quot;:1}'
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getBlockByEpochNumber&quot;,&quot;params&quot;:[&quot;latest_mined&quot;, false],&quot;id&quot;:1}'
 </code></pre>
 
 <p>Result see <a href="#cfx_getblockbyhash">cfx_getBlockByHash</a>.</p>
@@ -367,11 +386,11 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 
 <hr />
 <h4 id="cfx_epochnumber">cfx_epochNumber<a class="headerlink" href="#cfx_epochnumber" title="Permanent link">&para;</a></h4>
-<p>Returns the current epoch number the client is on.</p>
+<p>Returns the epoch number of given parameter.</p>
 <h5 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">&para;</a></h5>
-<p><code>TAG</code> - (optional, default: "latest_mined") String "latest_mined",  "latest_state" or "earliest", see the <a href="#the-default-epoch-parameter">default epoch parameter</a>.</p>
+<p><code>TAG</code> - (optional, default: "latest_mined") String "latest_mined",  "latest_state" or "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a>.</p>
 <h5 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h5>
-<p><code>QUANTITY</code> - integer of the current epoch number the client is on.</p>
+<p><code>QUANTITY</code> - integer of the current epoch number of given parameter.</p>
 <h5 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_epochNumber&quot;,&quot;params&quot;:[],&quot;id&quot;:1}'
@@ -407,7 +426,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <h4 id="cfx_getblocksbyepoch">cfx_getBlocksByEpoch<a class="headerlink" href="#cfx_getblocksbyepoch" title="Permanent link">&para;</a></h4>
 <p>Returns hashes of blocks located in some epoch.</p>
 <h5 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">&para;</a></h5>
-<p><code>QUANTITY|TAG</code> - the epoch number, or the string "latest_mined",  "latest_state" or "earliest", see the <a href="#the-default-epoch-parameter">default epoch parameter</a>.</p>
+<p><code>QUANTITY|TAG</code> - the epoch number, or the string "latest_mined",  "latest_state" or "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a>.</p>
 <h5 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">&para;</a></h5>
 <p><code>Array</code> - Array of block hashes, sorted by execution(topological) order.</p>
 <h5 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">&para;</a></h5>
@@ -440,7 +459,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <h5 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h5>
 <ol>
 <li><code>DATA</code>, 20 Bytes - address to check for balance.</li>
-<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-default-epoch-parameter">default epoch parameter</a></li>
+<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
 </ol>
 <pre><code>params: [
    '0xc94770007dda54cF92009BFF0dE90c06F603a09f',
@@ -463,12 +482,195 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 </code></pre>
 
 <hr />
-<h4 id="cfx_gettransactioncount">cfx_getTransactionCount<a class="headerlink" href="#cfx_gettransactioncount" title="Permanent link">&para;</a></h4>
-<p>Returns the number of transactions sent from an address.</p>
+<h4 id="cfx_getstakingbalance">cfx_getStakingBalance<a class="headerlink" href="#cfx_getstakingbalance" title="Permanent link">&para;</a></h4>
+<p>Returns the balance of the staking account of given address.</p>
 <h5 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">&para;</a></h5>
 <ol>
+<li><code>DATA</code>, 20 Bytes - address to check for staking balance.</li>
+<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
+</ol>
+<pre><code>params: [
+   '0xc94770007dda54cF92009BFF0dE90c06F603a09f',
+   'latest_state'
+]
+</code></pre>
+
+<h5 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">&para;</a></h5>
+<p><code>QUANTITY</code> - integer of the current staking balance in Drip.</p>
+<h5 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getStakingBalance&quot;,&quot;params&quot;:[&quot;0xc94770007dda54cF92009BFF0dE90c06F603a09f&quot;, &quot;latest_state&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+    &quot;id&quot;:1,
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;result&quot;: &quot;0x0234c8a3397aab58&quot; // 158972490234375000
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_getcollateralforstorage">cfx_getCollateralForStorage<a class="headerlink" href="#cfx_getcollateralforstorage" title="Permanent link">&para;</a></h4>
+<p>Returns the size of the collateral storage of given address, in Byte.</p>
+<h5 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h5>
+<ol>
+<li><code>DATA</code>, 20 Bytes - address to check for collateral storage.</li>
+<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
+</ol>
+<pre><code>params: [
+   '0xc94770007dda54cF92009BFF0dE90c06F603a09f',
+   'latest_state'
+]
+</code></pre>
+
+<h5 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">&para;</a></h5>
+<p><code>QUANTITY</code> - integer of the collateral storage in Byte.</p>
+<h5 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getCollateralForStorage&quot;,&quot;params&quot;:[&quot;0xc94770007dda54cF92009BFF0dE90c06F603a09f&quot;, &quot;latest_state&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+    &quot;id&quot;:1,
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;result&quot;: &quot;0x0234c8a8&quot;
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_getadmin">cfx_getAdmin<a class="headerlink" href="#cfx_getadmin" title="Permanent link">&para;</a></h4>
+<p>Returns the admin of given contract.</p>
+<h5 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link">&para;</a></h5>
+<ol>
+<li><code>DATA</code>, 20 Bytes - address to contract.</li>
+<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
+</ol>
+<pre><code>params: [
+    '0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f',
+    'latest_state'
+]
+</code></pre>
+
+<h5 id="returns_10">Returns<a class="headerlink" href="#returns_10" title="Permanent link">&para;</a></h5>
+<p><code>DATA</code> - 20 Bytes - address to admin, or <code>0x0000000000000000000000000000000000000000</code> if the contract does not exist.</p>
+<h5 id="example_10">Example<a class="headerlink" href="#example_10" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getAdmin&quot;,&quot;params&quot;:[&quot;0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;0x144aa8f554d2ffbc81e0aa0f533f76f5220db09c&quot;,
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_getcode">cfx_getCode<a class="headerlink" href="#cfx_getcode" title="Permanent link">&para;</a></h4>
+<p>Returns the code of given contract.</p>
+<h5 id="parameters_11">Parameters<a class="headerlink" href="#parameters_11" title="Permanent link">&para;</a></h5>
+<ol>
+<li><code>DATA</code>, 20 Bytes - address to contract.</li>
+<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
+</ol>
+<pre><code>params: [
+    '0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f',
+    'latest_state'
+]
+</code></pre>
+
+<h5 id="returns_11">Returns<a class="headerlink" href="#returns_11" title="Permanent link">&para;</a></h5>
+<p><code>DATA</code> - byte code of contract, or <code>0x</code> if the contract does not exist.</p>
+<h5 id="example_11">Example<a class="headerlink" href="#example_11" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getCode&quot;,&quot;params&quot;:[&quot;0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f&quot;,&quot;latest_state&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;0x&quot;,
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_getstorageat">cfx_getStorageAt<a class="headerlink" href="#cfx_getstorageat" title="Permanent link">&para;</a></h4>
+<p>Returns storage entries from a given contract.</p>
+<h5 id="parameters_12">Parameters<a class="headerlink" href="#parameters_12" title="Permanent link">&para;</a></h5>
+<ol>
+<li><code>DATA</code>, 20 Bytes - address to contract.</li>
+<li><code>DATA</code>, 32 Bytes - the given position.</li>
+<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
+</ol>
+<pre><code>params: [
+    '0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f',
+    '0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9',
+    'latest_state'
+]
+</code></pre>
+
+<h5 id="returns_12">Returns<a class="headerlink" href="#returns_12" title="Permanent link">&para;</a></h5>
+<p><code>DATA</code> - 32 Bytes - storage entry of given query, or <code>null</code> if the it does not exist.</p>
+<h5 id="example_12">Example<a class="headerlink" href="#example_12" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getStorageAt&quot;,&quot;params&quot;:[&quot;0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f&quot;,&quot;0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9&quot;,&quot;latest_state&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;0x000000000000000000000000000000000000000000000000000000000000162e&quot;,
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_getsponsorinfo">cfx_getSponsorInfo<a class="headerlink" href="#cfx_getsponsorinfo" title="Permanent link">&para;</a></h4>
+<p>Returns the sponsor info of given contract.</p>
+<h5 id="parameters_13">Parameters<a class="headerlink" href="#parameters_13" title="Permanent link">&para;</a></h5>
+<ol>
+<li><code>DATA</code>, 20 Bytes - address to contract.</li>
+<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
+</ol>
+<pre><code>params: [
+    '0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f',
+    'latest_state'
+]
+</code></pre>
+
+<h5 id="returns_13">Returns<a class="headerlink" href="#returns_13" title="Permanent link">&para;</a></h5>
+<p><code>Object</code> - A sponsor info object, if the contract doesn't have a sponsor, then the all fields in returned object will be <code>0</code>:</p>
+<ul>
+<li><code>sponsorBalanceForCollateral</code>: <code>QUANTITY</code> - the sponsored balance for storage.</li>
+<li><code>sponsorBalanceForGas</code>: <code>QUANTITY</code> - the sponsored balance for gas.</li>
+<li><code>sponsorGasBound</code>: <code>QUANTITY</code> - the max gas could be sponsored for one transaction.</li>
+<li><code>sponsorForCollateral</code>: <code>DATA</code>, 20 Bytes - the address of the storage sponsor.</li>
+<li><code>sponsorForGas</code>: <code>DATA</code>, 20 Bytes - the address of the gas sponsor.</li>
+</ul>
+<h5 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getSponsorInfo&quot;,&quot;params&quot;:[&quot;0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: {
+    &quot;sponsorBalanceForCollateral&quot;: &quot;0x0&quot;,
+    &quot;sponsorBalanceForGas&quot;: &quot;0x0&quot;,
+    &quot;sponsorForCollateral&quot;: &quot;0x0000000000000000000000000000000000000000&quot;,
+    &quot;sponsorForGas&quot;: &quot;0x0000000000000000000000000000000000000000&quot;,
+    &quot;sponsorGasBound&quot;: &quot;0x0&quot;
+  },
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_getnextnonce">cfx_getNextNonce<a class="headerlink" href="#cfx_getnextnonce" title="Permanent link">&para;</a></h4>
+<p>Returns the next nonce should be used by given address.</p>
+<h5 id="parameters_14">Parameters<a class="headerlink" href="#parameters_14" title="Permanent link">&para;</a></h5>
+<ol>
 <li><code>DATA</code>, 20 Bytes - address.</li>
-<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-default-epoch-parameter">default epoch parameter</a></li>
+<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
 </ol>
 <pre><code>params: [
     '0xfbe45681ac6c53d5a40475f7526bac1fe7590fb8',
@@ -476,11 +678,11 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 ]
 </code></pre>
 
-<h5 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">&para;</a></h5>
-<p><code>QUANTITY</code> - integer of the number of transactions send from this address.</p>
-<h5 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">&para;</a></h5>
+<h5 id="returns_14">Returns<a class="headerlink" href="#returns_14" title="Permanent link">&para;</a></h5>
+<p><code>QUANTITY</code> - integer of the next nonce should be used by given address.</p>
+<h5 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
-curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getTransactionCount&quot;,&quot;params&quot;:[&quot;0xfbe45681ac6c53d5a40475f7526bac1fe7590fb8&quot;, 'latest_state'],&quot;id&quot;:1}'
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getNextNonce&quot;,&quot;params&quot;:[&quot;0xfbe45681ac6c53d5a40475f7526bac1fe7590fb8&quot;, 'latest_state'],&quot;id&quot;:1}'
 
 // Result
 {
@@ -493,16 +695,16 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <hr />
 <h4 id="cfx_sendrawtransaction">cfx_sendRawTransaction<a class="headerlink" href="#cfx_sendrawtransaction" title="Permanent link">&para;</a></h4>
 <p>Creates new message call transaction or a contract creation for signed transactions.</p>
-<h5 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_15">Parameters<a class="headerlink" href="#parameters_15" title="Permanent link">&para;</a></h5>
 <p><code>DATA</code>, The signed transaction data.</p>
 <pre><code>params: [
-    '0xf889808609184e72a00082271094000000000000000000000000000000000000000080a47f746573743200000000000000000000000000000000000000000000000000000060005701a08a8bbf888cfa37bbf0bb965423625641fc956967b81d12e23709cead01446075a01ce999b56a8a88504be365442ea61239198e23d1fce7d00fcfc5cd3b44b7215f'
+    '0xf86eea8201a28207d0830f4240943838197c0c88d0d5b13b67e1bfdbdc132d4842e389056bc75e2d631000008080a017b8b26f473820475edc49bd153660e56b973b5985bbdb2828fceacb4c91f389a03452f9a69da34ef35acc9c554d7b1d63e9041141674b42c3abb1b57b9f83a2d3'
 ]
 </code></pre>
 
-<h5 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">&para;</a></h5>
+<h5 id="returns_15">Returns<a class="headerlink" href="#returns_15" title="Permanent link">&para;</a></h5>
 <p><code>DATA</code>, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.</p>
-<h5 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">&para;</a></h5>
+<h5 id="example_15">Example<a class="headerlink" href="#example_15" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_sendRawTransaction&quot;,&quot;params&quot;:[{see above}],&quot;id&quot;:1}'
 
@@ -510,7 +712,310 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 {
     &quot;id&quot;:1,
     &quot;jsonrpc&quot;: &quot;2.0&quot;,
-    &quot;result&quot;: &quot;0x83a610d4a8ebd20dde487f6d02c1d26f6ae8cb2bb4f0b74466a7597ce682077f&quot;
+    &quot;result&quot;: &quot;0xf5338a6cb85d10acc9108869f94fe322b2dfa2715d16d264676c91f6a0404b61&quot;
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_call">cfx_call<a class="headerlink" href="#cfx_call" title="Permanent link">&para;</a></h4>
+<p>Virtually call a contract, return the output data.</p>
+<h5 id="parameters_16">Parameters<a class="headerlink" href="#parameters_16" title="Permanent link">&para;</a></h5>
+<ol>
+<li>
+<p><code>Object</code> - A call request object:</p>
+<ul>
+<li><code>from</code>: <code>DATA</code>, 20 Bytes - (optional, default: random address) address of sender.</li>
+<li><code>to</code>: <code>DATA</code>, 20 Bytes - (optional, default: <code>null</code> for contract creation) address of receiver.</li>
+<li><code>gasPrice</code>: <code>QUANTITY</code> - (optional, default: <code>0</code>) gas price provided by the sender in Drip.</li>
+<li><code>gas</code>: <code>QUANTITY</code> - (optional, default: <code>500000000</code>) gas provided by the sender.</li>
+<li><code>value</code>: <code>QUANTITY</code> - (optional, default: <code>0</code>) value transferred in Drip.</li>
+<li><code>data</code>: <code>DATA</code> - (optional, default: <code>0x</code>) the data send along with the transaction.</li>
+<li><code>nonce</code>: <code>QUANTITY</code> - (optional, default: <code>0</code>) the number of transactions made by the sender prior to this one.</li>
+</ul>
+</li>
+<li>
+<p><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></p>
+</li>
+</ol>
+<pre><code>params: [
+    {
+        &quot;from&quot;:&quot;0xf6B7219AF657e14B5103e915839dD12f51cDBA68&quot;,
+        &quot;to&quot;:&quot;0x63428378C5D7d168c9Ef2809a76812d40E018Ac9&quot;,
+        &quot;data&quot;:&quot;0x&quot;,
+        &quot;gasPrice&quot;:&quot;0x2540be400&quot;,
+        &quot;nonce&quot;: &quot;0x0&quot;
+    },
+    'latest_state' // state at the latest executed epoch
+]
+</code></pre>
+
+<h5 id="returns_16">Returns<a class="headerlink" href="#returns_16" title="Permanent link">&para;</a></h5>
+<p><code>DATA</code>, Bytes - the output data.</p>
+<h5 id="example_16">Example<a class="headerlink" href="#example_16" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;method&quot;:&quot;cfx_call&quot;,&quot;id&quot;:1,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;params&quot;:[{&quot;from&quot;:&quot;0xf6B7219AF657e14B5103e915839dD12f51cDBA68&quot;,&quot;to&quot;:&quot;0x63428378C5D7d168c9Ef2809a76812d40E018Ac9&quot;,&quot;data&quot;:&quot;0x&quot;,&quot;gasPrice&quot;:&quot;0x2540be400&quot;, &quot;nonce&quot;: &quot;0x0&quot;}]}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;0x&quot;,
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_estimategasandcollateral">cfx_estimateGasAndCollateral<a class="headerlink" href="#cfx_estimategasandcollateral" title="Permanent link">&para;</a></h4>
+<p>Virtually call a contract, return the output data.</p>
+<h5 id="parameters_17">Parameters<a class="headerlink" href="#parameters_17" title="Permanent link">&para;</a></h5>
+<p>See <a href="#cfx_call">cfx_call</a>.</p>
+<pre><code>params: [
+    {
+        &quot;from&quot;:&quot;0xf6B7219AF657e14B5103e915839dD12f51cDBA68&quot;,
+        &quot;to&quot;:&quot;0x63428378C5D7d168c9Ef2809a76812d40E018Ac9&quot;,
+        &quot;data&quot;:&quot;0x&quot;,
+        &quot;gasPrice&quot;:&quot;0x2540be400&quot;,
+        &quot;nonce&quot;: &quot;0x0&quot;
+    },
+    'latest_state' // state at the latest executed epoch
+]
+</code></pre>
+
+<h5 id="returns_17">Returns<a class="headerlink" href="#returns_17" title="Permanent link">&para;</a></h5>
+<p><code>Object</code> - A estimate result object:
+   * <code>gasUsed</code>: <code>QUANTITY</code> - gas used after execution.
+   * <code>storageCollateralized</code>: <code>QUANTITY</code> - stroage collateralized, in Byte.</p>
+<h5 id="example_17">Example<a class="headerlink" href="#example_17" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;method&quot;:&quot;cfx_estimateGasAndCollateral&quot;,&quot;id&quot;:1,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;params&quot;:[{&quot;from&quot;:&quot;0xf6B7219AF657e14B5103e915839dD12f51cDBA68&quot;,&quot;to&quot;:&quot;0x63428378C5D7d168c9Ef2809a76812d40E018Ac9&quot;,&quot;data&quot;:&quot;0x&quot;,&quot;gasPrice&quot;:&quot;0x2540be400&quot;, &quot;nonce&quot;: &quot;0x0&quot;}]}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: {
+    &quot;gasUsed&quot;: &quot;0x5208&quot;,
+    &quot;storageCollateralized&quot;: &quot;0x0&quot;
+  },
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_getlogs">cfx_getLogs<a class="headerlink" href="#cfx_getlogs" title="Permanent link">&para;</a></h4>
+<p>Returns logs matching the filter provided.</p>
+<h5 id="parameters_18">Parameters<a class="headerlink" href="#parameters_18" title="Permanent link">&para;</a></h5>
+<p><code>Object</code> - A log filter object:</p>
+<ul>
+<li><code>fromEpoch</code>: <code>QUANTITY</code> - (optional, default: <code>"earliest"</code>) search will be applied from this epoch number.</li>
+<li><code>toEpoch</code>: <code>QUANTITY</code> - (optional, default: <code>"latest_mined"</code>) till this epoch number.</li>
+<li><code>blockHashes</code>: <code>Array</code> of <code>DATA</code> - (optional, default: <code>null</code>) Array of block hashes that the search will be applied. This will override from/to epoch fields if it's not <code>null</code>.</li>
+<li><code>address</code>: <code>Array</code> of <code>DATA</code> - (optional, default: <code>null</code>) Search addresses, If <code>null</code>, match all. If specified, log must be produced by one of these addresses.</li>
+<li><code>topics</code>: <code>Array</code> - (optional, default: <code>null</code>) Search topics. Logs can have <code>4</code> topics: the function signature and up to <code>3</code> indexed event arguments. The elements of <code>topics</code> match the corresponding log topics. Example: <code>["0xA", null, ["0xB", "0xC"], null]</code> matches logs with <code>"0xA"</code> as the 1st topic AND (<code>"0xB"</code> OR <code>"0xC"</code>) as the 3rd topic. If <code>null</code>, match all.</li>
+<li><code>limit</code>: <code>QUANTITY</code> - (optional, default: <code>null</code>) If <code>null</code> return all logs, otherwise should only return <strong>last</strong> <code>limit</code> logs.</li>
+</ul>
+<pre><code>params: [
+    {}
+]
+</code></pre>
+
+<h5 id="returns_18">Returns<a class="headerlink" href="#returns_18" title="Permanent link">&para;</a></h5>
+<p><code>Array</code> - Array of Log <code>Object</code>, that the logs matching the filter provided:</p>
+<ul>
+<li><code>address</code>: <code>DATA</code>, 20 Bytes - address of log.</li>
+<li><code>topics</code>: <code>Array</code> of <code>DATA</code> - Array of topics.</li>
+<li><code>data</code>: <code>DATA</code> - data of log.</li>
+<li><code>blockHash</code>: <code>DATA</code> - 32 Bytes - hash of the block where the log in.</li>
+<li><code>epochNumber</code>: <code>QUANTITY</code> - epoch number of the block where the log in.</li>
+<li><code>transactionHash</code>: <code>DATA</code>, 32 Bytes - hash of the transaction where the log in.</li>
+<li><code>transactionIndex</code>: <code>QUANTITY</code> - transaction index in the block.</li>
+<li><code>logIndex</code>: <code>QUANTITY</code> - log index in block.</li>
+<li><code>transactionLogIndex</code>: <code>QUANTITY</code> - log index in transaction.</li>
+</ul>
+<h5 id="example_18">Example<a class="headerlink" href="#example_18" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getLogs&quot;,&quot;params&quot;:[{}],&quot;id&quot;:1}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: [
+    {
+      &quot;address&quot;: &quot;0x866aca87ff33a0ae05d2164b3d999a804f583222&quot;,
+      &quot;blockHash&quot;: &quot;0x0ecbc75aca22cd1566a18c6a7a55f235ae12684c2749b40ac91262d6e8783b0b&quot;,
+      &quot;data&quot;: &quot;0x&quot;,
+      &quot;epochNumber&quot;: &quot;0x1504a7&quot;,
+      &quot;logIndex&quot;: &quot;0x2&quot;,
+      &quot;topics&quot;: [
+        &quot;0x93baa6efbd2244243bfee6ce4cfdd1d04fc4c0e9a786abd3a41313bd352db153&quot;,
+        &quot;0x000000000000000000000000873c4bd4d847bcf7dc066bf4a7cd31dcf182258c&quot;,
+        &quot;0xb281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b&quot;,
+        &quot;0x000000000000000000000000873c4bd4d847bcf7dc066bf4a7cd31dcf182258c&quot;
+      ],
+      &quot;transactionHash&quot;: &quot;0x2a696f7be50c364333bc145f082e79da3a6e730318b7f7822e3e1fe22e42560b&quot;,
+      &quot;transactionIndex&quot;: &quot;0x0&quot;,
+      &quot;transactionLogIndex&quot;: &quot;0x2&quot;
+    },
+    {
+      &quot;address&quot;: &quot;0x873c4bd4d847bcf7dc066bf4a7cd31dcf182258c&quot;,
+      &quot;blockHash&quot;: &quot;0x0ecbc75aca22cd1566a18c6a7a55f235ae12684c2749b40ac91262d6e8783b0b&quot;,
+      &quot;data&quot;: &quot;0x&quot;,
+      &quot;epochNumber&quot;: &quot;0x1504a7&quot;,
+      &quot;logIndex&quot;: &quot;0x3&quot;,
+      &quot;topics&quot;: [
+        &quot;0x0040d54d5e5b097202376b55bcbaaedd2ee468ce4496f1d30030c4e5308bf94d&quot;,
+        &quot;0x00000000000000000000000015cf2b2c91e6eff901f10ab7363ae58cf1bfccc5&quot;
+      ],
+      &quot;transactionHash&quot;: &quot;0x2a696f7be50c364333bc145f082e79da3a6e730318b7f7822e3e1fe22e42560b&quot;,
+      &quot;transactionIndex&quot;: &quot;0x0&quot;,
+      &quot;transactionLogIndex&quot;: &quot;0x3&quot;
+    }
+  ],
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_gettransactionreceipt">cfx_getTransactionReceipt<a class="headerlink" href="#cfx_gettransactionreceipt" title="Permanent link">&para;</a></h4>
+<p>Returns the information about a transaction receipt requested by transaction hash.</p>
+<h5 id="parameters_19">Parameters<a class="headerlink" href="#parameters_19" title="Permanent link">&para;</a></h5>
+<ol>
+<li>DATA, 32 Bytes - hash of a transaction</li>
+</ol>
+<pre><code>params: [
+    '0x53fe995edeec7d241791ff32635244e94ecfd722c9fe90f34ddf59082d814514',
+]
+</code></pre>
+
+<h5 id="returns_19">Returns<a class="headerlink" href="#returns_19" title="Permanent link">&para;</a></h5>
+<p><code>Object</code> - A transaction receipt object, or <code>null</code> when no transaction was found or the transaction was not executed yet:</p>
+<ul>
+<li><code>transactionHash</code>: <code>DATA</code>, 32 Bytes - hash of the given transaction.</li>
+<li><code>index</code>: <code>QUANTITY</code> - transaction index within the block.</li>
+<li><code>blockHash</code>: <code>DATA</code>, 32 Bytes - hash of the block where this transaction was in and got executed.</li>
+<li><code>epochNumber</code>: <code>QUANTITY</code> - epoch number of the block where this transaction was in and got executed.</li>
+<li><code>from</code>: <code>DATA</code>, 20 Bytes - address of the sender.</li>
+<li><code>to</code>: <code>DATA</code>, 20 Bytes - address of the receiver. <code>null</code> when its a contract creation transaction.</li>
+<li><code>gasUsed</code>: <code>QUANTITY</code> - gas used the transaction.</li>
+<li><code>contractCreated</code>: <code>DATA</code>, 20 Bytes - address of created contract. <code>null</code> when it's not a contract creating transaction.</li>
+<li><code>stateRoot</code>: <code>DATA</code>, 32 Bytes - hash of the state root.</li>
+<li><code>outcomeStatus</code>: <code>QUANTITY</code> - the outcome status code.</li>
+<li><code>logsBloom</code>: <code>DATA</code>, 256 Bytes - bloom filter for light clients to quickly retrieve related logs.</li>
+<li><code>logs</code>: <code>Array</code> - Array of log objects, which this transaction generated, see <a href="#cfx_getlogs">cfx_getLogs</a></li>
+</ul>
+<h5 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getTransactionReceipt&quot;,&quot;params&quot;:[&quot;0x53fe995edeec7d241791ff32635244e94ecfd722c9fe90f34ddf59082d814514&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: {
+    &quot;blockHash&quot;: &quot;0xbb1eea3c8a574dc19f7d8311a2096e23a39f12e649a20766544f2df67aac0bed&quot;,
+    &quot;contractCreated&quot;: null,
+    &quot;epochNumber&quot;: 451990,
+    &quot;from&quot;: &quot;0xb2988210c05a43ebd76575f5421ef84b120ebf80&quot;,
+    &quot;gasUsed&quot;: &quot;0x5208&quot;,
+    &quot;index&quot;: 0,
+    &quot;logs&quot;: [],
+    &quot;logsBloom&quot;: &quot;0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;,
+    &quot;outcomeStatus&quot;: 0,
+    &quot;stateRoot&quot;: &quot;0x1bc37c63c03d7e7066f9427f69e515988d19ebb26998087d75b50d2235e55ee7&quot;,
+    &quot;to&quot;: &quot;0xb2988210c05a43ebd76575f5421ef84b120ebf80&quot;,
+    &quot;transactionHash&quot;: &quot;0x53fe995edeec7d241791ff32635244e94ecfd722c9fe90f34ddf59082d814514&quot;
+  },
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_getaccount">cfx_getAccount<a class="headerlink" href="#cfx_getaccount" title="Permanent link">&para;</a></h4>
+<p>Return account related states of the given account</p>
+<h5 id="parameters_20">Parameters<a class="headerlink" href="#parameters_20" title="Permanent link">&para;</a></h5>
+<ol>
+<li><code>DATA</code>, 20 Bytes - address to get account.</li>
+<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
+</ol>
+<pre><code>params: [
+   '0xc94770007dda54cF92009BFF0dE90c06F603a09f',
+   'latest_state'
+]
+</code></pre>
+
+<h5 id="returns_20">Returns<a class="headerlink" href="#returns_20" title="Permanent link">&para;</a></h5>
+<p><code>Object</code> - states of the given account:</p>
+<ul>
+<li><code>balance</code>: <code>QUANTITY</code> - the balance of the account.</li>
+<li><code>nonce</code>: <code>QUANTITY</code> - the nonce of the account's next transaction.</li>
+<li><code>codeHash</code>: <code>QUANTITY</code> - the code hash of the account.</li>
+<li><code>stakingBalance</code>: <code>QUANTITY</code> - the staking balance of the account.</li>
+<li><code>collateralForStorage</code>: <code>QUANTITY</code> - the collateral storage of the account.</li>
+<li><code>accumulatedInterestReturn</code>: <code>QUANTITY</code> -accumulated unterest return of the account.</li>
+<li><code>admin</code>: DATA`, 20 Bytes - admin of the account.</li>
+</ul>
+<h5 id="example_20">Example<a class="headerlink" href="#example_20" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getAccount&quot;,&quot;params&quot;:[&quot;0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f&quot;, &quot;latest_state&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: {
+    &quot;accumulatedInterestReturn&quot;: &quot;0x0&quot;,
+    &quot;admin&quot;: &quot;0x144aa8f554d2ffbc81e0aa0f533f76f5220db09c&quot;,
+    &quot;balance&quot;: &quot;0x0&quot;,
+    &quot;codeHash&quot;: &quot;0x45fed62dd2b7c5ed76a63628ddc811e69bb5770cf31dd55647ca219aaee5434f&quot;,
+    &quot;collateralForStorage&quot;: &quot;0x0&quot;,
+    &quot;nonce&quot;: &quot;0x1&quot;,
+    &quot;stakingBalance&quot;: &quot;0x0&quot;
+  },
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_getinterestrate">cfx_getInterestRate<a class="headerlink" href="#cfx_getinterestrate" title="Permanent link">&para;</a></h4>
+<p>Returns the interest rate of given parameter.</p>
+<h5 id="parameters_21">Parameters<a class="headerlink" href="#parameters_21" title="Permanent link">&para;</a></h5>
+<p><code>TAG</code> - (optional, default: "latest_mined") String "latest_mined",  "latest_state" or "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a>.</p>
+<pre><code>params: [
+   'latest_state'
+]
+</code></pre>
+
+<h5 id="returns_21">Returns<a class="headerlink" href="#returns_21" title="Permanent link">&para;</a></h5>
+<p><code>QUANTITY</code> - the interest rate of given parameter.</p>
+<h5 id="example_21">Example<a class="headerlink" href="#example_21" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getInterestRate&quot;,&quot;params&quot;:[&quot;latest_state&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;0x24b675dc000&quot;,
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="cfx_getaccumulateinterestrate">cfx_getAccumulateInterestRate<a class="headerlink" href="#cfx_getaccumulateinterestrate" title="Permanent link">&para;</a></h4>
+<p>Returns the accumulate interest rate of given parameter.</p>
+<h5 id="parameters_22">Parameters<a class="headerlink" href="#parameters_22" title="Permanent link">&para;</a></h5>
+<p><code>TAG</code> - (optional, default: "latest_mined") String "latest_mined",  "latest_state" or "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a>.</p>
+<pre><code>params: [
+   'latest_state'
+]
+</code></pre>
+
+<h5 id="returns_22">Returns<a class="headerlink" href="#returns_22" title="Permanent link">&para;</a></h5>
+<p><code>QUANTITY</code> - the accumulate interest rate of given parameter.</p>
+<h5 id="example_22">Example<a class="headerlink" href="#example_22" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getAccumulateInterestRate&quot;,&quot;params&quot;:[&quot;latest_state&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;0x3c35a9e557dc9ef76719db0226f&quot;,
+  &quot;id&quot;: 1
 }
 </code></pre>
 
