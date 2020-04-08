@@ -89,6 +89,8 @@
         
             <li><a class="toctree-l3" href="#curl-examples-explained">Curl Examples Explained</a></li>
         
+            <li><a class="toctree-l3" href="#migrating-from-ethereum-json-rpc">Migrating from Ethereum JSON-RPC</a></li>
+        
             <li><a class="toctree-l3" href="#json-rpc-methods">JSON-RPC methods</a></li>
         
         </ul>
@@ -211,6 +213,25 @@
 <pre><code>curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getBestBlockHash&quot;,&quot;params&quot;:[],&quot;id&quot;:1}' -H &quot;Content-Type: application/json&quot; http://localhost:12345
 </code></pre>
 
+<h2 id="migrating-from-ethereum-json-rpc">Migrating from Ethereum JSON-RPC<a class="headerlink" href="#migrating-from-ethereum-json-rpc" title="Permanent link">&para;</a></h2>
+<p>There is a correspondence between some JSON-RPCs from Ethereum and Conflux. </p>
+<p>Even though the details of JSON-RPC may defer from each other, the following mapping table could be helpful on migrating from Ethereum to Conflux:</p>
+<ul>
+<li>eth_gasPrice =&gt; cfx_gasPrice</li>
+<li>eth_blockNumber =&gt; cfx_epochNumber</li>
+<li>eth_getBalance =&gt; cfx_getBalance</li>
+<li>eth_getStorageAt =&gt; cfx_getStorageAt</li>
+<li>eth_getTransactionCount =&gt; cfx_getNextNonce</li>
+<li>eth_getCode =&gt; cfx_getCode</li>
+<li>eth_sendRawTransaction =&gt; cfx_sendRawTransaction</li>
+<li>eth_call =&gt; cfx_call</li>
+<li>eth_estimateGas =&gt; cfx_estimateGasAndCollateral</li>
+<li>eth_getBlockByHash =&gt; cfx_getBlockByHash</li>
+<li>eth_getBlockByNumber =&gt; cfx_getBlockByEpochNumber</li>
+<li>eth_getTransactionByHash =&gt; cfx_getTransactionByHash</li>
+<li>eth_getTransactionReceipt =&gt; cfx_getTransactionReceipt</li>
+<li>eth_getLogs =&gt; cfx_getLogs</li>
+</ul>
 <h2 id="json-rpc-methods">JSON-RPC methods<a class="headerlink" href="#json-rpc-methods" title="Permanent link">&para;</a></h2>
 <h4 id="cfx_gettransactionbyhash">cfx_getTransactionByHash<a class="headerlink" href="#cfx_gettransactionbyhash" title="Permanent link">&para;</a></h4>
 <p>Returns the information about a transaction requested by transaction hash.</p>
