@@ -240,7 +240,7 @@ SUBCOMMANDS:
     blocks                   Get blocks of specified epoch
     call                     Executes a new message call immediately without creating a transaction
     code                     Get bytecode of specified contract
-    debug                    Debug subcommands (requires jsonrpc_local_http_port configured)
+    local                    Local subcommands (requires jsonrpc_local_http_port configured)
     epoch                    Get epoch number
     estimate-gas             Executes a call request immediately without creating a transaction and returns the gas used
     help                     Prints this message or the help of the given subcommand(s)
@@ -254,7 +254,7 @@ SUBCOMMANDS:
 <h3 id="get-balance">Get balance<a class="headerlink" href="#get-balance" title="Permanent link">&para;</a></h3>
 <p><code>./conflux.exe rpc balance --address 0xa70ddf9b9750c575db453eea6a041f4c8536785a</code></p>
 <h3 id="get-nonce">Get nonce<a class="headerlink" href="#get-nonce" title="Permanent link">&para;</a></h3>
-<p><code>./conflux.exe rpc none --address 0xa70ddf9b9750c575db453eea6a041f4c8536785a</code></p>
+<p><code>./conflux.exe rpc nonce --address 0xa70ddf9b9750c575db453eea6a041f4c8536785a</code></p>
 <h3 id="get-current-epoch-number">Get current epoch number<a class="headerlink" href="#get-current-epoch-number" title="Permanent link">&para;</a></h3>
 <p><code>./conflux.exe rpc epoch</code></p>
 <h3 id="get-blocks">Get block(s)<a class="headerlink" href="#get-blocks" title="Permanent link">&para;</a></h3>
@@ -279,13 +279,13 @@ SUBCOMMANDS:
 <h2 id="private-apis">Private APIs<a class="headerlink" href="#private-apis" title="Permanent link">&para;</a></h2>
 <p>Private API allows you to interact with local Conflux node <strong>only</strong> via HTTP connection in JSON-RPC protocol. Private APIs are provided for user to manage the local Conflux node, and requires the <code>jsonrpc_local_http_port</code> configured in <strong><em>default.toml</em></strong> configuration file.</p>
 <p>In addition, private APIs also helps developers to debug, test, and monitor the runtime of Conflux node.</p>
-<p>All private APIs are under <code>debug</code> sub-command, and access to the JSON-RPC API at local machine with default <code>url</code> option.</p>
-<pre><code class="text">$ ./conflux.exe rpc debug --help
-conflux.exe-rpc-debug
+<p>All private APIs are under <code>local</code> sub-command, and access to the JSON-RPC API at local machine with default <code>url</code> option.</p>
+<pre><code class="text">$ ./conflux.exe rpc local --help
+conflux.exe-rpc-local
 Debug subcommands (requires jsonrpc_local_http_port configured)
 
 USAGE:
-    conflux.exe rpc debug [OPTIONS] &lt;SUBCOMMAND&gt;
+    conflux.exe rpc local [OPTIONS] &lt;SUBCOMMAND&gt;
 
 FLAGS:
     -h, --help       Prints help information
@@ -308,31 +308,31 @@ SUBCOMMANDS:
 <p><code>net</code> sub-command helps you to inspect the P2P network status.</p>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <ul>
-<li>List all connected P2P nodes: <code>./conflux.exe rpc debug net session</code></li>
-<li>List a single P2P node: <code>./conflux.exe rpc debug net session --id &lt;node_id&gt;</code></li>
-<li>Check network egress: <code>./conflux.exe rpc debug net throttling</code></li>
+<li>List all connected P2P nodes: <code>./conflux.exe rpc local net session</code></li>
+<li>List a single P2P node: <code>./conflux.exe rpc local net session --id &lt;node_id&gt;</code></li>
+<li>Check network egress: <code>./conflux.exe rpc local net throttling</code></li>
 </ul>
 <h3 id="txpool">txpool<a class="headerlink" href="#txpool" title="Permanent link">&para;</a></h3>
 <p><code>txpool</code> sub-command helps you to inspect the transaction pool.</p>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
 <ul>
-<li>List transaction pool status: <code>./conflux.exe rpc debug txpool status</code></li>
-<li>List transactions in details: <code>./conflux.exe rpc debug txpool content</code></li>
-<li>List summary of transactions: <code>./conflux.exe rpc debug txpool inspect</code></li>
-<li>Inspect a transaction in detail: <code>./conflux.exe rpc debug txpool inspect-one --hash &lt;tx_hash&gt;</code></li>
+<li>List transaction pool status: <code>./conflux.exe rpc local txpool status</code></li>
+<li>List transactions in details: <code>./conflux.exe rpc local txpool content</code></li>
+<li>List summary of transactions: <code>./conflux.exe rpc local txpool inspect</code></li>
+<li>Inspect a transaction in detail: <code>./conflux.exe rpc local txpool inspect-one --hash &lt;tx_hash&gt;</code></li>
 </ul>
 <h3 id="sync-phase">sync-phase<a class="headerlink" href="#sync-phase" title="Permanent link">&para;</a></h3>
 <p>Get the synchronization phase of local conflux node.</p>
-<p><code>./conflux.exe rpc debug sync-phase</code></p>
+<p><code>./conflux.exe rpc local sync-phase</code></p>
 <h3 id="send-transaction">Send transaction<a class="headerlink" href="#send-transaction" title="Permanent link">&para;</a></h3>
 <p>Send a transaction to local Conflux node.</p>
 <h4 id="usage_3">Usage<a class="headerlink" href="#usage_3" title="Permanent link">&para;</a></h4>
-<pre><code class="text">$ ./conflux.exe rpc debug send --help
-conflux.exe-rpc-debug-send
+<pre><code class="text">$ ./conflux.exe rpc local send --help
+conflux.exe-rpc-local-send
 Send a transaction and return its hash
 
 USAGE:
-    conflux.exe rpc debug send [OPTIONS] --from &lt;ADDRESS&gt; --password &lt;STRING&gt; --value &lt;HEX&gt;
+    conflux.exe rpc local send [OPTIONS] --from &lt;ADDRESS&gt; --password &lt;STRING&gt; --value &lt;HEX&gt;
 
 FLAGS:
     -h, --help       Prints help information
@@ -352,9 +352,9 @@ OPTIONS:
 
 <h4 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h4>
 <p>Alice transfer 5 Drip (1 CFX = 10^18 Drip) to Bob. Note, the address of Alice must exist at local machine, otherwise please <a href="#new">create</a> account for alice at first.</p>
-<p><code>./conflux.exe rpc debug send --from &lt;alice_address&gt; --to &lt;bob_address&gt; --value 0x5 --password 123456</code></p>
+<p><code>./conflux.exe rpc local send --from &lt;alice_address&gt; --to &lt;bob_address&gt; --value 0x5 --password 123456</code></p>
 <p>Alice create a contract with gas 3,000,000. You can use <strong><em>solc</em></strong> to compile contract to get the bytecodes.</p>
-<p><code>./conflux.exe rpc debug send --from &lt;alice_address&gt; --value 0x0 --gas 0x‭2DC6C0‬ --data &lt;HEX_contract_bytecodes&gt; --password 123456</code></p>
+<p><code>./conflux.exe rpc local send --from &lt;alice_address&gt; --value 0x0 --gas 0x‭2DC6C0‬ --data &lt;HEX_contract_bytecodes&gt; --password 123456</code></p>
               
             </div>
           </div>

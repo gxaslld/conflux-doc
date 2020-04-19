@@ -182,21 +182,22 @@
 <h2 id="the-epoch-number-parameter">The epoch number parameter<a class="headerlink" href="#the-epoch-number-parameter" title="Permanent link">&para;</a></h2>
 <p>The following methods have an epoch number parameter:</p>
 <ul>
-<li>cfx_getNextNonce</li>
-<li>cfx_getBalance</li>
+<li>cfx_call</li>
+<li>cfx_epochNumber</li>
+<li>cfx_estimateGasAndCollateral</li>
+<li>cfx_getAccumulateInterestRate</li>
 <li>cfx_getAdmin</li>
+<li>cfx_getBalance</li>
+<li>cfx_getBlockByEpochNumber</li>
+<li>cfx_getBlocksByEpoch</li>
+<li>cfx_getCode</li>
+<li>cfx_getCollateralForStorage</li>
+<li>cfx_getInterestRate</li>
+<li>cfx_getNextNonce</li>
 <li>cfx_getSponsorInfo</li>
 <li>cfx_getStakingBalance</li>
-<li>cfx_getCollateralForStorage</li>
-<li>cfx_getCode</li>
 <li>cfx_getStorageAt</li>
-<li>cfx_call</li>
-<li>cfx_estimateGasAndCollateral</li>
-<li>cfx_getInterestRate</li>
-<li>cfx_getAccumulateInterestRate</li>
-<li>cfx_getBlockByEpochNumber</li>
-<li>cfx_epochNumber</li>
-<li>cfx_getBlocksByEpoch</li>
+<li>cfx_getStorageRoot</li>
 </ul>
 <p>When requests are made that act on the state of conflux, the epoch number parameter determines the height of the epoch. The following options are possible for the epoch number parameter:</p>
 <ul>
@@ -645,9 +646,52 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 </code></pre>
 
 <hr />
+<h4 id="cfx_getstorageroot">cfx_getStorageRoot<a class="headerlink" href="#cfx_getstorageroot" title="Permanent link">&para;</a></h4>
+<p>Returns the storage root of a given contract.</p>
+<h5 id="parameters_13">Parameters<a class="headerlink" href="#parameters_13" title="Permanent link">&para;</a></h5>
+<ol>
+<li><code>DATA</code>, 20 Bytes - address to contract.</li>
+<li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined", "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
+</ol>
+<pre><code>params: [
+    '0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f',
+    'latest_state'
+]
+</code></pre>
+
+<h5 id="returns_13">Returns<a class="headerlink" href="#returns_13" title="Permanent link">&para;</a></h5>
+<p><code>Object</code> - A storage root object, or <code>null</code> if the contract does not exist:</p>
+<ul>
+<li><code>delta</code>: <code>DATA</code>, 32 Bytes - storage root in the delta trie.</li>
+<li><code>intermediate</code>: <code>DATA</code>, 32 Bytes - storage root in the intermediate trie.</li>
+<li><code>snapshot</code>: <code>DATA</code>, 32 Bytes - storage root in the snapshot.</li>
+</ul>
+<p>If all three of these fields match for two invocations of this RPC, the contract's storage is guaranteed to be identical.
+If they do not match, storage has likely changed (or the system transitioned into a new era).</p>
+<!---
+TODO: Add links to snapshot/checkpoint documentation.
+-->
+
+<h5 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getStorageRoot&quot;,&quot;params&quot;:[&quot;0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f&quot;,&quot;latest_state&quot;],&quot;id&quot;:1}'
+
+// Result
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: {
+    &quot;delta&quot;: &quot;0x0240a5a3486ac1cee71db22b8e12f1bb6ac9f207ecd81b06031c407663c20a94&quot;,
+    &quot;intermediate&quot;: &quot;0x314a41f277b678a1dc811a1fc0393b6d30c35e900cb27762ec9e9042bfdbdd49&quot;,
+    &quot;snapshot&quot;: &quot;0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470&quot;
+  },
+  &quot;id&quot; :1
+}
+</code></pre>
+
+<hr />
 <h4 id="cfx_getsponsorinfo">cfx_getSponsorInfo<a class="headerlink" href="#cfx_getsponsorinfo" title="Permanent link">&para;</a></h4>
 <p>Returns the sponsor info of given contract.</p>
-<h5 id="parameters_13">Parameters<a class="headerlink" href="#parameters_13" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_14">Parameters<a class="headerlink" href="#parameters_14" title="Permanent link">&para;</a></h5>
 <ol>
 <li><code>DATA</code>, 20 Bytes - address to contract.</li>
 <li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
@@ -658,7 +702,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 ]
 </code></pre>
 
-<h5 id="returns_13">Returns<a class="headerlink" href="#returns_13" title="Permanent link">&para;</a></h5>
+<h5 id="returns_14">Returns<a class="headerlink" href="#returns_14" title="Permanent link">&para;</a></h5>
 <p><code>Object</code> - A sponsor info object, if the contract doesn't have a sponsor, then the all fields in returned object will be <code>0</code>:</p>
 <ul>
 <li><code>sponsorBalanceForCollateral</code>: <code>QUANTITY</code> - the sponsored balance for storage.</li>
@@ -667,7 +711,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <li><code>sponsorForCollateral</code>: <code>DATA</code>, 20 Bytes - the address of the storage sponsor.</li>
 <li><code>sponsorForGas</code>: <code>DATA</code>, 20 Bytes - the address of the gas sponsor.</li>
 </ul>
-<h5 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">&para;</a></h5>
+<h5 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getSponsorInfo&quot;,&quot;params&quot;:[&quot;0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f&quot;],&quot;id&quot;:1}'
 
@@ -688,7 +732,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <hr />
 <h4 id="cfx_getnextnonce">cfx_getNextNonce<a class="headerlink" href="#cfx_getnextnonce" title="Permanent link">&para;</a></h4>
 <p>Returns the next nonce should be used by given address.</p>
-<h5 id="parameters_14">Parameters<a class="headerlink" href="#parameters_14" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_15">Parameters<a class="headerlink" href="#parameters_15" title="Permanent link">&para;</a></h5>
 <ol>
 <li><code>DATA</code>, 20 Bytes - address.</li>
 <li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
@@ -699,9 +743,9 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 ]
 </code></pre>
 
-<h5 id="returns_14">Returns<a class="headerlink" href="#returns_14" title="Permanent link">&para;</a></h5>
+<h5 id="returns_15">Returns<a class="headerlink" href="#returns_15" title="Permanent link">&para;</a></h5>
 <p><code>QUANTITY</code> - integer of the next nonce should be used by given address.</p>
-<h5 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">&para;</a></h5>
+<h5 id="example_15">Example<a class="headerlink" href="#example_15" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getNextNonce&quot;,&quot;params&quot;:[&quot;0xfbe45681ac6c53d5a40475f7526bac1fe7590fb8&quot;, 'latest_state'],&quot;id&quot;:1}'
 
@@ -716,16 +760,16 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <hr />
 <h4 id="cfx_sendrawtransaction">cfx_sendRawTransaction<a class="headerlink" href="#cfx_sendrawtransaction" title="Permanent link">&para;</a></h4>
 <p>Creates new message call transaction or a contract creation for signed transactions.</p>
-<h5 id="parameters_15">Parameters<a class="headerlink" href="#parameters_15" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_16">Parameters<a class="headerlink" href="#parameters_16" title="Permanent link">&para;</a></h5>
 <p><code>DATA</code>, The signed transaction data.</p>
 <pre><code>params: [
     '0xf86eea8201a28207d0830f4240943838197c0c88d0d5b13b67e1bfdbdc132d4842e389056bc75e2d631000008080a017b8b26f473820475edc49bd153660e56b973b5985bbdb2828fceacb4c91f389a03452f9a69da34ef35acc9c554d7b1d63e9041141674b42c3abb1b57b9f83a2d3'
 ]
 </code></pre>
 
-<h5 id="returns_15">Returns<a class="headerlink" href="#returns_15" title="Permanent link">&para;</a></h5>
+<h5 id="returns_16">Returns<a class="headerlink" href="#returns_16" title="Permanent link">&para;</a></h5>
 <p><code>DATA</code>, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.</p>
-<h5 id="example_15">Example<a class="headerlink" href="#example_15" title="Permanent link">&para;</a></h5>
+<h5 id="example_16">Example<a class="headerlink" href="#example_16" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_sendRawTransaction&quot;,&quot;params&quot;:[{see above}],&quot;id&quot;:1}'
 
@@ -740,7 +784,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <hr />
 <h4 id="cfx_call">cfx_call<a class="headerlink" href="#cfx_call" title="Permanent link">&para;</a></h4>
 <p>Virtually call a contract, return the output data.</p>
-<h5 id="parameters_16">Parameters<a class="headerlink" href="#parameters_16" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_17">Parameters<a class="headerlink" href="#parameters_17" title="Permanent link">&para;</a></h5>
 <ol>
 <li>
 <p><code>Object</code> - A call request object:</p>
@@ -770,9 +814,9 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 ]
 </code></pre>
 
-<h5 id="returns_16">Returns<a class="headerlink" href="#returns_16" title="Permanent link">&para;</a></h5>
+<h5 id="returns_17">Returns<a class="headerlink" href="#returns_17" title="Permanent link">&para;</a></h5>
 <p><code>DATA</code>, Bytes - the output data.</p>
-<h5 id="example_16">Example<a class="headerlink" href="#example_16" title="Permanent link">&para;</a></h5>
+<h5 id="example_17">Example<a class="headerlink" href="#example_17" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;method&quot;:&quot;cfx_call&quot;,&quot;id&quot;:1,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;params&quot;:[{&quot;from&quot;:&quot;0xf6B7219AF657e14B5103e915839dD12f51cDBA68&quot;,&quot;to&quot;:&quot;0x63428378C5D7d168c9Ef2809a76812d40E018Ac9&quot;,&quot;data&quot;:&quot;0x&quot;,&quot;gasPrice&quot;:&quot;0x2540be400&quot;, &quot;nonce&quot;: &quot;0x0&quot;}]}'
 
@@ -787,7 +831,7 @@ curl -X POST --data '{&quot;method&quot;:&quot;cfx_call&quot;,&quot;id&quot;:1,&
 <hr />
 <h4 id="cfx_estimategasandcollateral">cfx_estimateGasAndCollateral<a class="headerlink" href="#cfx_estimategasandcollateral" title="Permanent link">&para;</a></h4>
 <p>Virtually call a contract, return the output data.</p>
-<h5 id="parameters_17">Parameters<a class="headerlink" href="#parameters_17" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_18">Parameters<a class="headerlink" href="#parameters_18" title="Permanent link">&para;</a></h5>
 <p>See <a href="#cfx_call">cfx_call</a>.</p>
 <pre><code>params: [
     {
@@ -801,11 +845,11 @@ curl -X POST --data '{&quot;method&quot;:&quot;cfx_call&quot;,&quot;id&quot;:1,&
 ]
 </code></pre>
 
-<h5 id="returns_17">Returns<a class="headerlink" href="#returns_17" title="Permanent link">&para;</a></h5>
+<h5 id="returns_18">Returns<a class="headerlink" href="#returns_18" title="Permanent link">&para;</a></h5>
 <p><code>Object</code> - A estimate result object:
    * <code>gasUsed</code>: <code>QUANTITY</code> - gas used after execution.
    * <code>storageCollateralized</code>: <code>QUANTITY</code> - stroage collateralized, in Byte.</p>
-<h5 id="example_17">Example<a class="headerlink" href="#example_17" title="Permanent link">&para;</a></h5>
+<h5 id="example_18">Example<a class="headerlink" href="#example_18" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;method&quot;:&quot;cfx_estimateGasAndCollateral&quot;,&quot;id&quot;:1,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;params&quot;:[{&quot;from&quot;:&quot;0xf6B7219AF657e14B5103e915839dD12f51cDBA68&quot;,&quot;to&quot;:&quot;0x63428378C5D7d168c9Ef2809a76812d40E018Ac9&quot;,&quot;data&quot;:&quot;0x&quot;,&quot;gasPrice&quot;:&quot;0x2540be400&quot;, &quot;nonce&quot;: &quot;0x0&quot;}]}'
 
@@ -823,7 +867,7 @@ curl -X POST --data '{&quot;method&quot;:&quot;cfx_estimateGasAndCollateral&quot
 <hr />
 <h4 id="cfx_getlogs">cfx_getLogs<a class="headerlink" href="#cfx_getlogs" title="Permanent link">&para;</a></h4>
 <p>Returns logs matching the filter provided.</p>
-<h5 id="parameters_18">Parameters<a class="headerlink" href="#parameters_18" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_19">Parameters<a class="headerlink" href="#parameters_19" title="Permanent link">&para;</a></h5>
 <p><code>Object</code> - A log filter object:</p>
 <ul>
 <li><code>fromEpoch</code>: <code>QUANTITY</code> - (optional, default: <code>"earliest"</code>) search will be applied from this epoch number.</li>
@@ -838,7 +882,7 @@ curl -X POST --data '{&quot;method&quot;:&quot;cfx_estimateGasAndCollateral&quot
 ]
 </code></pre>
 
-<h5 id="returns_18">Returns<a class="headerlink" href="#returns_18" title="Permanent link">&para;</a></h5>
+<h5 id="returns_19">Returns<a class="headerlink" href="#returns_19" title="Permanent link">&para;</a></h5>
 <p><code>Array</code> - Array of Log <code>Object</code>, that the logs matching the filter provided:</p>
 <ul>
 <li><code>address</code>: <code>DATA</code>, 20 Bytes - address of log.</li>
@@ -851,7 +895,7 @@ curl -X POST --data '{&quot;method&quot;:&quot;cfx_estimateGasAndCollateral&quot
 <li><code>logIndex</code>: <code>QUANTITY</code> - log index in block.</li>
 <li><code>transactionLogIndex</code>: <code>QUANTITY</code> - log index in transaction.</li>
 </ul>
-<h5 id="example_18">Example<a class="headerlink" href="#example_18" title="Permanent link">&para;</a></h5>
+<h5 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
  curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getLogs&quot;,&quot;params&quot;:[{}],&quot;id&quot;:1}'
 
@@ -897,7 +941,7 @@ curl -X POST --data '{&quot;method&quot;:&quot;cfx_estimateGasAndCollateral&quot
 <hr />
 <h4 id="cfx_gettransactionreceipt">cfx_getTransactionReceipt<a class="headerlink" href="#cfx_gettransactionreceipt" title="Permanent link">&para;</a></h4>
 <p>Returns the information about a transaction receipt requested by transaction hash.</p>
-<h5 id="parameters_19">Parameters<a class="headerlink" href="#parameters_19" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_20">Parameters<a class="headerlink" href="#parameters_20" title="Permanent link">&para;</a></h5>
 <ol>
 <li>DATA, 32 Bytes - hash of a transaction</li>
 </ol>
@@ -906,7 +950,7 @@ curl -X POST --data '{&quot;method&quot;:&quot;cfx_estimateGasAndCollateral&quot
 ]
 </code></pre>
 
-<h5 id="returns_19">Returns<a class="headerlink" href="#returns_19" title="Permanent link">&para;</a></h5>
+<h5 id="returns_20">Returns<a class="headerlink" href="#returns_20" title="Permanent link">&para;</a></h5>
 <p><code>Object</code> - A transaction receipt object, or <code>null</code> when no transaction was found or the transaction was not executed yet:</p>
 <ul>
 <li><code>transactionHash</code>: <code>DATA</code>, 32 Bytes - hash of the given transaction.</li>
@@ -922,7 +966,7 @@ curl -X POST --data '{&quot;method&quot;:&quot;cfx_estimateGasAndCollateral&quot
 <li><code>logsBloom</code>: <code>DATA</code>, 256 Bytes - bloom filter for light clients to quickly retrieve related logs.</li>
 <li><code>logs</code>: <code>Array</code> - Array of log objects, which this transaction generated, see <a href="#cfx_getlogs">cfx_getLogs</a></li>
 </ul>
-<h5 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">&para;</a></h5>
+<h5 id="example_20">Example<a class="headerlink" href="#example_20" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getTransactionReceipt&quot;,&quot;params&quot;:[&quot;0x53fe995edeec7d241791ff32635244e94ecfd722c9fe90f34ddf59082d814514&quot;],&quot;id&quot;:1}'
 
@@ -950,7 +994,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <hr />
 <h4 id="cfx_getaccount">cfx_getAccount<a class="headerlink" href="#cfx_getaccount" title="Permanent link">&para;</a></h4>
 <p>Return account related states of the given account</p>
-<h5 id="parameters_20">Parameters<a class="headerlink" href="#parameters_20" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_21">Parameters<a class="headerlink" href="#parameters_21" title="Permanent link">&para;</a></h5>
 <ol>
 <li><code>DATA</code>, 20 Bytes - address to get account.</li>
 <li><code>QUANTITY|TAG</code> - integer epoch number, or the string "latest_mined",  "latest_state", "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a></li>
@@ -961,7 +1005,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 ]
 </code></pre>
 
-<h5 id="returns_20">Returns<a class="headerlink" href="#returns_20" title="Permanent link">&para;</a></h5>
+<h5 id="returns_21">Returns<a class="headerlink" href="#returns_21" title="Permanent link">&para;</a></h5>
 <p><code>Object</code> - states of the given account:</p>
 <ul>
 <li><code>balance</code>: <code>QUANTITY</code> - the balance of the account.</li>
@@ -972,7 +1016,7 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <li><code>accumulatedInterestReturn</code>: <code>QUANTITY</code> -accumulated unterest return of the account.</li>
 <li><code>admin</code>: DATA`, 20 Bytes - admin of the account.</li>
 </ul>
-<h5 id="example_20">Example<a class="headerlink" href="#example_20" title="Permanent link">&para;</a></h5>
+<h5 id="example_21">Example<a class="headerlink" href="#example_21" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getAccount&quot;,&quot;params&quot;:[&quot;0x8af71f222b6e05b47d8385fe437fe2f2a9ec1f1f&quot;, &quot;latest_state&quot;],&quot;id&quot;:1}'
 
@@ -995,16 +1039,16 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <hr />
 <h4 id="cfx_getinterestrate">cfx_getInterestRate<a class="headerlink" href="#cfx_getinterestrate" title="Permanent link">&para;</a></h4>
 <p>Returns the interest rate of given parameter.</p>
-<h5 id="parameters_21">Parameters<a class="headerlink" href="#parameters_21" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_22">Parameters<a class="headerlink" href="#parameters_22" title="Permanent link">&para;</a></h5>
 <p><code>TAG</code> - (optional, default: "latest_mined") String "latest_mined",  "latest_state" or "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a>.</p>
 <pre><code>params: [
    'latest_state'
 ]
 </code></pre>
 
-<h5 id="returns_21">Returns<a class="headerlink" href="#returns_21" title="Permanent link">&para;</a></h5>
+<h5 id="returns_22">Returns<a class="headerlink" href="#returns_22" title="Permanent link">&para;</a></h5>
 <p><code>QUANTITY</code> - the interest rate of given parameter.</p>
-<h5 id="example_21">Example<a class="headerlink" href="#example_21" title="Permanent link">&para;</a></h5>
+<h5 id="example_22">Example<a class="headerlink" href="#example_22" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getInterestRate&quot;,&quot;params&quot;:[&quot;latest_state&quot;],&quot;id&quot;:1}'
 
@@ -1019,16 +1063,16 @@ curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&qu
 <hr />
 <h4 id="cfx_getaccumulateinterestrate">cfx_getAccumulateInterestRate<a class="headerlink" href="#cfx_getaccumulateinterestrate" title="Permanent link">&para;</a></h4>
 <p>Returns the accumulate interest rate of given parameter.</p>
-<h5 id="parameters_22">Parameters<a class="headerlink" href="#parameters_22" title="Permanent link">&para;</a></h5>
+<h5 id="parameters_23">Parameters<a class="headerlink" href="#parameters_23" title="Permanent link">&para;</a></h5>
 <p><code>TAG</code> - (optional, default: "latest_mined") String "latest_mined",  "latest_state" or "earliest", see the <a href="#the-epoch-number-parameter">epoch number parameter</a>.</p>
 <pre><code>params: [
    'latest_state'
 ]
 </code></pre>
 
-<h5 id="returns_22">Returns<a class="headerlink" href="#returns_22" title="Permanent link">&para;</a></h5>
+<h5 id="returns_23">Returns<a class="headerlink" href="#returns_23" title="Permanent link">&para;</a></h5>
 <p><code>QUANTITY</code> - the accumulate interest rate of given parameter.</p>
-<h5 id="example_22">Example<a class="headerlink" href="#example_22" title="Permanent link">&para;</a></h5>
+<h5 id="example_23">Example<a class="headerlink" href="#example_23" title="Permanent link">&para;</a></h5>
 <pre><code>// Request
 curl -X POST --data '{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;cfx_getAccumulateInterestRate&quot;,&quot;params&quot;:[&quot;latest_state&quot;],&quot;id&quot;:1}'
 
