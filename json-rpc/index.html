@@ -73,25 +73,78 @@
     <a class="current" href="./">JSON-RPC API</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#conflux-json-rpc-api">Conflux JSON-RPC API</a></li>
+    <li class="toctree-l2"><a href="#json-rpc">JSON-RPC</a></li>
+    
+
+    <li class="toctree-l2"><a href="#javascript-api">JavaScript API</a></li>
+    
+
+    <li class="toctree-l2"><a href="#json-rpc-endpoint-support">JSON-RPC endpoint &amp;&amp; support</a></li>
+    
+
+    <li class="toctree-l2"><a href="#hex-value-encoding">HEX value encoding</a></li>
+    
+
+    <li class="toctree-l2"><a href="#the-epoch-number-parameter">The epoch number parameter</a></li>
+    
+
+    <li class="toctree-l2"><a href="#curl-examples-explained">Curl Examples Explained</a></li>
+    
+
+    <li class="toctree-l2"><a href="#migrating-from-ethereum-json-rpc">Migrating from Ethereum JSON-RPC</a></li>
+    
+
+    <li class="toctree-l2"><a href="#json-rpc-methods">JSON-RPC methods</a></li>
     
         <ul>
         
-            <li><a class="toctree-l3" href="#json-rpc">JSON-RPC</a></li>
+            <li><a class="toctree-l3" href="#cfx_gettransactionbyhash">cfx_getTransactionByHash</a></li>
         
-            <li><a class="toctree-l3" href="#javascript-api">JavaScript API</a></li>
+            <li><a class="toctree-l3" href="#cfx_getblockbyhash">cfx_getBlockByHash</a></li>
         
-            <li><a class="toctree-l3" href="#json-rpc-endpoint-support">JSON-RPC endpoint &amp;&amp; support</a></li>
+            <li><a class="toctree-l3" href="#cfx_getblockbyepochnumber">cfx_getBlockByEpochNumber</a></li>
         
-            <li><a class="toctree-l3" href="#hex-value-encoding">HEX value encoding</a></li>
+            <li><a class="toctree-l3" href="#cfx_getbestblockhash">cfx_getBestBlockHash</a></li>
         
-            <li><a class="toctree-l3" href="#the-epoch-number-parameter">The epoch number parameter</a></li>
+            <li><a class="toctree-l3" href="#cfx_epochnumber">cfx_epochNumber</a></li>
         
-            <li><a class="toctree-l3" href="#curl-examples-explained">Curl Examples Explained</a></li>
+            <li><a class="toctree-l3" href="#cfx_gasprice">cfx_gasPrice</a></li>
         
-            <li><a class="toctree-l3" href="#migrating-from-ethereum-json-rpc">Migrating from Ethereum JSON-RPC</a></li>
+            <li><a class="toctree-l3" href="#cfx_getblocksbyepoch">cfx_getBlocksByEpoch</a></li>
         
-            <li><a class="toctree-l3" href="#json-rpc-methods">JSON-RPC methods</a></li>
+            <li><a class="toctree-l3" href="#cfx_getbalance">cfx_getBalance</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getstakingbalance">cfx_getStakingBalance</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getcollateralforstorage">cfx_getCollateralForStorage</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getadmin">cfx_getAdmin</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getcode">cfx_getCode</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getstorageat">cfx_getStorageAt</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getstorageroot">cfx_getStorageRoot</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getsponsorinfo">cfx_getSponsorInfo</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getnextnonce">cfx_getNextNonce</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_sendrawtransaction">cfx_sendRawTransaction</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_call">cfx_call</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_estimategasandcollateral">cfx_estimateGasAndCollateral</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getlogs">cfx_getLogs</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_gettransactionreceipt">cfx_getTransactionReceipt</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getaccount">cfx_getAccount</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getinterestrate">cfx_getInterestRate</a></li>
+        
+            <li><a class="toctree-l3" href="#cfx_getaccumulateinterestrate">cfx_getAccumulateInterestRate</a></li>
         
         </ul>
     
@@ -151,8 +204,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="conflux-json-rpc-api">Conflux JSON-RPC API<a class="headerlink" href="#conflux-json-rpc-api" title="Permanent link">&para;</a></h1>
-<p>The Conflux JSON-RPC API is a collection of interfaces which allow you to interact with a local or remote Conflux node, using an HTTP connection in JSON-RPC protocol.</p>
+                <p>The Conflux JSON-RPC API is a collection of interfaces which allow you to interact with a local or remote Conflux node, using an HTTP connection in JSON-RPC protocol.</p>
 <p>The following is an API reference documentation with examples.</p>
 <h2 id="json-rpc">JSON-RPC<a class="headerlink" href="#json-rpc" title="Permanent link">&para;</a></h2>
 <p>JSON is a lightweight data-interchange format. It can represent numbers, strings, ordered sequences of values, and collections of name/value pairs.</p>
