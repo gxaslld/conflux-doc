@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Stratum Protocol in Conflux-Rust - Conflux Documentation</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Stratum Protocol in Conflux-Rust";
+    var mkdocs_page_input_path = "stratum.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Conflux Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Welcome to Conflux</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../install/">Installation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../get_started/">Getting Started</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../setup_independent_chain/">Run an Indepdent Chain</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../json-rpc/">JSON-RPC API</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../javascript-api/">JavaScript API</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../cli/">CLI Sub-commands</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../design/">Design & Implementation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../send_transaction/">My First Transaction</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Conflux Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Stratum Protocol in Conflux-Rust</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="stratum-protocol-in-conflux-rust">Stratum Protocol in Conflux-Rust<a class="headerlink" href="#stratum-protocol-in-conflux-rust" title="Permanent link">&para;</a></h1>
+<h2 id="design-goal">Design Goal<a class="headerlink" href="#design-goal" title="Permanent link">&para;</a></h2>
+<p>Rust is an excellent language to develop distributed systems like Conflux, but
+it is not very so good for developing miners. Miners are typically developed
+via languages like C/C++ that can operate with high performance and GPUs. We
+therefore design a stratum-like protocol in Conflux-Rust to enable external
+miners to connect to Conflux.</p>
+<p>Note that to keep the protocol simple, the design goal of the stratum-like
+protocol is for solo-mining only, i.e., Conflux-Rust are connected with miner
+processes in local or remote machines that belong to the same entity. It is not
+designed to run as a mining pool server. For those who wish to run a mining
+pool, it is recommended to build their own customized proxy server that
+connects to Conflux-Rust.</p>
+<h2 id="general-workflow">General Workflow<a class="headerlink" href="#general-workflow" title="Permanent link">&para;</a></h2>
+<p>In the scenario where an external miner connecting to Conflux-Rust via its
+stratum port (default 32525), here is the typical workflow.</p>
+<ol>
+<li>
+<p>The miner connects via TCP to the stratum port. Conflux-Rust must run with
+the configuration that enables stratum.</p>
+</li>
+<li>
+<p>The miner sends a <code>mining.subscribe</code> RPC call via the TCP stream. It informs
+Conflux-Rust the miner name. <code>mining.subscribe</code> also performs a basic password
+based authentication, where the password can be set at the configuration file
+of Conflux-Rust.</p>
+</li>
+<li>
+<p>After successful subscription, Conflux-Rust will continue to send
+<code>mining.notify</code> RPC calls to the miner via the TCP stream. Each <code>mining.notify</code>
+corresponds to a new proof-of-work (PoW) problem for the miner to solve. Miners
+are expected to work on the last received job.</p>
+</li>
+<li>
+<p>Whenever miner solves a PoW problem, it returns the solution (i.e., the
+nonce) to Conflux-Rust via calling <code>mining.submit</code> RPC calls. </p>
+</li>
+<li>
+<p>Miner can simply disconnect any time in this process to quit.</p>
+</li>
+</ol>
+<h2 id="rpc-interface">RPC Interface<a class="headerlink" href="#rpc-interface" title="Permanent link">&para;</a></h2>
+<h3 id="server-side-rpcs">Server-side RPCs<a class="headerlink" href="#server-side-rpcs" title="Permanent link">&para;</a></h3>
+<h4 id="miningsubscribe">mining.subscribe<a class="headerlink" href="#miningsubscribe" title="Permanent link">&para;</a></h4>
+<p>Start to subscribe the proof-of-work notification from the stratum server</p>
+<h5 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h5>
+<ol>
+<li>WORKER_ID, string - the name of the miner</li>
+<li>Secret, empty or 32-bytes, the secret that corresponds to the keccak result
+ of the password in the configuration. Empty if password is not enabled.</li>
+</ol>
+<h5 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h5>
+<p><code>Bool</code> - <code>true</code> if successful, <code>false</code> if not.</p>
+<h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+'{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;mining.subscribe&quot;,&quot;params&quot;:[&quot;cfxmine&quot;, &quot;&quot;],&quot;id&quot;:1}'
+
+// Response
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: &quot;true&quot;,
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h4 id="miningsubmit">mining.submit<a class="headerlink" href="#miningsubmit" title="Permanent link">&para;</a></h4>
+<p>Submit a PoW solution to the stratum server</p>
+<h5 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h5>
+<ol>
+<li>WORKER_ID, string - the name of the miner</li>
+<li>JOB_ID, hex-string - the identifier of the job, which is typically same as
+ the hash of the PoW problem.</li>
+<li>NONCE, hex-string of 32-bytes - the nonce solution of the PoW problem</li>
+<li>HASH, hex-string of 32-bytes - the hash of the solved PoW problem.</li>
+</ol>
+<h5 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h5>
+<p><code>Array</code> - A single element of <code>true</code> if successful, the first element will be
+<code>false</code> if not and the second element will explain reasons in string.</p>
+<h5 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h5>
+<pre><code>// Request
+'{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;mining.submit&quot;,&quot;params&quot;:[&quot;cfxmine&quot;, &quot;0x2106e1162d1199483fa010bcaa7d4f05b23b85d456b4a7089d787ae2e880deaf&quot;,&quot;0x21b49d385865819a171ed8cd9d9f80acc468e501f3486d3600000000000c786c&quot;,&quot;0x2106e1162d1199483fa010bcaa7d4f05b23b85d456b4a7089d787ae2e880deaf&quot;],&quot;id&quot;:1}'
+
+// Response
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: [&quot;true&quot;],
+  &quot;id&quot;: 1
+}
+
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;result&quot;: [&quot;false&quot;, &quot;invlaid nonce&quot;],
+  &quot;id&quot;: 1
+}
+</code></pre>
+
+<hr />
+<h3 id="client-side-notification">Client-side Notification<a class="headerlink" href="#client-side-notification" title="Permanent link">&para;</a></h3>
+<p>Note that although the server notifies the mining client via a RPC like
+request, it is not a true RPC -- it does not expect the client to return any
+response. Instead, the client will just update the PoW problem it works on and
+submits whenever it finds solution.</p>
+<h4 id="miningnotify">mining.notify<a class="headerlink" href="#miningnotify" title="Permanent link">&para;</a></h4>
+<p>Notify the client about a new PoW problem.</p>
+<h5 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h5>
+<ol>
+<li>JOB_ID, hex-string - the identifier of the job.</li>
+<li>HASH, 32-bytes - the hash of the PoW problem.</li>
+<li>BOUNDARY, U256 - the difficulty boundary of the problem. For a nonce to be valid, the resulting
+ hash must be smaller than the BOUNDARY.</li>
+</ol>
+<h5 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h5>
+<p>```
+// Request
+'{"jsonrpc":"2.0","method":"mining.notify","params":["0x4e08db21d43a7696afa3d00ed948568210f3ab3f34673f1d17198625ec175a9c","0x4e08db21d43a7696afa3d00ed948568210f3ab3f34673f1d17198625ec175a9c","0x1a4e3422948568210f3ab3f34673f1d17198625ec175a9c"],"id":3}'</p>
+<hr />
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright © 2019 Conflux. All Rights Reserved.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

@@ -61,10 +61,18 @@
     <li class="toctree-l2"><a href="#install-build-dependencies">Install Build Dependencies</a></li>
     
 
-    <li class="toctree-l2"><a href="#build-from-source-code">Build from Source Code</a></li>
+    <li class="toctree-l2"><a href="#this-may-fail-if-you-have-installed-cmake-with-version-28">This may fail if you have installed cmake with version 2.8.</a></li>
     
 
-    <li class="toctree-l2"><a href="#install-test-dependencies">Install Test Dependencies</a></li>
+    <li class="toctree-l2"><a href="#you-can-choose-to-uninstall-cmake-first">You can choose to uninstall cmake first.</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#build-from-source-code">Build from Source Code</a></li>
+        
+            <li><a class="toctree-l3" href="#install-test-dependencies">Install Test Dependencies</a></li>
+        
+        </ul>
     
 
     </ul>
@@ -144,20 +152,25 @@
 <ul>
 <li>
 <p>Linux:</p>
-<pre><code>$ curl https://sh.rustup.rs -sSf | sh
-$ rustup install 1.42.0
-</code></pre>
-<p><code>clang</code> and <code>sqlite</code> can be installed with:</p>
+<p><code>bash
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+$ rustup install 1.42.0</code>
+Other dependencies including <code>clang</code> and <code>sqlite</code> can be installed with:</p>
 <ul>
 <li>
-<p>Ubuntu:</p>
-<pre><code>$ sudo apt-get install clang libsqlite3-dev
-</code></pre>
+<p>Ubuntu 18.04:</p>
+<p><code>bash
+$ sudo apt-get install clang libsqlite3-dev pkg-config libssl-dev cmake</code></p>
 </li>
 <li>
-<p>CentOS / RHEL: </p>
-<pre><code>$ sudo yum install clang sqlite-devel
-</code></pre>
+<p>CentOS 7 / RHEL: </p>
+<p>```bash
+$ sudo yum install epel-release
+$ sudo yum install clang sqlite-devel gcc gcc-c++ openssl-devel cmake3</p>
+<h1 id="this-may-fail-if-you-have-installed-cmake-with-version-28">This may fail if you have installed cmake with version 2.8.<a class="headerlink" href="#this-may-fail-if-you-have-installed-cmake-with-version-28" title="Permanent link">&para;</a></h1>
+<h1 id="you-can-choose-to-uninstall-cmake-first">You can choose to uninstall cmake first.<a class="headerlink" href="#you-can-choose-to-uninstall-cmake-first" title="Permanent link">&para;</a></h1>
+<p>$ sudo ln -s /usr/bin/cmake3 /usr/bin/cmake
+```</p>
 </li>
 </ul>
 </li>
@@ -187,7 +200,7 @@ $ rustup install 1.42.0
 <pre><code class="bash"># download Conflux code
 $ git clone https://github.com/Conflux-Chain/conflux-rust
 $ cd conflux-rust
-$ git checkout v0.1.7
+$ git checkout v0.5.0.4
 
 
 # build in release mode
@@ -195,10 +208,6 @@ $ cargo build --release
 </code></pre>
 
 <p>This produces an executable in the <code>./target/release</code> subdirectory.</p>
-<p>You may encounter dependency issues in Ubuntu. If so, you will want to install
-libssl-dev and cmake pacakges with the following command:</p>
-<pre><code>|   $ sudo apt-get install pkg-config libssl-dev cmake
-</code></pre>
 <p>Note, when compiling a crate and you receive errors, it's in most cases your
 outdated version of Rust, or some of your crates have to be recompiled.
 Cleaning the repository will most likely solve the issue if you are on the
