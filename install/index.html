@@ -61,24 +61,10 @@
     <li class="toctree-l2"><a href="#install-build-dependencies">Install Build Dependencies</a></li>
     
 
-    <li class="toctree-l2"><a href="#this-may-fail-if-you-have-installed-cmake-with-version-28">This may fail if you have installed cmake with version 2.8.</a></li>
+    <li class="toctree-l2"><a href="#build-from-source-code">Build from Source Code</a></li>
     
 
-    <li class="toctree-l2"><a href="#you-can-choose-to-uninstall-cmake-first">You can choose to uninstall cmake first.</a></li>
-    
-
-    <li class="toctree-l2"><a href="#the-official-sqlite-version-on-centos-7-is-3717-so-we-need-to-install-the-latest-version-from-the-source-code">The official sqlite version on CentOS 7 is 3.7.17, so we need to install the latest version from the source code.</a></li>
-    
-
-    <li class="toctree-l2"><a href="#the-source-code-have-be-downloaded-from-httpswwwsqliteorgdownloadhtml">The source code have be downloaded from https://www.sqlite.org/download.html</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l3" href="#build-from-source-code">Build from Source Code</a></li>
-        
-            <li><a class="toctree-l3" href="#install-test-dependencies">Install Test Dependencies</a></li>
-        
-        </ul>
+    <li class="toctree-l2"><a href="#install-test-dependencies">Install Test Dependencies</a></li>
     
 
     </ul>
@@ -158,33 +144,34 @@
 <ul>
 <li>
 <p>Linux:</p>
-<p><code>bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-$ rustup install 1.42.0</code>
-Other dependencies including <code>clang</code>, <code>cmake (version &gt;= 3.1)</code> and <code>sqlite (version &gt;= 3.8.3)</code> can be installed with:</p>
+<pre><code>$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+$ rustup install 1.42.0
+</code></pre>
+<p>Other dependencies including <code>clang</code>, <code>cmake (version &gt;= 3.1)</code> and <code>sqlite (version &gt;= 3.8.3)</code> can be installed with:</p>
 <ul>
 <li>
 <p>Ubuntu 18.04:</p>
-<p><code>bash
-$ sudo apt-get install clang libsqlite3-dev pkg-config libssl-dev cmake</code></p>
+<pre><code>$ sudo apt-get install clang libsqlite3-dev pkg-config libssl-dev cmake
+</code></pre>
 </li>
 <li>
 <p>CentOS 7 / RHEL: </p>
-<p>```bash
-$ sudo yum install epel-release
-$ sudo yum install clang gcc gcc-c++ openssl-devel cmake3 wget</p>
-<h1 id="this-may-fail-if-you-have-installed-cmake-with-version-28">This may fail if you have installed cmake with version 2.8.<a class="headerlink" href="#this-may-fail-if-you-have-installed-cmake-with-version-28" title="Permanent link">&para;</a></h1>
-<h1 id="you-can-choose-to-uninstall-cmake-first">You can choose to uninstall cmake first.<a class="headerlink" href="#you-can-choose-to-uninstall-cmake-first" title="Permanent link">&para;</a></h1>
-<p>$ sudo ln -s /usr/bin/cmake3 /usr/bin/cmake</p>
-<h1 id="the-official-sqlite-version-on-centos-7-is-3717-so-we-need-to-install-the-latest-version-from-the-source-code">The official sqlite version on CentOS 7 is 3.7.17, so we need to install the latest version from the source code.<a class="headerlink" href="#the-official-sqlite-version-on-centos-7-is-3717-so-we-need-to-install-the-latest-version-from-the-source-code" title="Permanent link">&para;</a></h1>
-<h1 id="the-source-code-have-be-downloaded-from-httpswwwsqliteorgdownloadhtml">The source code have be downloaded from https://www.sqlite.org/download.html<a class="headerlink" href="#the-source-code-have-be-downloaded-from-httpswwwsqliteorgdownloadhtml" title="Permanent link">&para;</a></h1>
-<p>$ wget https://www.sqlite.org/2020/sqlite-autoconf-3320100.tar.gz
+<pre><code>$ sudo yum install epel-release
+$ sudo yum install clang gcc gcc-c++ openssl-devel cmake3 wget
+
+# This may fail if you have installed cmake with version 2.8. 
+# You can choose to uninstall cmake first.
+$ sudo ln -s /usr/bin/cmake3 /usr/bin/cmake
+
+# The official sqlite version on CentOS 7 is 3.7.17, so we need to install the latest version from the source code.
+# The source code have be downloaded from https://www.sqlite.org/download.html
+$ wget https://www.sqlite.org/2020/sqlite-autoconf-3320100.tar.gz
 $ tar xfvz sqlite-autoconf-3320100.tar.gz
 $ cd sqlite-autoconf-3320100
 $ ./configure
 $ make
 $ sudo make install
-```</p>
+</code></pre>
 </li>
 </ul>
 </li>
