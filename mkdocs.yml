@@ -17,4 +17,4 @@ markdown_extensions:
     - toc:
         permalink: True
     - fenced_code:
-copyright: Copyright © 2019 Conflux. All Rights Reserved.
+copyright: Copyright © 2021 Conflux. All Rights Reserved.
